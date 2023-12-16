@@ -1,0 +1,135 @@
+/*Invoice Page
+------------------------------------*/
+
+@media print {
+
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+
+    .btn,
+    .navbar,
+    .footer,
+    .footer-bottom,
+    .breadcrumbs,
+    .modal
+    .breadcrumbDiv,.breadcrumb,
+    .section-title-inner,
+    .block-title-2,
+    .hidePrint {
+        display: none !important;
+    }
+
+    .panel {
+        border: none;
+    }
+
+    .invoice-wrapper {
+        width: 840px;
+        display: block;
+    }
+
+    .invoice-wrapper {
+        color: #000;
+    }
+
+    .invoice-wrapper .order-box {
+        margin-bottom: 15px;
+
+    }
+
+    .order-box {
+        border: 0;
+    }
+
+    .order-box-header {
+        background: #EEEEEE !important;
+    }
+
+    .order-box-content, .order-box-header {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .invTable .order-box-header {
+        border-bottom: solid 1px #666 !important;
+    }
+
+    .invTableFooter {
+        border-top: solid 1px #777 !important;
+    }
+
+    .invoice-wrapper hr {
+        border-color: #666 !important;
+    }
+
+}
+
+.invTableFooter td {
+   line-height: 26px;
+}
+.invoice-wrapper .address {
+    font-size: 13px;
+}
+.invoice-wrapper .btn-print {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 7px 20px;
+}
+
+.invoice-wrapper .order-box {
+    margin-bottom: 15px;
+
+}
+.invTable .table {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.invTable .table tr td:last-child {
+
+}
+
+.inoAds > div {
+    display: table;
+}
+
+.inoAds span {
+    display: table-cell;
+}
+
+.invInfo * {
+    margin: 0;
+
+}
+
+.invInfo * > span {
+}
+
+.invInfo h3 {
+
+}
+
+.invCompany img {
+    max-width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+    .invCompany img {
+        max-width: 130px;
+    }
+
+    .invTable .table tr th:nth-child(3),.invTable .table tr td:nth-child(3) {
+        display: none;
+    }
+
+    .invInfo h3 {
+        font-size: 18px;
+    }
+}
+
+.invInfoEnd {
+    padding: 0 150px;
+    font-size: 11px;
+    line-height: normal;
+
+}
