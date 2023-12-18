@@ -1,5 +1,6 @@
 <html lang="en">
   <!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:48:03 GMT -->
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,6 +46,7 @@
     />
     <link rel="stylesheet" type="text/css" href="assets/css/gray-look.css" />
   </head>
+
   <body>
     <script type="text/javascript">
       function swapStyleSheet(sheet) {
@@ -301,32 +303,55 @@
                 </ul>
               </div>
             </div>
-            <div
-              class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding"
-            >
-              <div class="pull-right">
-                <ul class="userMenu">
-                  <li>
-                    <a href="account-1.html"><span class="hidden-xs">
-                        My Account</span>
-                      <i
-                        class="glyphicon glyphicon-user hide visible-xs"
-                      ></i></a>
-                  </li>
-                  <li>
-                    <a href="#" data-toggle="modal" data-target="#ModalLogin">
-                      <span class="hidden-xs">Sign In</span>
-                      <i class="glyphicon glyphicon-log-in hide visible-xs"></i>
-                    </a>
-                  </li>
-                  <li class="hidden-xs">
-                    <a href="#" data-toggle="modal" data-target="#ModalSignup">
-                      Create Account
-                    </a>
-                  </li>
-                </ul>
+            {{#if currentUser}}
+              <div
+                class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding"
+              >
+                <div class="pull-right">
+                  <ul class="userMenu">
+                    <li>
+                      <a href="/">
+                      <span class="hidden-xs">Welcome
+                        {{currentUser.username}}</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            {{else}}
+              <div
+                class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding"
+              >
+                <div class="pull-right">
+                  <ul class="userMenu">
+                    <li>
+                      <a href="account-1.html"><span class="hidden-xs">
+                          My Account</span>
+                        <i
+                          class="glyphicon glyphicon-user hide visible-xs"
+                        ></i></a>
+                    </li>
+                    <li>
+                      <a href="#" data-toggle="modal" data-target="#ModalLogin">
+                        <span class="hidden-xs">Sign In</span>
+                        <i
+                          class="glyphicon glyphicon-log-in hide visible-xs"
+                        ></i>
+                      </a>
+                    </li>
+                    <li class="hidden-xs">
+                      <a
+                        href="#"
+                        data-toggle="modal"
+                        data-target="#ModalSignup"
+                      >
+                        Create Account
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>
@@ -569,7 +594,7 @@
         <!--/.navbar-cart-->
 
         <div class="navbar-collapse collapse">
-          <!---his part will be hidden for mobile version -->
+          <!--- will be hidden for mobile version -->
           <div class="nav navbar-nav navbar-right hidden-xs">
             <div class="dropdown cartMenu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -1573,58 +1598,44 @@
             >
               &times;
             </button>
-            <h3 class="modal-title-site text-center">Login to TSHOP</h3>
+            <h3 class="modal-title-site text-center">Login to LF-Kart</h3>
           </div>
           <div class="modal-body">
-            <div class="form-group login-username">
-              <div>
-                <input
-                  name="log"
-                  id="login-user"
-                  class="form-control input"
-                  size="20"
-                  placeholder="Enter Username"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div class="form-group login-password">
-              <div>
-                <input
-                  name="Password"
-                  id="login-password"
-                  class="form-control input"
-                  size="20"
-                  placeholder="Password"
-                  type="password"
-                />
-              </div>
-            </div>
-            <div class="form-group">
-              <div>
-                <div class="checkbox login-remember">
-                  <label>
-                    <input
-                      name="rememberme"
-                      value="forever"
-                      checked="checked"
-                      type="checkbox"
-                    />
-                    Remember Me
-                  </label>
+            <form action="/login" method="POST">
+              <div class="form-group login-username">
+                <div>
+                  <input
+                    name="email"
+                    id="login-user"
+                    class="form-control input"
+                    size="20"
+                    placeholder="Enter Username"
+                    type="email"
+                  />
                 </div>
               </div>
-            </div>
-            <div>
-              <div>
-                <input
-                  name="submit"
-                  class="btn btn-block btn-lg btn-primary"
-                  value="LOGIN"
-                  type="submit"
-                />
+              <div class="form-group login-password">
+                <div>
+                  <input
+                    name="password"
+                    id="login-password"
+                    class="form-control input"
+                    size="20"
+                    placeholder="Password"
+                    type="password"
+                  />
+                </div>
               </div>
-            </div>
+              <div>
+                <div>
+                  <input
+                    class="btn btn-block btn-lg btn-primary"
+                    value="LOGIN"
+                    type="submit"
+                  />
+                </div>
+              </div>
+            </form>
             <!--userForm-->
           </div>
           <div class="modal-footer">
@@ -1666,21 +1677,30 @@
           </div>
           <div class="modal-body">
             {{! <div class="control-group">
-              <a class="fb_button btn btn-block btn-lg" href="#">
-                SIGNUP WITH FACEBOOK
-              </a>
-            </div>
-            <h5 style="padding: 10px 0 10px 0" class="text-center">OR</h5> }}
-            <form action="/signup" method="POST">
+            <a class="fb_button btn btn-block btn-lg" href="#">
+              SIGNUP WITH FACEBOOK
+            </a>
+          </div>
+          <h5 style="padding: 10px 0 10px 0" class="text-center">OR</h5> }}
+            <form action="/signup" method="POST" id="signupForm">
               <div class="form-group reg-username">
                 <div>
                   <input
+                    id="username"
                     name="username"
                     class="form-control input"
                     size="20"
                     placeholder="Enter Username"
+                    minlength="3"
+                    maxlength="9"
                     type="text"
+                    required
                   />
+                  <label for="username"><span
+                      class="pattern"
+                      style="font-size: 0.8em;
+	                    font-weight: normal;"
+                    >Must be between 3 and 9 characters long</span></label>
                 </div>
               </div>
               <div class="form-group reg-email">
@@ -1688,9 +1708,25 @@
                   <input
                     name="email"
                     class="form-control input"
-                    size="20"
+                    size="15"
                     placeholder="Enter Email"
+                    type="email"
+                    required
+                  />
+                  {{! <input type="email" name="email" id="email"
+                  data-bouncer-message="The domain portion of the email address is invalid (the portion after the @)."
+                  required> }}
+                </div>
+              </div>
+              <div class="form-group reg-phone">
+                <div>
+                  <input
+                    name="phonenumber"
+                    class="form-control input"
+                    size="10"
+                    placeholder="Enter Phone Number"
                     type="text"
+                    required
                   />
                 </div>
               </div>
@@ -1702,17 +1738,19 @@
                     size="20"
                     placeholder="Password"
                     type="password"
+                    required
                   />
                 </div>
               </div>
               <div class="form-group reg-password">
                 <div>
                   <input
-                    name="password"
+                    name="confirmpassword"
                     class="form-control input"
                     size="20"
                     placeholder="Confirm Password"
                     type="password"
+                    required
                   />
                 </div>
               </div>
@@ -1720,13 +1758,7 @@
               <div>
                 <div class="checkbox login-remember">
                   <label>
-                    <input
-                      name="rememberme"
-                      id="rememberme"
-                      value="forever"
-                      checked="checked"
-                      type="checkbox"
-                    />
+                    <input name="rememberme" id="rememberme" value="forever" checked="checked" type="checkbox" />
                     Remember Me
                   </label>
                 </div>
@@ -1741,6 +1773,50 @@
                 </div>
               </div>
             </form>
+
+            {{!-- {{#if userExists}}
+          <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body">
+                Hello, world! This is a toast message.
+              </div>
+            </div>
+          </div>
+          {{/if}} --}}
+
+            {{! form validation }}
+            <script>
+              var bouncer = new Bouncer('[data-validate]', { disableSubmit:
+              true, customValidations: { valueMismatch: function (field) { //
+              Look for a selector for a field to compare // If there isn't one,
+              return false (no error) var selector =
+              field.getAttribute('data-bouncer-match'); if (!selector) return
+              false; // Get the field to compare var otherField =
+              field.form.querySelector(selector); if (!otherField) return false;
+              // Compare the two field values // We use a negative comparison
+              here because if they do match, the field validates // We want to
+              return true for failures, which can be confusing return
+              otherField.value !== field.value; } }, messages: { valueMismatch:
+              function (field) { var customMessage =
+              field.getAttribute('data-bouncer-mismatch-message'); return
+              customMessage ? customMessage : 'Please make sure the fields
+              match.' } } }); document.addEventListener('bouncerFormInvalid',
+              function (event) { console.log(event.detail.errors);
+              console.log(event.detail.errors[0].offsetTop); window.scrollTo(0,
+              event.detail.errors[0].offsetTop); }, false);
+              document.addEventListener('bouncerFormValid', function () {
+              alert('Form submitted successfully!'); window.location.reload();
+              }, false);
+            </script>
+
             <!--userForm-->
           </div>
           <div class="modal-footer">
@@ -1762,6 +1838,11 @@
 ================================================== -->
 
     <!-- Placed at the end of the document so the pages load faster -->
+    {{! jquery form validation- added by Liston Fermi }}
+    <script
+      src="https://cdn.jsdelivr.net/gh/cferdinandi/bouncer@1/dist/bouncer.polyfills.min.js"
+    ></script>
+
     <script src="assets/js/jquery/jquery-2.1.3.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
@@ -1829,4 +1910,5 @@
   </body>
 
   <!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:51:32 GMT -->
+
 </html>
