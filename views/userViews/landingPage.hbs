@@ -324,18 +324,18 @@
             <div class="pull-right">
               <ul class="userMenu">
                 <li>
-                  <a href="account-1.html"><span class="hidden-xs">
+                  <a href="/signupLoginPage"><span class="hidden-xs">
                       My Account</span>
                     <i class="glyphicon glyphicon-user hide visible-xs"></i></a>
                 </li>
                 <li>
-                  <a href="#" data-toggle="modal" data-target="#ModalLogin">
+                  <a href="/signupLoginPage" data-toggle="modal">
                     <span class="hidden-xs">Sign In</span>
                     <i class="glyphicon glyphicon-log-in hide visible-xs"></i>
                   </a>
                 </li>
                 <li class="hidden-xs">
-                  <a href="#" data-toggle="modal" data-target="#ModalSignup">
+                  <a href="/signupLoginPage" data-toggle="modal">
                     Create Account
                   </a>
                 </li>
@@ -1471,13 +1471,11 @@
             {{!-- otp input--}}
             <div class="form-group reg-password">
               <div>
-                <button class="btn btn-primary" type="button" id="inputGroupFileAddon03">Send OTP</button>
-                <input name="confirmpassword" class="form-control input" size="20" placeholder="Enter OTP"
-                  type="password" required />
+                  <a href="/sendOTP">Click here to send OTP!</a>
+                  <input name="confirmpassword" class="form-control input" size="20" placeholder="Enter OTP"
+                    type="password" required />
               </div>
             </div>
-
-
 
             <div>
               <div>
@@ -1490,10 +1488,10 @@
           <script>
             $.ajax({
               type: "GET",
-              url: "/theURL" // Modify the url according to your application logic
+              url: "/sendOTP" // Modify the url according to your application logic
             }).done(function (yourData) {
               // Now open the modal! (Assuming you are using bootstrap.js)
-              $("#yourModal").modal("show");
+              $("#ModalSignup").modal("show");
             });
           </script>
 
