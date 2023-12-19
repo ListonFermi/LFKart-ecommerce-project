@@ -1,8 +1,11 @@
 const adminCollection= require('../models/adminModels.js')
-const bcrypt= require('bcrypt')
 const jwt = require('jsonwebtoken');
+const userCollection = require('../models/userModels.js');
+const categoryCollection= require('../models/categoryModel.js');
+
 
 module.exports={
+    //login and logout
     loginPage : async (req,res)=>{
         if(req.cookies.token){
             res.redirect('/admin/dashboard')
@@ -28,5 +31,36 @@ module.exports={
     logout: async(req,res)=>{
         res.clearCookie('token')
         res.redirect('/admin')
+    },
+
+    //user management
+    userManagement: async (req,res)=>{
+        let allUsersData= await userCollection.find({},{password: false})
+        res.render('adminViews/userManagement', {allUsersData})
+    },
+    blockUser: async(req,res)=>{
+        await userCollection.findOneAndUpdate({_id: req.params.id},{$set:{ isBlocked: true }})
+        res.redirect('/admin/userManagement')
+    },
+    unBlockUser: async (req,res)=>{
+        await userCollection.findOneAndUpdate({_id: req.params.id},{$set:{ isBlocked: false }})
+        res.redirect('/admin/userManagement')
+    },
+
+    //category management
+    categoryManagement: async (req,res)=>{
+        let categoryData= await categoryCollection.find()
+        res.render('adminViews/categoryManagement', {categoryData}) 
+    },
+    addCategory: async (req,res)=>{
+        await categoryCollection.insertMany([{categoryName: req.body.categoryName, categoryDescription: req.body.description, categoryImage :req.file.path }])
+        res.redirect('/admin/categoryManagement')
+    },
+    editCategory: async (req,res)=>{
+        const categoryData= await categoryCollection.findOne({_id: req.params.id })
+    },
+    deleteCategory: async (req,res)=>{
+        await categoryCollection.findOneAndDelete({_id: req.params.id})
+        res.redirect('/admin/categoryManagement')
     }
 }

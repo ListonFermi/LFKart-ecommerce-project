@@ -6,10 +6,14 @@ const userRoutes= require('./routes/userRoutes.js')
 const adminRoutes= require('./routes/adminRoutes.js')
 const session= require('express-session')
 const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
 
 //connecting db
 const dbConnect= require('./config/config.js')
 dbConnect()
+
+//logger
+app.use(morgan('dev'))
 
 //for not storing cache
 // for not storing cache
@@ -17,7 +21,6 @@ app.use((req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();
 });
-
 
 //setting view engine and giving the path of static pages
 app.set('view engine','hbs')

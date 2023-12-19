@@ -5,7 +5,7 @@ const jwt= require('jsonwebtoken')
 module.exports = {
     landingPage: (req, res) => {
         res.render('userViews/landingPage', 
-        { curentUser : (req.session.exisitingUser || req.session.newUser ),
+        { currentUser : (req.session.exisitingUser || req.session.newUser ),
           invalidCredentials: req.session.invalidCredentials })
     },
     signup: async (req, res) => {
@@ -30,9 +30,9 @@ module.exports = {
     login: async (req,res) => {
         let exisitingUser= await userCollection.findOne({email : req.body.email})
         if(exisitingUser){
-            let passwordMatch= bcrypt.compareSync( req.body.password, user.password )
+            let passwordMatch= bcrypt.compareSync( req.body.password, exisitingUser.password )
             if(passwordMatch){
-                req.session.currentUser = exisitingUser
+                req.session.exisitingUser = exisitingUser
                 const token= jwt.sign(req.body,process.env.MY_SECRET_KEY,{ expiresIn: '1h'})
                 res.cookie('token',token, { httpOnly: true})
                 res.redirect('/')                
@@ -43,5 +43,11 @@ module.exports = {
             req.session.invalidCredentials = true
             res.redirect('/')
         }
+    },
+    logout: async (req,res) =>{
+        res.clearCookie('token')
+        req.session.exisitingUser= null
+        req.session.newUser= null
+        res.redirect('/')
     }
 }

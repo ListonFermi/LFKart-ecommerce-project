@@ -1,394 +1,772 @@
 <html lang="en">
-  <!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:48:03 GMT -->
+<!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:48:03 GMT -->
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fav and touch icons -->
-    <link
-      rel="apple-touch-icon-precomposed"
-      sizes="144x144"
-      href="assets/ico/apple-touch-icon-144-precomposed.png"
-    />
-    <link
-      rel="apple-touch-icon-precomposed"
-      sizes="114x114"
-      href="assets/ico/apple-touch-icon-114-precomposed.png"
-    />
-    <link
-      rel="apple-touch-icon-precomposed"
-      sizes="72x72"
-      href="assets/ico/apple-touch-icon-72-precomposed.png"
-    />
-    <link
-      rel="apple-touch-icon-precomposed"
-      href="ico/apple-touch-icon-57-precomposed.html"
-    />
-    <link rel="shortcut icon" href="assets/ico/favicon.png" />
-    <title>TSHOP - Bootstrap E-Commerce Parallax Theme</title>
-    <!-- Bootstrap core CSS -->
-    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.html" />
+  <link rel="shortcut icon" href="assets/ico/favicon.png" />
+  <title>TSHOP - Bootstrap E-Commerce Parallax Theme</title>
+  <!-- Bootstrap core CSS -->
+  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
-    <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="assets/css/style.css" rel="stylesheet" />
 
-    <script>
-      paceOptions = { elements: true, };
-    </script>
-    <script src="assets/js/pace.min.js"></script>
+  <script>
+    paceOptions = { elements: true, };
+  </script>
+  <script src="assets/js/pace.min.js"></script>
 
-    <!-- add theme styles for this template -->
-    <link
-      id="pagestyle"
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/skin-1.css"
-    />
-    <link rel="stylesheet" type="text/css" href="assets/css/gray-look.css" />
-  </head>
+  <!-- add theme styles for this template -->
+  <link id="pagestyle" rel="stylesheet" type="text/css" href="assets/css/skin-1.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/gray-look.css" />
+</head>
 
-  <body>
-    <script type="text/javascript">
-      function swapStyleSheet(sheet) {
-      document.getElementById("pagestyle").setAttribute("href", sheet); }
-    </script>
-    <style>
-      .themeControll { background: #2d3e50; height: auto; width: 100px;
-      position: fixed; left: 0; padding: 20px; top: 20%; z-index: 999999;
-      -webkit-transform: translateX(0); -moz-transform: translateX(0);
-      -o-transform: translateX(0); -ms-transform: translateX(0); transform:
-      translateX(0); opacity: 1; -ms-filter: none; filter: none;
-      -webkit-transition: opacity 0.5s linear, -webkit-transform 0.7s
-      cubic-bezier(0.56, 0.48, 0, 0.99); -moz-transition: opacity 0.5s linear,
-      -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99); -o-transition:
-      opacity 0.5s linear, -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+<body>
+  <script type="text/javascript">
+    function swapStyleSheet(sheet) {
+      document.getElementById("pagestyle").setAttribute("href", sheet);
+    }
+  </script>
+  <style>
+    .themeControll {
+      background: #2d3e50;
+      height: auto;
+      width: 100px;
+      position: fixed;
+      left: 0;
+      padding: 20px;
+      top: 20%;
+      z-index: 999999;
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -o-transform: translateX(0);
+      -ms-transform: translateX(0);
+      transform:
+        translateX(0);
+      opacity: 1;
+      -ms-filter: none;
+      filter: none;
+      -webkit-transition: opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -moz-transition: opacity 0.5s linear,
+        -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition:
+        opacity 0.5s linear, -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
       -ms-transition: opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56,
-      0.48, 0, 0.99); transition: opacity 0.5s linear, transform 0.7s
-      cubic-bezier(0.56, 0.48, 0, 0.99); } .themeControll.active { display:
-      block; -webkit-transform: translateX(-100px); -moz-transform:
-      translateX(-100px); -o-transform: translateX(-100px); -ms-transform:
-      translateX(-1020px); transform: translateX(-100px); -webkit-transition:
-      opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0,
-      0.99); -moz-transition: opacity 0.5s linear, -moz-transform 0.7s
-      cubic-bezier(0.56, 0.48, 0, 0.99); -o-transition: opacity 0.5s linear,
-      -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99); -ms-transition:
-      opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+          0.48, 0, 0.99);
+      transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+    }
+
+    .themeControll.active {
+      display:
+        block;
+      -webkit-transform: translateX(-100px);
+      -moz-transform:
+        translateX(-100px);
+      -o-transform: translateX(-100px);
+      -ms-transform:
+        translateX(-1020px);
+      transform: translateX(-100px);
+      -webkit-transition:
+        opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0,
+          0.99);
+      -moz-transition: opacity 0.5s linear, -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition: opacity 0.5s linear,
+        -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -ms-transition:
+        opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
       transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48,
-      0, 0.99); } .themeControll a { border-radius: 3px; clear: both; display:
-      block; height: 25px; margin-bottom: 4px; width: 50px; } .tbtn {
-      background: #2d3e50; color: #ffffff !important; font-size: 30px; height:
-      auto; padding: 10px; position: absolute; right: -40px; top: 0; width:
-      40px; cursor: pointer; } @media (max-width: 780px) { .themeControll {
-      display: none; } }
-    </style>
+          0, 0.99);
+    }
 
-    <div class="themeControll">
-      <h3
-        style="width: 60px; font-size: 10px; line-height: 12px"
-        class="uppercase color-white text-center"
-      >
-        Choose your colour
-      </h3>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-1.css')"
-        style="background: #4ec67f; border-top: 12px solid #27ae60"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-8.css')"
-        style="background: #3bca95; border-top: 12px solid #34bc8a"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-2.css')"
-        style="background: #1abc9c; border-top: 12px solid #16a085"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-3.css')"
-        style="background: #3498db; border-top: 12px solid #2980b9"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-4.css')"
-        style="background: #9b59b6; border-top: 12px solid #9149af"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-5.css')"
-        style="background: #e74c3c; border-top: 12px solid #c0392b"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-7.css')"
-        style="background: #95a5a6; border-top: 12px solid #7f8c8d"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-9.css')"
-        style="background: #f7b529; border-top: 12px solid #e78e00"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-10.css')"
-        style="background: #f17370; border-top: 12px solid #f26663"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-11.css')"
-        style="background: #273646; border-top: 12px solid #2ecc71"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-6.css')"
-        style="background: #34495e; border-top: 12px solid #283949"
-      >
-      </a>
-      <h3
-        style="width: 60px; font-size: 10px; line-height: 12px"
-        class="uppercase color-white text-center"
-      >
-        <br />
-        <a
-          style="color: #fff"
-          href="https://templatecycle.com/tshop/v6/index.html"
-        ><i class="fa fa-angle-double-left"></i>
-          Theme Chooser
-        </a>
-      </h3>
-      <p class="tbtn"><i class="fa fa-angle-double-left"></i></p>
-    </div>
+    .themeControll a {
+      border-radius: 3px;
+      clear: both;
+      display:
+        block;
+      height: 25px;
+      margin-bottom: 4px;
+      width: 50px;
+    }
 
-    <script type="text/javascript">
-      function swapStyleSheet(sheet) {
-      document.getElementById("pagestyle").setAttribute("href", sheet); }
-    </script>
-    <style>
-      .themeControll { background: #2d3e50; height: auto; width: 100px;
-      position: fixed; left: 0; padding: 20px; top: 20%; z-index: 999999;
-      -webkit-transform: translateX(0); -moz-transform: translateX(0);
-      -o-transform: translateX(0); -ms-transform: translateX(0); transform:
-      translateX(0); opacity: 1; -ms-filter: none; filter: none;
-      -webkit-transition: opacity 0.5s linear, -webkit-transform 0.7s
-      cubic-bezier(0.56, 0.48, 0, 0.99); -moz-transition: opacity 0.5s linear,
-      -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99); -o-transition:
-      opacity 0.5s linear, -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+    .tbtn {
+      background: #2d3e50;
+      color: #ffffff !important;
+      font-size: 30px;
+      height:
+        auto;
+      padding: 10px;
+      position: absolute;
+      right: -40px;
+      top: 0;
+      width:
+        40px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 780px) {
+      .themeControll {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="themeControll">
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      Choose your colour
+    </h3>
+    <a onclick="swapStyleSheet('assets/css/skin-1.css')" style="background: #4ec67f; border-top: 12px solid #27ae60">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-8.css')" style="background: #3bca95; border-top: 12px solid #34bc8a">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-2.css')" style="background: #1abc9c; border-top: 12px solid #16a085">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-3.css')" style="background: #3498db; border-top: 12px solid #2980b9">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-4.css')" style="background: #9b59b6; border-top: 12px solid #9149af">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-5.css')" style="background: #e74c3c; border-top: 12px solid #c0392b">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-7.css')" style="background: #95a5a6; border-top: 12px solid #7f8c8d">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-9.css')" style="background: #f7b529; border-top: 12px solid #e78e00">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-10.css')" style="background: #f17370; border-top: 12px solid #f26663">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-11.css')" style="background: #273646; border-top: 12px solid #2ecc71">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-6.css')" style="background: #34495e; border-top: 12px solid #283949">
+    </a>
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      <br />
+      <a style="color: #fff" href="https://templatecycle.com/tshop/v6/index.html"><i
+          class="fa fa-angle-double-left"></i>
+        Theme Chooser
+      </a>
+    </h3>
+    <p class="tbtn"><i class="fa fa-angle-double-left"></i></p>
+  </div>
+
+  <script type="text/javascript">
+    function swapStyleSheet(sheet) {
+      document.getElementById("pagestyle").setAttribute("href", sheet);
+    }
+  </script>
+  <style>
+    .themeControll {
+      background: #2d3e50;
+      height: auto;
+      width: 100px;
+      position: fixed;
+      left: 0;
+      padding: 20px;
+      top: 20%;
+      z-index: 999999;
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -o-transform: translateX(0);
+      -ms-transform: translateX(0);
+      transform:
+        translateX(0);
+      opacity: 1;
+      -ms-filter: none;
+      filter: none;
+      -webkit-transition: opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -moz-transition: opacity 0.5s linear,
+        -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition:
+        opacity 0.5s linear, -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
       -ms-transition: opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56,
-      0.48, 0, 0.99); transition: opacity 0.5s linear, transform 0.7s
-      cubic-bezier(0.56, 0.48, 0, 0.99); } .themeControll.active { display:
-      block; -webkit-transform: translateX(-100px); -moz-transform:
-      translateX(-100px); -o-transform: translateX(-100px); -ms-transform:
-      translateX(-1020px); transform: translateX(-100px); -webkit-transition:
-      opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0,
-      0.99); -moz-transition: opacity 0.5s linear, -moz-transform 0.7s
-      cubic-bezier(0.56, 0.48, 0, 0.99); -o-transition: opacity 0.5s linear,
-      -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99); -ms-transition:
-      opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+          0.48, 0, 0.99);
+      transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+    }
+
+    .themeControll.active {
+      display:
+        block;
+      -webkit-transform: translateX(-100px);
+      -moz-transform:
+        translateX(-100px);
+      -o-transform: translateX(-100px);
+      -ms-transform:
+        translateX(-1020px);
+      transform: translateX(-100px);
+      -webkit-transition:
+        opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0,
+          0.99);
+      -moz-transition: opacity 0.5s linear, -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition: opacity 0.5s linear,
+        -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -ms-transition:
+        opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
       transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48,
-      0, 0.99); } .themeControll a { border-radius: 3px; clear: both; display:
-      block; height: 25px; margin-bottom: 4px; width: 50px; } .tbtn {
-      background: #2d3e50; color: #ffffff !important; font-size: 30px; height:
-      auto; padding: 10px; position: absolute; right: -40px; top: 0; width:
-      40px; cursor: pointer; } @media (max-width: 780px) { .themeControll {
-      display: none; } }
-    </style>
+          0, 0.99);
+    }
 
-    <div class="themeControll">
-      <h3
-        style="width: 60px; font-size: 10px; line-height: 12px"
-        class="uppercase color-white text-center"
-      >
-        Choose your colour
-      </h3>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-1.css')"
-        style="background: #4ec67f; border-top: 12px solid #27ae60"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-8.css')"
-        style="background: #3bca95; border-top: 12px solid #34bc8a"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-2.css')"
-        style="background: #1abc9c; border-top: 12px solid #16a085"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-3.css')"
-        style="background: #3498db; border-top: 12px solid #2980b9"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-4.css')"
-        style="background: #9b59b6; border-top: 12px solid #9149af"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-5.css')"
-        style="background: #e74c3c; border-top: 12px solid #c0392b"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-7.css')"
-        style="background: #95a5a6; border-top: 12px solid #7f8c8d"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-9.css')"
-        style="background: #f7b529; border-top: 12px solid #e78e00"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-10.css')"
-        style="background: #f17370; border-top: 12px solid #f26663"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-11.css')"
-        style="background: #273646; border-top: 12px solid #2ecc71"
-      >
-      </a>
-      <a
-        onclick="swapStyleSheet('assets/css/skin-6.css')"
-        style="background: #34495e; border-top: 12px solid #283949"
-      >
-      </a>
-      <h3
-        style="width: 60px; font-size: 10px; line-height: 12px"
-        class="uppercase color-white text-center"
-      >
-        <br />
-        <a
-          style="color: #fff"
-          href="https://templatecycle.com/tshop/v6/index.html"
-        ><i class="fa fa-angle-double-left"></i>
-          Theme Chooser
-        </a>
-      </h3>
-      <p class="tbtn"><i class="fa fa-angle-double-left"></i></p>
-    </div>
+    .themeControll a {
+      border-radius: 3px;
+      clear: both;
+      display:
+        block;
+      height: 25px;
+      margin-bottom: 4px;
+      width: 50px;
+    }
 
-    <!-- Fixed navbar start -->
-    <div
-      class="navbar navbar-tshop navbar-fixed-top megamenu"
-      role="navigation"
-    >
-      <div class="navbar-top">
-        <div class="container">
-          <div class="row">
-            <div
-              class="col-lg-6 col-sm-6 col-xs-6 col-md-6"
-              style="visibility: hidden"
-            >
-              <div class="pull-left">
-                <ul class="userMenu">
-                  <li>
-                    <a href="#">
-                      <span class="hidden-xs">HELP</span><i
-                        class="glyphicon glyphicon-info-sign hide visible-xs"
-                      ></i>
-                    </a>
-                  </li>
-                  <li class="phone-number">
-                    <a href="callto:+12025550151">
-                      <span>
-                        <i class="glyphicon glyphicon-phone-alt"></i></span>
-                      <span class="hidden-xs" style="margin-left: 5px">
-                        +1-202-555-0151
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+    .tbtn {
+      background: #2d3e50;
+      color: #ffffff !important;
+      font-size: 30px;
+      height:
+        auto;
+      padding: 10px;
+      position: absolute;
+      right: -40px;
+      top: 0;
+      width:
+        40px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 780px) {
+      .themeControll {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="themeControll">
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      Choose your colour
+    </h3>
+    <a onclick="swapStyleSheet('assets/css/skin-1.css')" style="background: #4ec67f; border-top: 12px solid #27ae60">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-8.css')" style="background: #3bca95; border-top: 12px solid #34bc8a">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-2.css')" style="background: #1abc9c; border-top: 12px solid #16a085">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-3.css')" style="background: #3498db; border-top: 12px solid #2980b9">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-4.css')" style="background: #9b59b6; border-top: 12px solid #9149af">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-5.css')" style="background: #e74c3c; border-top: 12px solid #c0392b">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-7.css')" style="background: #95a5a6; border-top: 12px solid #7f8c8d">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-9.css')" style="background: #f7b529; border-top: 12px solid #e78e00">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-10.css')" style="background: #f17370; border-top: 12px solid #f26663">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-11.css')" style="background: #273646; border-top: 12px solid #2ecc71">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-6.css')" style="background: #34495e; border-top: 12px solid #283949">
+    </a>
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      <br />
+      <a style="color: #fff" href="https://templatecycle.com/tshop/v6/index.html"><i
+          class="fa fa-angle-double-left"></i>
+        Theme Chooser
+      </a>
+    </h3>
+    <p class="tbtn"><i class="fa fa-angle-double-left"></i></p>
+  </div>
+
+  <!-- Fixed navbar start -->
+  <div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
+    <div class="navbar-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6" style="visibility: hidden">
+            <div class="pull-left">
+              <ul class="userMenu">
+                <li>
+                  <a href="#">
+                    <span class="hidden-xs">HELP</span><i class="glyphicon glyphicon-info-sign hide visible-xs"></i>
+                  </a>
+                </li>
+                <li class="phone-number">
+                  <a href="callto:+12025550151">
+                    <span>
+                      <i class="glyphicon glyphicon-phone-alt"></i></span>
+                    <span class="hidden-xs" style="margin-left: 5px">
+                      +1-202-555-0151
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </div>
-            {{#if currentUser}}
-              <div
-                class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding"
-              >
-                <div class="pull-right">
-                  <ul class="userMenu">
-                    <li>
-                      <a href="/">
-                      <span class="hidden-xs">Welcome
-                        {{currentUser.username}}</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            {{else}}
-              <div
-                class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding"
-              >
-                <div class="pull-right">
-                  <ul class="userMenu">
-                    <li>
-                      <a href="account-1.html"><span class="hidden-xs">
-                          My Account</span>
-                        <i
-                          class="glyphicon glyphicon-user hide visible-xs"
-                        ></i></a>
-                    </li>
-                    <li>
-                      <a href="#" data-toggle="modal" data-target="#ModalLogin">
-                        <span class="hidden-xs">Sign In</span>
-                        <i
-                          class="glyphicon glyphicon-log-in hide visible-xs"
-                        ></i>
-                      </a>
-                    </li>
-                    <li class="hidden-xs">
-                      <a
-                        href="#"
-                        data-toggle="modal"
-                        data-target="#ModalSignup"
-                      >
-                        Create Account
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            {{/if}}
           </div>
+          {{#if currentUser}}
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li>
+                  <a href="/">
+                    <span class="hidden-xs">Welcome
+                      {{currentUser.username}}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/logout">
+                    <span class="hidden-xs">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {{else}}
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li>
+                  <a href="account-1.html"><span class="hidden-xs">
+                      My Account</span>
+                    <i class="glyphicon glyphicon-user hide visible-xs"></i></a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="modal" data-target="#ModalLogin">
+                    <span class="hidden-xs">Sign In</span>
+                    <i class="glyphicon glyphicon-log-in hide visible-xs"></i>
+                  </a>
+                </li>
+                <li class="hidden-xs">
+                  <a href="#" data-toggle="modal" data-target="#ModalSignup">
+                    Create Account
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {{/if}}
         </div>
       </div>
-      <!--/.navbar-top-->
+    </div>
+    <!--/.navbar-top-->
 
-      <div class="container">
-        <div class="navbar-header">
-          <button
-            type="button"
-            class="navbar-toggle"
-            data-toggle="collapse"
-            data-target=".navbar-collapse"
-          >
-            <span class="sr-only"> Toggle navigation </span>
-            <span class="icon-bar"> </span>
-            <span class="icon-bar"> </span>
-            <span class="icon-bar"> </span>
-          </button>
-          <button
-            type="button"
-            class="navbar-toggle"
-            data-toggle="collapse"
-            data-target=".navbar-cart"
-          >
-            <i class="fa fa-shopping-cart colorWhite"> </i>
-            <span class="cartRespons colorWhite"> Cart (₹210.00) </span>
-          </button>
-          <a class="navbar-brand" href="index.html">
-            <img
-              src="images/logo.png"
-              alt="LF-Kart"
-              style="width: 115px; height: 50px"
-            />
-          </a>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only"> Toggle navigation </span>
+          <span class="icon-bar"> </span>
+          <span class="icon-bar"> </span>
+          <span class="icon-bar"> </span>
+        </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
+          <i class="fa fa-shopping-cart colorWhite"> </i>
+          <span class="cartRespons colorWhite"> Cart (₹210.00) </span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo.png" alt="LF-Kart" style="width: 115px; height: 50px" />
+        </a>
 
-          <!-- this part for mobile -->
-          <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
+        <!-- this part for mobile -->
+        <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
+          <div class="input-group">
+            <button class="btn btn-nobg getFullSearch" type="button">
+              <i class="fa fa-search"> </i>
+            </button>
+          </div>
+          <!-- /input-group -->
+        </div>
+      </div>
+
+      <!-- this part is duplicate from cartMenu  keep it for mobile -->
+      <div class="navbar-cart collapse">
+        <div class="cartMenu col-lg-4 col-xs-12 col-md-4">
+          <div class="w100 miniCartTable scroll-pane">
+            <table>
+              <tbody>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/3.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/2.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/5.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/3.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/3.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/4.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--/.miniCartTable-->
+
+          <div class="miniCartFooter miniCartFooterInMobile text-right">
+            <h3 class="text-right subtotal">Subtotal: ₹210</h3>
+            <a class="btn btn-sm btn-danger" href="cart.html">
+              <i class="fa fa-shopping-cart"> </i>
+              VIEW CART
+            </a>
+            <a href="checkout-0.html" class="btn btn-sm btn-primary">
+              CHECKOUT
+            </a>
+          </div>
+          <!--/.miniCartFooter-->
+        </div>
+        <!--/.cartMenu-->
+      </div>
+      <!--/.navbar-cart-->
+
+      <div class="navbar-collapse collapse">
+        <!--- will be hidden for mobile version -->
+        <div class="nav navbar-nav navbar-right hidden-xs">
+          <div class="dropdown cartMenu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-shopping-cart"> </i>
+              <span class="cartRespons"> Cart (₹210.00) </span>
+              <b class="caret"> </b>
+            </a>
+
+            <div class="dropdown-menu col-lg-4 col-xs-12 col-md-4">
+              <div class="w100 miniCartTable scroll-pane">
+                <table>
+                  <tbody>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/3.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              TSHOP Tshirt DO9
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹22 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹33 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/2.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              TShir TSHOP 09
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹15 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹120 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/5.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html"> Tshir 2014 </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹30 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹80 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/3.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              TSHOP T shirt DO20
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹15 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹55 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/4.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html"> T shirt Black </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹44 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹40 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/site/winter.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              G Star T shirt
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹80 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹8.80 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--/.miniCartTable-->
+
+              <div class="miniCartFooter text-right">
+                <h3 class="text-right subtotal">Subtotal: ₹210</h3>
+                <a class="btn btn-sm btn-danger" href="cart.html">
+                  <i class="fa fa-shopping-cart"> </i>
+                  VIEW CART
+                </a><a class="btn btn-sm btn-primary"> CHECKOUT </a>
+              </div>
+              <!--/.miniCartFooter-->
+            </div>
+            <!--/.dropdown-menu-->
+          </div>
+          <!--/.cartMenu-->
+
+          <div class="search-box">
             <div class="input-group">
               <button class="btn btn-nobg getFullSearch" type="button">
                 <i class="fa fa-search"> </i>
@@ -396,1385 +774,730 @@
             </div>
             <!-- /input-group -->
           </div>
+          <!--/.search-box -->
         </div>
-
-        <!-- this part is duplicate from cartMenu  keep it for mobile -->
-        <div class="navbar-cart collapse">
-          <div class="cartMenu col-lg-4 col-xs-12 col-md-4">
-            <div class="w100 miniCartTable scroll-pane">
-              <table>
-                <tbody>
-                  <tr class="miniCartProduct">
-                    <td style="width: 20%" class="miniCartProductThumb">
-                      <div>
-                        <a href="product-details.html">
-                          <img src="images/product/3.jpg" alt="img" />
-                        </a>
-                      </div>
-                    </td>
-                    <td style="width: 40%">
-                      <div class="miniCartDescription">
-                        <h4>
-                          <a href="product-details.html">
-                            TSHOP T shirt Black
-                          </a>
-                        </h4>
-                        <span class="size"> 12 x 1.5 L </span>
-
-                        <div class="price"><span> ₹8.80 </span></div>
-                      </div>
-                    </td>
-                    <td style="width: 10%" class="miniCartQuantity">
-                      <a> X 1 </a>
-                    </td>
-                    <td style="width: 15%" class="miniCartSubtotal">
-                      <span> ₹8.80 </span>
-                    </td>
-                    <td style="width: 5%" class="delete"><a> x </a></td>
-                  </tr>
-                  <tr class="miniCartProduct">
-                    <td style="width: 20%" class="miniCartProductThumb">
-                      <div>
-                        <a href="product-details.html">
-                          <img src="images/product/2.jpg" alt="img" />
-                        </a>
-                      </div>
-                    </td>
-                    <td style="width: 40%">
-                      <div class="miniCartDescription">
-                        <h4>
-                          <a href="product-details.html">
-                            TSHOP T shirt Black
-                          </a>
-                        </h4>
-                        <span class="size"> 12 x 1.5 L </span>
-
-                        <div class="price"><span> ₹8.80 </span></div>
-                      </div>
-                    </td>
-                    <td style="width: 10%" class="miniCartQuantity">
-                      <a> X 1 </a>
-                    </td>
-                    <td style="width: 15%" class="miniCartSubtotal">
-                      <span> ₹8.80 </span>
-                    </td>
-                    <td style="width: 5%" class="delete"><a> x </a></td>
-                  </tr>
-                  <tr class="miniCartProduct">
-                    <td style="width: 20%" class="miniCartProductThumb">
-                      <div>
-                        <a href="product-details.html">
-                          <img src="images/product/5.jpg" alt="img" />
-                        </a>
-                      </div>
-                    </td>
-                    <td style="width: 40%">
-                      <div class="miniCartDescription">
-                        <h4>
-                          <a href="product-details.html">
-                            TSHOP T shirt Black
-                          </a>
-                        </h4>
-                        <span class="size"> 12 x 1.5 L </span>
-
-                        <div class="price"><span> ₹8.80 </span></div>
-                      </div>
-                    </td>
-                    <td style="width: 10%" class="miniCartQuantity">
-                      <a> X 1 </a>
-                    </td>
-                    <td style="width: 15%" class="miniCartSubtotal">
-                      <span> ₹8.80 </span>
-                    </td>
-                    <td style="width: 5%" class="delete"><a> x </a></td>
-                  </tr>
-                  <tr class="miniCartProduct">
-                    <td style="width: 20%" class="miniCartProductThumb">
-                      <div>
-                        <a href="product-details.html">
-                          <img src="images/product/3.jpg" alt="img" />
-                        </a>
-                      </div>
-                    </td>
-                    <td style="width: 40%">
-                      <div class="miniCartDescription">
-                        <h4>
-                          <a href="product-details.html">
-                            TSHOP T shirt Black
-                          </a>
-                        </h4>
-                        <span class="size"> 12 x 1.5 L </span>
-
-                        <div class="price"><span> ₹8.80 </span></div>
-                      </div>
-                    </td>
-                    <td style="width: 10%" class="miniCartQuantity">
-                      <a> X 1 </a>
-                    </td>
-                    <td style="width: 15%" class="miniCartSubtotal">
-                      <span> ₹8.80 </span>
-                    </td>
-                    <td style="width: 5%" class="delete"><a> x </a></td>
-                  </tr>
-                  <tr class="miniCartProduct">
-                    <td style="width: 20%" class="miniCartProductThumb">
-                      <div>
-                        <a href="product-details.html">
-                          <img src="images/product/3.jpg" alt="img" />
-                        </a>
-                      </div>
-                    </td>
-                    <td style="width: 40%">
-                      <div class="miniCartDescription">
-                        <h4>
-                          <a href="product-details.html">
-                            TSHOP T shirt Black
-                          </a>
-                        </h4>
-                        <span class="size"> 12 x 1.5 L </span>
-
-                        <div class="price"><span> ₹8.80 </span></div>
-                      </div>
-                    </td>
-                    <td style="width: 10%" class="miniCartQuantity">
-                      <a> X 1 </a>
-                    </td>
-                    <td style="width: 15%" class="miniCartSubtotal">
-                      <span> ₹8.80 </span>
-                    </td>
-                    <td style="width: 5%" class="delete"><a> x </a></td>
-                  </tr>
-                  <tr class="miniCartProduct">
-                    <td style="width: 20%" class="miniCartProductThumb">
-                      <div>
-                        <a href="product-details.html">
-                          <img src="images/product/4.jpg" alt="img" />
-                        </a>
-                      </div>
-                    </td>
-                    <td style="width: 40%">
-                      <div class="miniCartDescription">
-                        <h4>
-                          <a href="product-details.html">
-                            TSHOP T shirt Black
-                          </a>
-                        </h4>
-                        <span class="size"> 12 x 1.5 L </span>
-
-                        <div class="price"><span> ₹8.80 </span></div>
-                      </div>
-                    </td>
-                    <td style="width: 10%" class="miniCartQuantity">
-                      <a> X 1 </a>
-                    </td>
-                    <td style="width: 15%" class="miniCartSubtotal">
-                      <span> ₹8.80 </span>
-                    </td>
-                    <td style="width: 5%" class="delete"><a> x </a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!--/.miniCartTable-->
-
-            <div class="miniCartFooter miniCartFooterInMobile text-right">
-              <h3 class="text-right subtotal">Subtotal: ₹210</h3>
-              <a class="btn btn-sm btn-danger" href="cart.html">
-                <i class="fa fa-shopping-cart"> </i>
-                VIEW CART
-              </a>
-              <a href="checkout-0.html" class="btn btn-sm btn-primary">
-                CHECKOUT
-              </a>
-            </div>
-            <!--/.miniCartFooter-->
-          </div>
-          <!--/.cartMenu-->
-        </div>
-        <!--/.navbar-cart-->
-
-        <div class="navbar-collapse collapse">
-          <!--- will be hidden for mobile version -->
-          <div class="nav navbar-nav navbar-right hidden-xs">
-            <div class="dropdown cartMenu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-shopping-cart"> </i>
-                <span class="cartRespons"> Cart (₹210.00) </span>
-                <b class="caret"> </b>
-              </a>
-
-              <div class="dropdown-menu col-lg-4 col-xs-12 col-md-4">
-                <div class="w100 miniCartTable scroll-pane">
-                  <table>
-                    <tbody>
-                      <tr class="miniCartProduct">
-                        <td style="width: 20%" class="miniCartProductThumb">
-                          <div>
-                            <a href="product-details.html">
-                              <img src="images/product/3.jpg" alt="img" />
-                            </a>
-                          </div>
-                        </td>
-                        <td style="width: 40%">
-                          <div class="miniCartDescription">
-                            <h4>
-                              <a href="product-details.html">
-                                TSHOP Tshirt DO9
-                              </a>
-                            </h4>
-                            <span class="size"> 12 x 1.5 L </span>
-
-                            <div class="price"><span> ₹22 </span></div>
-                          </div>
-                        </td>
-                        <td style="width: 10%" class="miniCartQuantity">
-                          <a> X 1 </a>
-                        </td>
-                        <td style="width: 15%" class="miniCartSubtotal">
-                          <span> ₹33 </span>
-                        </td>
-                        <td style="width: 5%" class="delete"><a> x </a></td>
-                      </tr>
-                      <tr class="miniCartProduct">
-                        <td style="width: 20%" class="miniCartProductThumb">
-                          <div>
-                            <a href="product-details.html">
-                              <img src="images/product/2.jpg" alt="img" />
-                            </a>
-                          </div>
-                        </td>
-                        <td style="width: 40%">
-                          <div class="miniCartDescription">
-                            <h4>
-                              <a href="product-details.html">
-                                TShir TSHOP 09
-                              </a>
-                            </h4>
-                            <span class="size"> 12 x 1.5 L </span>
-
-                            <div class="price"><span> ₹15 </span></div>
-                          </div>
-                        </td>
-                        <td style="width: 10%" class="miniCartQuantity">
-                          <a> X 1 </a>
-                        </td>
-                        <td style="width: 15%" class="miniCartSubtotal">
-                          <span> ₹120 </span>
-                        </td>
-                        <td style="width: 5%" class="delete"><a> x </a></td>
-                      </tr>
-                      <tr class="miniCartProduct">
-                        <td style="width: 20%" class="miniCartProductThumb">
-                          <div>
-                            <a href="product-details.html">
-                              <img src="images/product/5.jpg" alt="img" />
-                            </a>
-                          </div>
-                        </td>
-                        <td style="width: 40%">
-                          <div class="miniCartDescription">
-                            <h4>
-                              <a href="product-details.html"> Tshir 2014 </a>
-                            </h4>
-                            <span class="size"> 12 x 1.5 L </span>
-
-                            <div class="price"><span> ₹30 </span></div>
-                          </div>
-                        </td>
-                        <td style="width: 10%" class="miniCartQuantity">
-                          <a> X 1 </a>
-                        </td>
-                        <td style="width: 15%" class="miniCartSubtotal">
-                          <span> ₹80 </span>
-                        </td>
-                        <td style="width: 5%" class="delete"><a> x </a></td>
-                      </tr>
-                      <tr class="miniCartProduct">
-                        <td style="width: 20%" class="miniCartProductThumb">
-                          <div>
-                            <a href="product-details.html">
-                              <img src="images/product/3.jpg" alt="img" />
-                            </a>
-                          </div>
-                        </td>
-                        <td style="width: 40%">
-                          <div class="miniCartDescription">
-                            <h4>
-                              <a href="product-details.html">
-                                TSHOP T shirt DO20
-                              </a>
-                            </h4>
-                            <span class="size"> 12 x 1.5 L </span>
-
-                            <div class="price"><span> ₹15 </span></div>
-                          </div>
-                        </td>
-                        <td style="width: 10%" class="miniCartQuantity">
-                          <a> X 1 </a>
-                        </td>
-                        <td style="width: 15%" class="miniCartSubtotal">
-                          <span> ₹55 </span>
-                        </td>
-                        <td style="width: 5%" class="delete"><a> x </a></td>
-                      </tr>
-                      <tr class="miniCartProduct">
-                        <td style="width: 20%" class="miniCartProductThumb">
-                          <div>
-                            <a href="product-details.html">
-                              <img src="images/product/4.jpg" alt="img" />
-                            </a>
-                          </div>
-                        </td>
-                        <td style="width: 40%">
-                          <div class="miniCartDescription">
-                            <h4>
-                              <a href="product-details.html"> T shirt Black </a>
-                            </h4>
-                            <span class="size"> 12 x 1.5 L </span>
-
-                            <div class="price"><span> ₹44 </span></div>
-                          </div>
-                        </td>
-                        <td style="width: 10%" class="miniCartQuantity">
-                          <a> X 1 </a>
-                        </td>
-                        <td style="width: 15%" class="miniCartSubtotal">
-                          <span> ₹40 </span>
-                        </td>
-                        <td style="width: 5%" class="delete"><a> x </a></td>
-                      </tr>
-                      <tr class="miniCartProduct">
-                        <td style="width: 20%" class="miniCartProductThumb">
-                          <div>
-                            <a href="product-details.html">
-                              <img src="images/site/winter.jpg" alt="img" />
-                            </a>
-                          </div>
-                        </td>
-                        <td style="width: 40%">
-                          <div class="miniCartDescription">
-                            <h4>
-                              <a href="product-details.html">
-                                G Star T shirt
-                              </a>
-                            </h4>
-                            <span class="size"> 12 x 1.5 L </span>
-
-                            <div class="price"><span> ₹80 </span></div>
-                          </div>
-                        </td>
-                        <td style="width: 10%" class="miniCartQuantity">
-                          <a> X 1 </a>
-                        </td>
-                        <td style="width: 15%" class="miniCartSubtotal">
-                          <span> ₹8.80 </span>
-                        </td>
-                        <td style="width: 5%" class="delete"><a> x </a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!--/.miniCartTable-->
-
-                <div class="miniCartFooter text-right">
-                  <h3 class="text-right subtotal">Subtotal: ₹210</h3>
-                  <a class="btn btn-sm btn-danger" href="cart.html">
-                    <i class="fa fa-shopping-cart"> </i>
-                    VIEW CART
-                  </a><a class="btn btn-sm btn-primary"> CHECKOUT </a>
-                </div>
-                <!--/.miniCartFooter-->
-              </div>
-              <!--/.dropdown-menu-->
-            </div>
-            <!--/.cartMenu-->
-
-            <div class="search-box">
-              <div class="input-group">
-                <button class="btn btn-nobg getFullSearch" type="button">
-                  <i class="fa fa-search"> </i>
-                </button>
-              </div>
-              <!-- /input-group -->
-            </div>
-            <!--/.search-box -->
-          </div>
-          <!--/.navbar-nav hidden-xs-->
-        </div>
-        <!--/.nav-collapse -->
+        <!--/.navbar-nav hidden-xs-->
       </div>
-      <!--/.container -->
-
-      <div class="search-full text-right">
-        <a class="pull-right search-close">
-          <i class="fa fa-times-circle"> </i>
-        </a>
-
-        <div class="searchInputBox pull-right">
-          <input
-            type="search"
-            data-searchurl="search?="
-            name="q"
-            placeholder="start typing and hit enter to search"
-            class="search-input"
-          />
-          <button class="btn-nobg search-btn" type="submit">
-            <i class="fa fa-search"> </i>
-          </button>
-        </div>
-      </div>
-      <!--/.search-full-->
+      <!--/.nav-collapse -->
     </div>
-    <!-- /.Fixed navbar  -->
+    <!--/.container -->
 
-    <div class="banner">
-      <div class="full-container">
-        <div class="slider-content">
-          <ul id="pager2" class="container"></ul>
-          <!-- prev/next links -->
+    <div class="search-full text-right">
+      <a class="pull-right search-close">
+        <i class="fa fa-times-circle"> </i>
+      </a>
 
-          <span class="prevControl sliderControl">
-            <i class="fa fa-angle-left fa-3x"></i></span>
-          <span class="nextControl sliderControl">
-            <i class="fa fa-angle-right fa-3x"></i></span>
-
-          <div
-            class="slider slider-v1"
-            data-cycle-swipe="true"
-            data-cycle-prev=".prevControl"
-            data-cycle-next=".nextControl"
-            data-cycle-loader="wait"
-          >
-            <div class="slider-item slider-item-img1">
-              <img
-                src="images/slider/slider0.jpg"
-                class="img-responsive parallaximg sliderImg"
-                alt="img"
-              />
-            </div>
-            <div class="slider-item slider-item-img1">
-              <div class="sliderInfo">
-                <div class="container">
-                  <div class="col-lg-12 col-md-12 col-sm-12 sliderTextFull">
-                    <div class="inner text-center">
-                      <div class="topAnima animated">
-                        <h1 class="uppercase xlarge">GO ON BIG STYLE</h1>
-
-                        <h3 class="hidden-xs">Don't Miss</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <img
-                src="images/slider/slider1.jpg"
-                class="img-responsive parallaximg sliderImg"
-                alt="img"
-              />
-            </div>
-            <!--/.slider-item-->
-
-            <div class="slider-item slider-item-img2">
-              <div class="sliderInfo">
-                <div class="container">
-                  <div class="col-lg-12 col-md-12 col-sm-12 sliderTextFull">
-                    <div
-                      class="inner dark maxwidth500 text-center animated topAnima"
-                    >
-                      <div class="">
-                        <h1 class="uppercase xlarge">CUSTOM HTML BLOCK</h1>
-
-                        <h3 class="hidden-xs">Custom Slides to Your Slider</h3>
-                      </div>
-                      <a class="btn btn-danger btn-lg">SHOP NOW ON TSHOP
-                        <span class="arrowUnicode">►</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <img
-                src="images/slider/slider3.jpg"
-                class="img-responsive parallaximg sliderImg"
-                alt="img"
-              />
-            </div>
-            <!--/.slider-item-->
-
-            <div class="slider-item slider-item-img3">
-              <div class="sliderInfo">
-                <div class="container">
-                  <div
-                    class="col-lg-5 col-md-4 col-sm-6 col-xs-8 pull-left sliderText white hidden-xs"
-                  >
-                    <div class="inner">
-                      <h1>TSHOP JEANS</h1>
-
-                      <h3 class="price">Free Shipping on ₹100</h3>
-
-                      <p class="hidden-xs">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing
-                        elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-                        dolore magna aliquam erat volutpat.
-                      </p>
-                      <a href="category.html" class="btn btn-primary">SHOP NOW
-                        <span class="arrowUnicode">►</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <img
-                src="images/slider/slider4.jpg"
-                class="img-responsive parallaximg sliderImg"
-                alt="img"
-              />
-            </div>
-            <!--/.slider-item-->
-
-            <div class="slider-item slider-item-img3">
-              <div class="sliderInfo">
-                <div class="container">
-                  <div
-                    class="col-lg-5 col-md-6 col-sm-5 col-xs-5 pull-left sliderText blankstyle transformRight"
-                  >
-                    <div class="inner text-right">
-                      <img
-                        src="images/slider/color.png"
-                        class="img-responsive"
-                        alt="img"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="col-lg-4 col-md-4 col-sm-5 col-xs-7 pull-left sliderText blankstyle color-white"
-                  >
-                    <div class="inner">
-                      <h1 class="uppercase topAnima animated">
-                        10+ Amazing Color Theme
-                      </h1>
-
-                      <p class="bot tomAnima animated opacity0 hidden-xs">
-                        Fully responsive bootstrap Ecommerce Template. Available
-                        in 10+ color schemes and easy to set.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <img
-                src="images/slider/6.jpg"
-                class="img-responsive parallaximg sliderImg"
-                alt="img"
-              />
-            </div>
-          </div>
-          <!--/.slider slider-v1-->
-        </div>
-        <!--/.slider-content-->
+      <div class="searchInputBox pull-right">
+        <input type="search" data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search"
+          class="search-input" />
+        <button class="btn-nobg search-btn" type="submit">
+          <i class="fa fa-search"> </i>
+        </button>
       </div>
-      <!--/.full-container-->
     </div>
-    <!--/.banner style1-->
+    <!--/.search-full-->
+  </div>
+  <!-- /.Fixed navbar  -->
 
-    <hr />
+  <div class="banner">
+    <div class="full-container">
+      <div class="slider-content">
+        <ul id="pager2" class="container"></ul>
+        <!-- prev/next links -->
 
-    <div class="container">
-      <div class="featuredImageLook3 row featuredPostContainer">
-        <h3 class="section-title style2 text-center">
-          <span>OUR CATEGORIES</span>
-        </h3>
-        <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-          <div class="inner">
-            <div class="box-content-overly box-content-overly-white">
-              <div class="box-text-table">
-                <div class="box-text-cell">
-                  <div class="box-text-cell-inner dark">
-                    <h1 class="uppercase">Programmers Merchandise</h1>
+        <span class="prevControl sliderControl">
+          <i class="fa fa-angle-left fa-3x"></i></span>
+        <span class="nextControl sliderControl">
+          <i class="fa fa-angle-right fa-3x"></i></span>
 
-                    <p>
-                      Veggies es bonus vobis, proinde vos postulo essum magis
-                      kohlrabi welsh onion daikon amaranth.
-                    </p>
-                    <hr class="submini" />
-                    <a class="btn btn-inverse">SHOP NOW</a>
+        <div class="slider slider-v1" data-cycle-swipe="true" data-cycle-prev=".prevControl"
+          data-cycle-next=".nextControl" data-cycle-loader="wait">
+          <div class="slider-item slider-item-img1">
+            <img src="images/slider/slider0.jpg" class="img-responsive parallaximg sliderImg" alt="img" />
+          </div>
+          <div class="slider-item slider-item-img1">
+            <div class="sliderInfo">
+              <div class="container">
+                <div class="col-lg-12 col-md-12 col-sm-12 sliderTextFull">
+                  <div class="inner text-center">
+                    <div class="topAnima animated">
+                      <h1 class="uppercase xlarge">GO ON BIG STYLE</h1>
+
+                      <h3 class="hidden-xs">Don't Miss</h3>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!--/.box-content-overly -->
-            <div class="img-title">CODERS</div>
-            <a class="img-block" href="#">
-              <img
-                class="img-responsive"
-                src="images/look3/1.jpg"
-                alt="img"
-              /></a>
+            <img src="images/slider/slider1.jpg" class="img-responsive parallaximg sliderImg" alt="img" />
+          </div>
+          <!--/.slider-item-->
+
+          <div class="slider-item slider-item-img2">
+            <div class="sliderInfo">
+              <div class="container">
+                <div class="col-lg-12 col-md-12 col-sm-12 sliderTextFull">
+                  <div class="inner dark maxwidth500 text-center animated topAnima">
+                    <div class="">
+                      <h1 class="uppercase xlarge">CUSTOM HTML BLOCK</h1>
+
+                      <h3 class="hidden-xs">Custom Slides to Your Slider</h3>
+                    </div>
+                    <a class="btn btn-danger btn-lg">SHOP NOW ON TSHOP
+                      <span class="arrowUnicode">►</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img src="images/slider/slider3.jpg" class="img-responsive parallaximg sliderImg" alt="img" />
+          </div>
+          <!--/.slider-item-->
+
+          <div class="slider-item slider-item-img3">
+            <div class="sliderInfo">
+              <div class="container">
+                <div class="col-lg-5 col-md-4 col-sm-6 col-xs-8 pull-left sliderText white hidden-xs">
+                  <div class="inner">
+                    <h1>TSHOP JEANS</h1>
+
+                    <h3 class="price">Free Shipping on ₹100</h3>
+
+                    <p class="hidden-xs">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing
+                      elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+                      dolore magna aliquam erat volutpat.
+                    </p>
+                    <a href="category.html" class="btn btn-primary">SHOP NOW
+                      <span class="arrowUnicode">►</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img src="images/slider/slider4.jpg" class="img-responsive parallaximg sliderImg" alt="img" />
+          </div>
+          <!--/.slider-item-->
+
+          <div class="slider-item slider-item-img3">
+            <div class="sliderInfo">
+              <div class="container">
+                <div class="col-lg-5 col-md-6 col-sm-5 col-xs-5 pull-left sliderText blankstyle transformRight">
+                  <div class="inner text-right">
+                    <img src="images/slider/color.png" class="img-responsive" alt="img" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-7 pull-left sliderText blankstyle color-white">
+                  <div class="inner">
+                    <h1 class="uppercase topAnima animated">
+                      10+ Amazing Color Theme
+                    </h1>
+
+                    <p class="bot tomAnima animated opacity0 hidden-xs">
+                      Fully responsive bootstrap Ecommerce Template. Available
+                      in 10+ color schemes and easy to set.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img src="images/slider/6.jpg" class="img-responsive parallaximg sliderImg" alt="img" />
           </div>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-          <div class="inner">
-            <div class="box-content-overly box-content-overly-white">
-              <div class="box-text-table">
-                <div class="box-text-cell">
-                  <div class="box-text-cell-inner dark">
-                    <h1 class="uppercase">Designers</h1>
+        <!--/.slider slider-v1-->
+      </div>
+      <!--/.slider-content-->
+    </div>
+    <!--/.full-container-->
+  </div>
+  <!--/.banner style1-->
 
-                    <p>
-                      Veggies es bonus vobis, proinde vos postulo essum magis
-                      kohlrabi welsh onion daikon amaranth.
-                    </p>
-                    <hr class="submini" />
-                    <a class="btn btn-inverse"> SHOP NOW</a>
-                  </div>
+  <hr />
+
+  <div class="container">
+    <div class="featuredImageLook3 row featuredPostContainer">
+      <h3 class="section-title style2 text-center">
+        <span>OUR CATEGORIES</span>
+      </h3>
+      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
+        <div class="inner">
+          <div class="box-content-overly box-content-overly-white">
+            <div class="box-text-table">
+              <div class="box-text-cell">
+                <div class="box-text-cell-inner dark">
+                  <h1 class="uppercase">Programmers Merchandise</h1>
+
+                  <p>
+                    Veggies es bonus vobis, proinde vos postulo essum magis
+                    kohlrabi welsh onion daikon amaranth.
+                  </p>
+                  <hr class="submini" />
+                  <a class="btn btn-inverse">SHOP NOW</a>
                 </div>
               </div>
             </div>
-            <!--/.box-content-overly -->
-            <div class="img-title">KOLLYWOOD</div>
-            <a class="img-block" href="#">
-              <img
-                class="img-responsive"
-                src="images/look3/2.jpg"
-                alt="img"
-              /></a>
           </div>
+          <!--/.box-content-overly -->
+          <div class="img-title">CODERS</div>
+          <a class="img-block" href="#">
+            <img class="img-responsive" src="images/look3/1.jpg" alt="img" /></a>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-          <div class="inner">
-            <div class="box-content-overly box-content-overly-white">
-              <div class="box-text-table">
-                <div class="box-text-cell">
-                  <div class="box-text-cell-inner dark">
-                    <h1 class="uppercase">Sale Offers</h1>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
+        <div class="inner">
+          <div class="box-content-overly box-content-overly-white">
+            <div class="box-text-table">
+              <div class="box-text-cell">
+                <div class="box-text-cell-inner dark">
+                  <h1 class="uppercase">Designers</h1>
 
-                    <p>
-                      Veggies es bonus vobis, proinde vos postulo essum magis
-                      kohlrabi welsh onion daikon amaranth.
-                    </p>
-                    <hr class="submini" />
-                    <a class="btn btn-inverse"> SHOP NOW</a>
-                  </div>
+                  <p>
+                    Veggies es bonus vobis, proinde vos postulo essum magis
+                    kohlrabi welsh onion daikon amaranth.
+                  </p>
+                  <hr class="submini" />
+                  <a class="btn btn-inverse"> SHOP NOW</a>
                 </div>
               </div>
             </div>
-            <!--/.box-content-overly -->
-            <div class="img-title">CHENNAI SUPER KINGS</div>
-            <a class="img-block" href="#">
-              <img
-                class="img-responsive"
-                src="images/look3/3.jpg"
-                alt="img"
-              /></a>
           </div>
+          <!--/.box-content-overly -->
+          <div class="img-title">KOLLYWOOD</div>
+          <a class="img-block" href="#">
+            <img class="img-responsive" src="images/look3/2.jpg" alt="img" /></a>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-          <div class="inner">
-            <div class="box-content-overly box-content-overly-white">
-              <div class="box-text-table">
-                <div class="box-text-cell">
-                  <div class="box-text-cell-inner dark">
-                    <h1 class="uppercase">T Collections</h1>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
+        <div class="inner">
+          <div class="box-content-overly box-content-overly-white">
+            <div class="box-text-table">
+              <div class="box-text-cell">
+                <div class="box-text-cell-inner dark">
+                  <h1 class="uppercase">Sale Offers</h1>
 
-                    <p>
-                      Veggies es bonus vobis, proinde vos postulo essum magis
-                      kohlrabi welsh onion daikon amaranth.
-                    </p>
-                    <hr class="submini" />
-                    <a class="btn btn-inverse"> SHOP NOW</a>
-                  </div>
+                  <p>
+                    Veggies es bonus vobis, proinde vos postulo essum magis
+                    kohlrabi welsh onion daikon amaranth.
+                  </p>
+                  <hr class="submini" />
+                  <a class="btn btn-inverse"> SHOP NOW</a>
                 </div>
               </div>
             </div>
-            <!--/.box-content-overly -->
-            <div class="img-title">FOOTBALL</div>
-            <a class="img-block" href="#">
-              <img
-                class="img-responsive"
-                src="images/look3/4.jpg"
-                alt="img"
-                style="
+          </div>
+          <!--/.box-content-overly -->
+          <div class="img-title">CHENNAI SUPER KINGS</div>
+          <a class="img-block" href="#">
+            <img class="img-responsive" src="images/look3/3.jpg" alt="img" /></a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
+        <div class="inner">
+          <div class="box-content-overly box-content-overly-white">
+            <div class="box-text-table">
+              <div class="box-text-cell">
+                <div class="box-text-cell-inner dark">
+                  <h1 class="uppercase">T Collections</h1>
+
+                  <p>
+                    Veggies es bonus vobis, proinde vos postulo essum magis
+                    kohlrabi welsh onion daikon amaranth.
+                  </p>
+                  <hr class="submini" />
+                  <a class="btn btn-inverse"> SHOP NOW</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/.box-content-overly -->
+          <div class="img-title">FOOTBALL</div>
+          <a class="img-block" href="#">
+            <img class="img-responsive" src="images/look3/4.jpg" alt="img" style="
                   background-size: cover;
                   background-position: center;
                   background-repeat: no-repeat;
                   overflow: hidden;
-                "
-              /></a>
+                " /></a>
+        </div>
+      </div>
+    </div>
+    <!--/.featuredImageLook3-->
+  </div>
+  <!--/.featuredPostContainer-->
+
+  <div class="container main-container">
+    <!-- Main component call to action -->
+
+    <div class="row featuredPostContainer globalPadding style2">
+      <h3 class="section-title style2 text-center">
+        <span>FEATURED PRODUCTS</span>
+      </h3>
+
+      <div id="productslider" class="owl-carousel owl-theme">
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/1.jpg" alt="img" class="img-responsive" /></a>
+
+              <div class="promotion">
+                <span class="new-product"> NEW</span>
+                <span class="discount">15% OFF</span>
+              </div>
+            </div>
+            <div class="description">
+              <h4>
+                <a href="product-details.html">consectetuer adipiscing </a>
+              </h4>
+
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/2.jpg" alt="img" class="img-responsive" /></a>
+
+              <div class="promotion">
+                <span class="discount">15% OFF</span>
+              </div>
+            </div>
+            <div class="description">
+              <h4>
+                <a href="product-details.html">luptatum zzril delenit</a>
+              </h4>
+
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/3.jpg" alt="img" class="img-responsive" /></a>
+
+              <div class="promotion">
+                <span class="new-product"> NEW</span>
+              </div>
+            </div>
+            <div class="description">
+              <h4><a href="product-details.html">eleifend option </a></h4>
+
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/4.jpg" alt="img" class="img-responsive" /></a>
+            </div>
+            <div class="description">
+              <h4>
+                <a href="product-details.html">mutationem consuetudium </a>
+              </h4>
+
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/12.jpg" alt="img" class="img-responsive" /></a>
+            </div>
+            <div class="description">
+              <h4><a href="product-details.html">sequitur mutationem </a></h4>
+
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/13.jpg" alt="img" class="img-responsive" /></a>
+            </div>
+            <div class="description">
+              <h4>
+                <a href="product-details.html">consuetudium lectorum.</a>
+              </h4>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/21.jpg" alt="img" class="img-responsive" /></a>
+            </div>
+            <div class="description">
+              <h4><a href="product-details.html">parum claram</a></h4>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/24.jpg" alt="img" class="img-responsive" /></a>
+            </div>
+            <div class="description">
+              <h4><a href="product-details.html">duis dolore </a></h4>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="product">
+            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
+              data-placement="left">
+              <i class="glyphicon glyphicon-heart"></i>
+            </a>
+
+            <div class="image">
+              <div class="quickview">
+                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
+                  data-target="#productSetailsModalAjax">Quick View
+                </a>
+              </div>
+              <a href="product-details.html"><img src="images/product/15.jpg" alt="img" class="img-responsive" /></a>
+            </div>
+            <div class="description">
+              <h4>
+                <a href="product-details.html">feugait nulla facilisi</a>
+              </h4>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <span class="size">XL / XXL / S </span>
+            </div>
+            <div class="price"><span>₹25</span></div>
+            <div class="action-control">
+              <a class="btn btn-primary">
+                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
+                  Add to cart
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-      <!--/.featuredImageLook3-->
+      <!--/.productslider-->
     </div>
     <!--/.featuredPostContainer-->
+  </div>
 
-    <div class="container main-container">
-      <!-- Main component call to action -->
-
-      <div class="row featuredPostContainer globalPadding style2">
-        <h3 class="section-title style2 text-center">
-          <span>FEATURED PRODUCTS</span>
-        </h3>
-
-        <div id="productslider" class="owl-carousel owl-theme">
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/1.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-
-                <div class="promotion">
-                  <span class="new-product"> NEW</span>
-                  <span class="discount">15% OFF</span>
-                </div>
-              </div>
-              <div class="description">
-                <h4>
-                  <a href="product-details.html">consectetuer adipiscing </a>
-                </h4>
-
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/2.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-
-                <div class="promotion">
-                  <span class="discount">15% OFF</span>
-                </div>
-              </div>
-              <div class="description">
-                <h4>
-                  <a href="product-details.html">luptatum zzril delenit</a>
-                </h4>
-
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/3.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-
-                <div class="promotion">
-                  <span class="new-product"> NEW</span>
-                </div>
-              </div>
-              <div class="description">
-                <h4><a href="product-details.html">eleifend option </a></h4>
-
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/4.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-              </div>
-              <div class="description">
-                <h4>
-                  <a href="product-details.html">mutationem consuetudium </a>
-                </h4>
-
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/12.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-              </div>
-              <div class="description">
-                <h4><a href="product-details.html">sequitur mutationem </a></h4>
-
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/13.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-              </div>
-              <div class="description">
-                <h4>
-                  <a href="product-details.html">consuetudium lectorum.</a>
-                </h4>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/21.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-              </div>
-              <div class="description">
-                <h4><a href="product-details.html">parum claram</a></h4>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/24.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-              </div>
-              <div class="description">
-                <h4><a href="product-details.html">duis dolore </a></h4>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product">
-              <a
-                class="add-fav tooltipHere"
-                data-toggle="tooltip"
-                data-original-title="Add to Wishlist"
-                data-placement="left"
-              >
-                <i class="glyphicon glyphicon-heart"></i>
-              </a>
-
-              <div class="image">
-                <div class="quickview">
-                  <a
-                    data-toggle="modal"
-                    class="btn btn-xs btn-quickview"
-                    href="ajax/product.html"
-                    data-target="#productSetailsModalAjax"
-                  >Quick View
-                  </a>
-                </div>
-                <a href="product-details.html"><img
-                    src="images/product/15.jpg"
-                    alt="img"
-                    class="img-responsive"
-                  /></a>
-              </div>
-              <div class="description">
-                <h4>
-                  <a href="product-details.html">feugait nulla facilisi</a>
-                </h4>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span class="size">XL / XXL / S </span>
-              </div>
-              <div class="price"><span>₹25</span></div>
-              <div class="action-control">
-                <a class="btn btn-primary">
-                  <span class="add2cart"><i
-                      class="glyphicon glyphicon-shopping-cart"
-                    > </i>
-                    Add to cart
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--/.productslider-->
-      </div>
-      <!--/.featuredPostContainer-->
-    </div>
-
-    <div class="parallax-section parallax-image-2">
-      <div class="w100 parallax-section-overley">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="parallax-content clearfix">
-                <h1 class="xlarge">Trusted Seller 500+</h1>
-                <h5 class="parallaxSubtitle">
-                  Lorem ipsum dolor sit amet consectetuer
-                </h5>
-              </div>
+  <div class="parallax-section parallax-image-2">
+    <div class="w100 parallax-section-overley">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="parallax-content clearfix">
+              <h1 class="xlarge">Trusted Seller 500+</h1>
+              <h5 class="parallaxSubtitle">
+                Lorem ipsum dolor sit amet consectetuer
+              </h5>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--/.parallax-section-->
+  </div>
+  <!--/.parallax-section-->
 
-    <!-- Product Details Modal  -->
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="productSetailsModalAjax"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="productSetailsModalAjaxLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content"></div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
+  <!-- Product Details Modal  -->
+  <!-- Modal -->
+  <div class="modal fade" id="productSetailsModalAjax" tabindex="-1" role="dialog"
+    aria-labelledby="productSetailsModalAjaxLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
-    <!-- End Modal -->
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- End Modal -->
 
-    <!-- Modal Login start -->
-    <div
-      class="modal signUpContent fade"
-      id="ModalLogin"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-hidden="true"
-            >
-              &times;
-            </button>
-            <h3 class="modal-title-site text-center">Login to LF-Kart</h3>
-          </div>
-          <div class="modal-body">
-            <form action="/login" method="POST">
-              <div class="form-group login-username">
-                <div>
-                  <input
-                    name="email"
-                    id="login-user"
-                    class="form-control input"
-                    size="20"
-                    placeholder="Enter Username"
-                    type="email"
-                  />
-                </div>
-              </div>
-              <div class="form-group login-password">
-                <div>
-                  <input
-                    name="password"
-                    id="login-password"
-                    class="form-control input"
-                    size="20"
-                    placeholder="Password"
-                    type="password"
-                  />
-                </div>
-              </div>
+  <!-- Modal Login start -->
+  <div class="modal signUpContent fade" id="ModalLogin" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h3 class="modal-title-site text-center">Login to LF-Kart</h3>
+        </div>
+        <div class="modal-body">
+          <form action="/login" method="POST">
+            <div class="form-group login-username">
               <div>
-                <div>
-                  <input
-                    class="btn btn-block btn-lg btn-primary"
-                    value="LOGIN"
-                    type="submit"
-                  />
-                </div>
+                <input name="email" id="login-user" class="form-control input" size="20" placeholder="Enter Username"
+                  type="email" />
               </div>
-            </form>
-            <!--userForm-->
-          </div>
-          <div class="modal-footer">
-            <p class="text-center">
-              Not here before?
-              <a data-toggle="modal" data-dismiss="modal" href="#ModalSignup">
-                Sign Up.
-              </a>
-              <br />
-              <a href="forgot-password.html"> Lost your password? </a>
-            </p>
-          </div>
+            </div>
+            <div class="form-group login-password">
+              <div>
+                <input name="password" id="login-password" class="form-control input" size="20" placeholder="Password"
+                  type="password" />
+              </div>
+            </div>
+            <div>
+              <div>
+                <input class="btn btn-block btn-lg btn-primary" value="LOGIN" type="submit" />
+              </div>
+            </div>
+          </form>
+          <!--userForm-->
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-footer">
+          <p class="text-center">
+            Not here before?
+            <a data-toggle="modal" data-dismiss="modal" href="#ModalSignup">
+              Sign Up.
+            </a>
+            <br />
+            <a href="forgot-password.html"> Lost your password? </a>
+          </p>
+        </div>
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
     </div>
-    <!-- /.Modal Login -->
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.Modal Login -->
 
-    <!-- Modal Signup start -->
-    <div
-      class="modal signUpContent fade"
-      id="ModalSignup"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-hidden="true"
-            >
-              &times;
-            </button>
-            <h3 class="modal-title-site text-center">REGISTER</h3>
-          </div>
-          <div class="modal-body">
-            {{! <div class="control-group">
+  <!-- Modal Signup start -->
+  <div class="modal signUpContent fade" id="ModalSignup" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h3 class="modal-title-site text-center">REGISTER</h3>
+        </div>
+        <div class="modal-body">
+          {{! <div class="control-group">
             <a class="fb_button btn btn-block btn-lg" href="#">
               SIGNUP WITH FACEBOOK
             </a>
           </div>
           <h5 style="padding: 10px 0 10px 0" class="text-center">OR</h5> }}
-            <form action="/signup" method="POST" id="signupForm">
-              <div class="form-group reg-username">
-                <div>
-                  <input
-                    id="username"
-                    name="username"
-                    class="form-control input"
-                    size="20"
-                    placeholder="Enter Username"
-                    minlength="3"
-                    maxlength="9"
-                    type="text"
-                    required
-                  />
-                  <label for="username"><span
-                      class="pattern"
-                      style="font-size: 0.8em;
-	                    font-weight: normal;"
-                    >Must be between 3 and 9 characters long</span></label>
-                </div>
+          <form action="/signup" method="POST" id="signupForm">
+            <div class="form-group reg-username">
+              <div>
+                <input id="username" name="username" class="form-control input" size="20" placeholder="Enter Username"
+                  minlength="3" maxlength="9" type="text" required />
+                <label for="username"><span class="pattern" style="font-size: 0.8em;
+	                    font-weight: normal;">Must be between 3 and 9 characters long</span></label>
               </div>
-              <div class="form-group reg-email">
-                <div>
-                  <input
-                    name="email"
-                    class="form-control input"
-                    size="15"
-                    placeholder="Enter Email"
-                    type="email"
-                    required
-                  />
-                  {{! <input type="email" name="email" id="email"
+            </div>
+            <div class="form-group reg-email">
+              <div>
+                <input name="email" class="form-control input" size="15" placeholder="Enter Email" type="email"
+                  required />
+                {{! <input type="email" name="email" id="email"
                   data-bouncer-message="The domain portion of the email address is invalid (the portion after the @)."
                   required> }}
-                </div>
               </div>
-              <div class="form-group reg-phone">
-                <div>
-                  <input
-                    name="phonenumber"
-                    class="form-control input"
-                    size="10"
-                    placeholder="Enter Phone Number"
-                    type="text"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group reg-password">
-                <div>
-                  <input
-                    name="password"
-                    class="form-control input"
-                    size="20"
-                    placeholder="Password"
-                    type="password"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-group reg-password">
-                <div>
-                  <input
-                    name="confirmpassword"
-                    class="form-control input"
-                    size="20"
-                    placeholder="Confirm Password"
-                    type="password"
-                    required
-                  />
-                </div>
-              </div>
-              {{! <div class="form-group">
+            </div>
+            <div class="form-group reg-phone">
               <div>
-                <div class="checkbox login-remember">
-                  <label>
-                    <input name="rememberme" id="rememberme" value="forever" checked="checked" type="checkbox" />
-                    Remember Me
-                  </label>
-                </div>
-              </div>}}
-              <div>
-                <div>
-                  <input
-                    class="btn btn-block btn-lg btn-primary"
-                    value="REGISTER"
-                    type="submit"
-                  />
-                </div>
+                <input name="phonenumber" class="form-control input" size="10" placeholder="Enter Phone Number"
+                  type="text" required />
               </div>
-            </form>
+            </div>
+            <div class="form-group reg-password">
+              <div>
+                <input name="password" class="form-control input" size="20" placeholder="Password" type="password"
+                  required />
+              </div>
+            </div>
+            <div class="form-group reg-password">
+              <div>
+                <input name="confirmpassword" class="form-control input" size="20" placeholder="Confirm Password"
+                  type="password" required />
+              </div>
+            </div>
+            {{!-- otp input--}}
+            <div class="form-group reg-password">
+              <div>
+                <button class="btn btn-primary" type="button" id="inputGroupFileAddon03">Send OTP</button>
+                <input name="confirmpassword" class="form-control input" size="20" placeholder="Enter OTP"
+                  type="password" required />
+              </div>
+            </div>
 
-            {{!-- {{#if userExists}}
+
+
+            <div>
+              <div>
+                <input id="registerBtn" class="btn btn-block btn-lg btn-primary" value="REGISTER" type="submit" />
+              </div>
+            </div>
+          </form>
+
+          {{!-- otp thing --}}
+          <script>
+            $.ajax({
+              type: "GET",
+              url: "/theURL" // Modify the url according to your application logic
+            }).done(function (yourData) {
+              // Now open the modal! (Assuming you are using bootstrap.js)
+              $("#yourModal").modal("show");
+            });
+          </script>
+
+          {{!-- {{#if userExists}}
           <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 
           <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -1792,123 +1515,115 @@
           </div>
           {{/if}} --}}
 
-            {{! form validation }}
-            <script>
-              var bouncer = new Bouncer('[data-validate]', { disableSubmit:
-              true, customValidations: { valueMismatch: function (field) { //
+          {{! form validation }}
+          <script>
+            var bouncer = new Bouncer('[data-validate]', {
+              disableSubmit:
+                true, customValidations: {
+                  valueMismatch: function (field) { //
               Look for a selector for a field to compare // If there isn't one,
-              return false (no error) var selector =
-              field.getAttribute('data-bouncer-match'); if (!selector) return
-              false; // Get the field to compare var otherField =
-              field.form.querySelector(selector); if (!otherField) return false;
+                    return false(no error) var selector =
+                      field.getAttribute('data-bouncer-match'); if (!selector) return
+                    false; // Get the field to compare var otherField =
+                    field.form.querySelector(selector); if (!otherField) return false;
               // Compare the two field values // We use a negative comparison
               here because if they do match, the field validates // We want to
-              return true for failures, which can be confusing return
-              otherField.value !== field.value; } }, messages: { valueMismatch:
-              function (field) { var customMessage =
-              field.getAttribute('data-bouncer-mismatch-message'); return
-              customMessage ? customMessage : 'Please make sure the fields
-              match.' } } }); document.addEventListener('bouncerFormInvalid',
-              function (event) { console.log(event.detail.errors);
-              console.log(event.detail.errors[0].offsetTop); window.scrollTo(0,
-              event.detail.errors[0].offsetTop); }, false);
-              document.addEventListener('bouncerFormValid', function () {
+                    return true for failures, which can be confusing return
+                    otherField.value !== field.value;
+                  }
+                }, messages: {
+                  valueMismatch:
+                    function (field) {
+                      var customMessage =
+                        field.getAttribute('data-bouncer-mismatch-message'); return
+                      customMessage ? customMessage : 'Please make sure the fields
+                      match.' } } }); document.addEventListener('bouncerFormInvalid',
+                      function (event) {
+                        console.log(event.detail.errors);
+                        console.log(event.detail.errors[0].offsetTop); window.scrollTo(0,
+                          event.detail.errors[0].offsetTop);
+                      }, false);
+            document.addEventListener('bouncerFormValid', function () {
               alert('Form submitted successfully!'); window.location.reload();
-              }, false);
-            </script>
+            }, false);
+          </script>
 
-            <!--userForm-->
-          </div>
-          <div class="modal-footer">
-            <p class="text-center">
-              Already member?
-              <a data-toggle="modal" data-dismiss="modal" href="#ModalLogin">
-                Sign in
-              </a>
-            </p>
-          </div>
+          <!--userForm-->
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-footer">
+          <p class="text-center">
+            Already member?
+            <a data-toggle="modal" data-dismiss="modal" href="#ModalLogin">
+              Sign in
+            </a>
+          </p>
+        </div>
       </div>
-      <!-- /.modal-dialog -->
+      <!-- /.modal-content -->
     </div>
-    <!-- /.ModalSignup End -->
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.ModalSignup End -->
 
-    <!-- Le javascript
+  <!-- Le javascript
 ================================================== -->
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    {{! jquery form validation- added by Liston Fermi }}
-    <script
-      src="https://cdn.jsdelivr.net/gh/cferdinandi/bouncer@1/dist/bouncer.polyfills.min.js"
-    ></script>
+  <!-- Placed at the end of the document so the pages load faster -->
+  {{! jquery form validation- added by Liston Fermi }}
+  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/bouncer@1/dist/bouncer.polyfills.min.js"></script>
 
-    <script src="assets/js/jquery/jquery-2.1.3.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script>
-      // this script required for subscribe modal $(window).load(function () {
-      // full load $("#modalAds").modal("show");
-      $("#modalAds").removeClass("hide"); });
-    </script>
+  <script src="assets/js/jquery/jquery-2.1.3.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    // this script required for subscribe modal $(window).load(function () {
+    // full load $("#modalAds").modal("show");
+    $("#modalAds").removeClass("hide"); });
+  </script>
 
-    <!-- include jqueryCycle plugin -->
-    <script src="assets/js/jquery.cycle2.min.js"></script>
+  <!-- include jqueryCycle plugin -->
+  <script src="assets/js/jquery.cycle2.min.js"></script>
 
-    <!-- include easing plugin -->
-    <script src="assets/js/jquery.easing.1.3.js"></script>
+  <!-- include easing plugin -->
+  <script src="assets/js/jquery.easing.1.3.js"></script>
 
-    <!-- include  parallax plugin -->
-    <script
-      type="text/javascript"
-      src="assets/js/jquery.parallax-1.1.js"
-    ></script>
+  <!-- include  parallax plugin -->
+  <script type="text/javascript" src="assets/js/jquery.parallax-1.1.js"></script>
 
-    <!-- optionally include helper plugins -->
-    <script
-      type="text/javascript"
-      src="assets/js/helper-plugins/jquery.mousewheel.min.js"
-    ></script>
+  <!-- optionally include helper plugins -->
+  <script type="text/javascript" src="assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
 
-    <!-- include mCustomScrollbar plugin //Custom Scrollbar  -->
+  <!-- include mCustomScrollbar plugin //Custom Scrollbar  -->
 
-    <script
-      type="text/javascript"
-      src="assets/js/jquery.mCustomScrollbar.js"
-    ></script>
+  <script type="text/javascript" src="assets/js/jquery.mCustomScrollbar.js"></script>
 
-    <!-- include icheck plugin // customized checkboxes and radio buttons   -->
-    <script
-      type="text/javascript"
-      src="assets/plugins/icheck-1.x/icheck.min.js"
-    ></script>
+  <!-- include icheck plugin // customized checkboxes and radio buttons   -->
+  <script type="text/javascript" src="assets/plugins/icheck-1.x/icheck.min.js"></script>
 
-    <!-- include grid.js // for equal Div height  -->
-    <script
-      src="assets/plugins/jquery-match-height-master/dist/jquery.matchHeight-min.js"
-    ></script>
-    <script src="assets/js/grids.js"></script>
+  <!-- include grid.js // for equal Div height  -->
+  <script src="assets/plugins/jquery-match-height-master/dist/jquery.matchHeight-min.js"></script>
+  <script src="assets/js/grids.js"></script>
 
-    <!-- include carousel slider plugin  -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+  <!-- include carousel slider plugin  -->
+  <script src="assets/js/owl.carousel.min.js"></script>
 
-    <!-- jQuery select2 // custom select   -->
-    <script
-      src="../../../../cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"
-    ></script>
+  <!-- jQuery select2 // custom select   -->
+  <script src="../../../../cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
-    <!-- include touchspin.js // touch friendly input spinner component   -->
-    <script src="assets/js/bootstrap.touchspin.js"></script>
+  <!-- include touchspin.js // touch friendly input spinner component   -->
+  <script src="assets/js/bootstrap.touchspin.js"></script>
 
-    <!-- include custom script for only homepage  -->
-    <script src="assets/js/home.js"></script>
+  <!-- include custom script for only homepage  -->
+  <script src="assets/js/home.js"></script>
 
-    <script src="assets/js/grids.js"></script>
-    <script src="assets/js/enquire.min.js"></script>
-    <!-- include custom script for site  -->
-    <script src="assets/js/script.js"></script>
-    <script></script>
-  </body>
+  <script src="assets/js/grids.js"></script>
+  <script src="assets/js/enquire.min.js"></script>
+  <!-- include custom script for site  -->
+  <script src="assets/js/script.js"></script>
 
-  <!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:51:32 GMT -->
+
+
+</body>
+
+<!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:51:32 GMT -->
 
 </html>
