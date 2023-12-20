@@ -7,6 +7,7 @@ const adminRoutes= require('./routes/adminRoutes.js')
 const session= require('express-session')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
+const hbs= require('handlebars')
 
 //connecting db
 const dbConnect= require('./config/config.js')
@@ -25,6 +26,9 @@ app.use((req, res, next) => {
 //setting view engine and giving the path of static pages
 app.set('view engine','hbs')
 app.use(express.static(path.join(__dirname,'public')))
+hbs.registerHelper('arrayIndex', function(array, index) {
+  return array[index];
+});
 
 //express-session
 app.use(

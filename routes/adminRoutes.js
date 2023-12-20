@@ -20,4 +20,8 @@ adminRouter.post('/categoryManagement/add', adminAuth, upload.single('categoryIm
 adminRouter.get('/categoryManagement/edit/:id', adminAuth, adminController.editCategory)
 adminRouter.get('/categoryManagement/delete/:id', adminAuth, adminController.deleteCategory)
 
+//product management
+adminRouter.get('/productManagement', adminAuth, adminController.productManagement)
+
+
 module.exports= adminRouter

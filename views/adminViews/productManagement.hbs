@@ -32,7 +32,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Categories</a>
                         </li>
                         <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Products</a>
+                            <a class="nav-link active" aria-current="page" href="#">Products</a>
                         </li>
                         <li class="nav-item fw-bold">
                             <a class="nav-link" aria-current="page" href="#">Orders</a>
@@ -50,7 +50,7 @@
         <div class="pt-3">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Add new Category
+                Add New Product
             </button>
         </div>
 
@@ -59,22 +59,34 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/admin/categoryManagement/add" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/productManagement/add" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="input-group mb-3">
-                                <input name="categoryName" type="text" class="form-control" placeholder="Category Name" required>
+                            <input name="productName" type="name" class="form-control" placeholder="Product Name">
                             </div>
                             <div class="input-group mb-3">
-                                <input name="description" type="text" class="form-control pb-5"
-                                    placeholder="Description" required>
+                                <label class="container">
+                                    <span>Select Category</span>
+                                    {{#each categoryList}}
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option value="">{{this.categoryName}}</option>
+                                    </select>
+                                     {{/each}}
+                                </label>
                             </div>
                             <div class="input-group mb-3">
-                                <input name="categoryImage" type="file" class="form-control"
-                                    placeholder="Category Image" required>
+                            <input name="productImage1" type="file" class="form-control" placeholder="Product Image1">
                             </div>
+                            <div class="input-group mb-3">
+                            <input name="productImage2" type="file" class="form-control" placeholder="Product Image2">
+                            </div>
+                            <div class="input-group mb-3">
+                            <input name="productImage3" type="file" class="form-control" placeholder="Product Image3">
+                            </div>
+                            <input name="productPrice" type="number" class="form-control" placeholder="Product Price">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -90,29 +102,33 @@
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Category Name</th>
-                        <th>Description</th>
-                        <th>Category Image</th>
-                        <th>List/Unlist</th>
+                        <th>Product Name</th>
+                        <th>Product Image1</th>
+                        <th>Product Image2</th>
+                        <th>Product Image3</th>
+                        <th>Price</th>
+                        <th>In Stock</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each categoryData}}
+                    {{#each productData}}
                     <tr>
-                        <td>{{this.categoryName}}</td>
-                        <td>{{this.categoryDescription}}</td>
-                        <td>{{this.categoryImage}}</td>
-                        {{#if this.isListed}}
+                        <td>{{this.productName}}</td>
+                        <td>{{this.productImage1}}</td>
+                        <td>{{this.productImage2}}</td>
+                        <td>{{this.productImage3}}</td>
+                        <td>{{this.productPrice}}</td>
+                        {{#if this.inStock}}
                         <td>
-                            <form action="/admin/categoryManagement/unList/{{this._id}}" method="POST">
-                                <button type="submit" class="btn btn-danger">Unlist</button>
+                            <form action="/admin/productManagement/unList/{{this._id}}" method="POST">
+                                <button type="submit" class="btn btn-danger">Make Unavailabe</button>
                             </form>
                         </td>
                         {{else}}
                         <td>
-                            <form action="/admin/categoryManagement/list/{{this._id}}" method="POST">
-                                <button type="submit" class="btn btn-success">List</button>
+                            <form action="/admin/productManagement/list/{{this._id}}" method="POST">
+                                <button type="submit" class="btn btn-success">Make Availabe</button>
                             </form>
                         </td>
                         {{/if}}
@@ -121,11 +137,10 @@
                                 data-bs-target="#editModal">
                                 <i class="fas fa-edit"></i>
                             </button>
-
-                            <button type="button" class="btn btn-info"><a href="/admin/categoryManagement/delete/{{this._id}}">
-                            <i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <button>
+                                <a href="/admin/productManagement/delete/{{this._id}}"><i class="fa fa-trash"
+                                        aria-hidden="true"></i></a>
                             </button>
-
                         </td>
                     </tr>
                     <!-- Modal  -->
@@ -138,21 +153,19 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form action="/admin/categoryManagement/edit" method="POST"
+                                <form action="/admin/productManagement/edit" method="POST"
                                     enctype="multipart/form-data">
                                     <div class="modal-body">
-                                        <div class="input-group mb-3">
-                                            <input name="categoryName" type="text" class="form-control"
-                                                value="{{this.categoryName}}">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input name="description" type="text" class="form-control pb-5"
-                                                value="{{this.categoryDescription}}">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input name="categoryImage" type="file" class="form-control"
-                                                value="{{this.categoryImage}}">
-                                        </div>
+                                        <input name="categoryName" type="text" class="form-control"
+                                            value="{{this.productName}}">
+                                        <input name="categoryName" type="text" class="form-control"
+                                            value="{{this.productImage1}}">
+                                        <input name="categoryName" type="text" class="form-control"
+                                            value="{{this.productImage2}}">
+                                        <input name="categoryName" type="text" class="form-control"
+                                            value="{{this.productImage3}}">
+                                        <input name="categoryName" type="text" class="form-control"
+                                            value="{{this.productPrice}}">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"

@@ -803,36 +803,19 @@
           <div class="col-xs-12 col-sm-6">
             <h2 class="block-title-2"> Confirm Your OTP </h2>
 
-            <form action="/otp" method="POST" role="form" class="regForm">
+            <form action="/signup" method="POST" role="form" class="regForm">
               <div class="form-group">
-                <label>Username</label>
-                <input name="username" title="Please enter your username (at least 3 characters)" type="text" class="form-control"
-                  placeholder="Enter name" required minlength="3">
+                <input id="OTP" type="hidden" class="form-control" value="{{currentOTP}}">
               </div>
               <div class="form-group">
-                <label>Email address</label>
-                <input name="email" title="Please enter valid email" type="email" class="form-control" placeholder="Enter email"
-                  required>
+                <label>OTP</label>
+                <input name="OTP" title="Invalid OTP" type="tel" class="form-control" placeholder="Enter your OTP"
+                  required data-rule-equalTo="#OTP">
               </div>
               <div class="form-group">
-                <label>Phone Number</label>
-                <input name="phonenumber" title="Please enter valid email" type="number" class="form-control"
-                  placeholder="Enter phone number" required>
+                <label>Time Left: </label>
               </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input name="password" required id="password" minlength="5" title="Please enter your password, between 5 and 12 characters"
-                  type="password" class="form-control" placeholder="Password">
-              </div>
-              <div class="form-group">
-                <label>Confirm Password</label>
-                <input required minlength="5" title="Please re-enter your password" id="confirmPass"
-                  type="password" class="form-control" placeholder="Confirm Password" data-rule-equalTo="#password">
-              </div>
-              <div class="error">
-              </div>
-
-              <button type="submit" class="btn   btn-primary"><i class="fa fa-user"></i> Create an account
+              <button type="submit" class="btn btn-primary"><i class="fa fa-user"></i> Create an account
               </button>
             </form>
           </div>

@@ -5,16 +5,17 @@ const transporter = require("../services/sendOTP.js");
 
 module.exports = {
   landingPage: (req, res) => {
-    res.render("userViews/landingPage", {
-      currentUser: req.session.exisitingUser || req.session.newUser,
-      invalidCredentials: req.session.invalidCredentials,
-    });
+    res.render("userViews/landingPage", { currentUser: req.cookies.userToken });
   },
   signupLoginPage: (req, res) => {
     res.render("userViews/signupLoginPage");
   },
-  signup: async (req, res) => {
-    let exisitingUser = await userCollection.findOne({ email: req.body.email });
+  userDetailsInModel: async (req, res, next) => {
+    let email = req.body.email;
+    let phonenumber = req.body.phonenumber;
+    let exisitingUser = await userCollection.findOne({
+      $or: [{ email }, { phonenumber }],
+    });
     if (!exisitingUser) {
       let encryptedPassword = bcrypt.hashSync(req.body.password, 10);
       let newUser = new userCollection({
@@ -22,17 +23,31 @@ module.exports = {
         email: req.body.email,
         phonenumber: req.body.phonenumber,
         password: encryptedPassword,
-      }).save();
-      const token = jwt.sign(req.body, process.env.MY_SECRET_KEY, {
-        expiresIn: "1h",
       });
-      res.cookie("token", token, { httpOnly: true });
-      req.session.newUser = newUser;
-      res.redirect("/");
+      req.session.tempUserData = newUser;
+      next();
     } else {
-      req.session.exisitingUser = exisitingUser;
-      res.redirect("/");
+      res.render("userViews/signupLoginPage", { emailPhoneExists: true });
     }
+  },
+  sendOTP: async (req, res) => {
+    const otp = Math.trunc(Math.random() * 10000);
+    req.session.otp = otp;
+    req.session.otpTime = new Date();
+    await transporter.sendMail({
+      from: `${process.env.GMAIL_ID}`,
+      to: `${req.body.email}`,
+      subject: "Registration OTP for LF-Kart",
+      text: `Your OTP is ${otp}`,
+    });
+    res.render("userViews/otpPage", { currentOTP: req.session.otp });
+  },
+  signup: async (req, res) => {
+    req.session.tempUserData.save()
+    const userToken = jwt.sign(req.body, process.env.MY_SECRET_KEY, { expiresIn: "1h"})
+    res.cookie("userToken", userToken, { httpOnly: true })
+    req.session.currentUser = 
+    res.redirect('/')
   },
   login: async (req, res) => {
     let exisitingUser = await userCollection.findOne({ email: req.body.email });
@@ -57,22 +72,9 @@ module.exports = {
     }
   },
   logout: async (req, res) => {
-    res.clearCookie("token");
+    res.clearCookie("userToken");
     req.session.exisitingUser = null;
     req.session.newUser = null;
     res.redirect("/");
-  },
-
-  //otp
-  sendOTP: async (req, res) => {
-    const otp = Math.trunc(Math.random() * 10000);
-    req.session.otp= otp
-    await transporter.sendMail({
-      from: `${process.env.GMAIL_ID}`,
-      to: `${req.body.email}`,
-      subject: "Registration OTP for LF-Kart",
-      text: `Your OTP is ${otp}`,
-    });
-    res.render('userViews/otpPage')
-  },
+  }
 };

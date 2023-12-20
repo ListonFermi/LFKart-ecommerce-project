@@ -2,6 +2,7 @@ const adminCollection= require('../models/adminModels.js')
 const jwt = require('jsonwebtoken');
 const userCollection = require('../models/userModels.js');
 const categoryCollection= require('../models/categoryModel.js');
+const productCollection = require('../models/productModels.js');
 
 
 module.exports={
@@ -62,5 +63,12 @@ module.exports={
     deleteCategory: async (req,res)=>{
         await categoryCollection.findOneAndDelete({_id: req.params.id})
         res.redirect('/admin/categoryManagement')
-    }
+    },
+
+    //product management
+    productManagement: async (req,res)=>{
+        let productData= await productCollection.find()
+        let categoryList = await categoryCollection.find({},{categoryName: true})
+        res.render('adminViews/productManagement', {productData, categoryList})
+    },
 }
