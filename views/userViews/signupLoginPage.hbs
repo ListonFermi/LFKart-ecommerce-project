@@ -815,8 +815,8 @@
               </div>
               <div class="form-group">
                 <label>Phone Number</label>
-                <input name="phonenumber" minlength="10" maxlength="10" title=" Enter 10 numbers" type="tel" class="form-control"
-                  placeholder="Enter phone number" required>
+                <input name="phonenumber" minlength="10" maxlength="10" title=" Enter 10 numbers" type="tel"
+                  class="form-control" placeholder="Enter phone number" required>
               </div>
               <div class="form-group">
                 <label>Password</label>
@@ -833,37 +833,40 @@
               </div>
               {{#if emailPhoneExists}}
               <div class="form-group">
-              <label style="color: red;">Email/Phone Number already exists!</label>
+                <label style="color: red;">Email/Phone Number already exists!</label>
               </div>
               {{/if}}
-              <button type="submit" class="btn   btn-primary"><i class="fa fa-user"></i> Create an account
-              </button>
+              <button type="submit" class="btn   btn-primary"><i class="fa fa-user"></i> Create an account </button>
             </form>
           </div>
           <div class="col-xs-12 col-sm-6">
             <h2 class="block-title-2"><span>Already registered?</span></h2>
+                          
+              {{#if passwordResetSucess}}
+              <div class="form-group">
+                <label style="color: rgb(64, 255, 0);">Password changed successfully, Login now!</label>
+              </div>
+              {{/if}}
 
-            <form role="form" class="logForm ">
+            <form action="/login" method="POST" class="logForm">
               <div class="form-group">
                 <label>Email address</label>
-                <input type="email" class="form-control" placeholder="Enter email">
+                <input name="email" type="email" class="form-control" placeholder="Enter email">
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" placeholder="Password">
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="checkbox">
-                  Remember me </label>
+                <input name="password" type="password" class="form-control" placeholder="Password">
               </div>
               <div class="form-group">
-                <p><a title="Recover your forgotten password" href="forgot-password.html">Forgot your
+                <p><a title="Recover your forgotten password" href="/forgotPasswordPage">Forgot your
                     password? </a></p>
               </div>
-              <a class="btn btn-primary" href="account.html"><i class="fa fa-sign-in"></i> Sign In</a>
-
-
+              {{#if invalidCredentials}}
+              <div class="form-group">
+                <label style="color: red;">Enter valid credentials</label>
+              </div>
+              {{/if}}
+              <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Sign In</button>
             </form>
           </div>
         </div>

@@ -47,28 +47,4 @@ module.exports={
         await userCollection.findOneAndUpdate({_id: req.params.id},{$set:{ isBlocked: false }})
         res.redirect('/admin/userManagement')
     },
-
-    //category management
-    categoryManagement: async (req,res)=>{
-        let categoryData= await categoryCollection.find()
-        res.render('adminViews/categoryManagement', {categoryData}) 
-    },
-    addCategory: async (req,res)=>{
-        await categoryCollection.insertMany([{categoryName: req.body.categoryName, categoryDescription: req.body.description, categoryImage :req.file.path }])
-        res.redirect('/admin/categoryManagement')
-    },
-    editCategory: async (req,res)=>{
-        const categoryData= await categoryCollection.findOne({_id: req.params.id })
-    },
-    deleteCategory: async (req,res)=>{
-        await categoryCollection.findOneAndDelete({_id: req.params.id})
-        res.redirect('/admin/categoryManagement')
-    },
-
-    //product management
-    productManagement: async (req,res)=>{
-        let productData= await productCollection.find()
-        let categoryList = await categoryCollection.find({},{categoryName: true})
-        res.render('adminViews/productManagement', {productData, categoryList})
-    },
 }

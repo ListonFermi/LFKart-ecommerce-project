@@ -16,7 +16,6 @@ dbConnect()
 //logger
 app.use(morgan('dev'))
 
-//for not storing cache
 // for not storing cache
 app.use((req, res, next) => {
   res.set("Cache-Control", "no-store");
@@ -25,10 +24,9 @@ app.use((req, res, next) => {
 
 //setting view engine and giving the path of static pages
 app.set('view engine','hbs')
-app.use(express.static(path.join(__dirname,'public')))
-hbs.registerHelper('arrayIndex', function(array, index) {
-  return array[index];
-});
+app.use(express.static('public'))
+app.use('/productDetails',express.static('public'))
+
 
 //express-session
 app.use(

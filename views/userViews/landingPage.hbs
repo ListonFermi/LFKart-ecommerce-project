@@ -312,9 +312,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="/logout">
-                    <span class="hidden-xs">Logout</span>
-                  </a>
+                  <form action="/logout" method="post"><button type="submit" class="btn btn-danger btn-sm">Logout</button></form>
                 </li>
               </ul>
             </div>
@@ -912,18 +910,14 @@
       <h3 class="section-title style2 text-center">
         <span>OUR CATEGORIES</span>
       </h3>
+      {{#each categoryData}}
       <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
         <div class="inner">
           <div class="box-content-overly box-content-overly-white">
             <div class="box-text-table">
               <div class="box-text-cell">
                 <div class="box-text-cell-inner dark">
-                  <h1 class="uppercase">Programmers Merchandise</h1>
-
-                  <p>
-                    Veggies es bonus vobis, proinde vos postulo essum magis
-                    kohlrabi welsh onion daikon amaranth.
-                  </p>
+                  <h1 class="uppercase">{{this.categoryDescription}}</h1>
                   <hr class="submini" />
                   <a class="btn btn-inverse">SHOP NOW</a>
                 </div>
@@ -931,88 +925,12 @@
             </div>
           </div>
           <!--/.box-content-overly -->
-          <div class="img-title">CODERS</div>
+          <div class="img-title">{{this.categoryName}}</div>
           <a class="img-block" href="#">
-            <img class="img-responsive" src="images/look3/1.jpg" alt="img" /></a>
+           <svg width="500" height="250"><rect style="fill:#000000" width="500" height="250" x="0" y="0" /></svg>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-        <div class="inner">
-          <div class="box-content-overly box-content-overly-white">
-            <div class="box-text-table">
-              <div class="box-text-cell">
-                <div class="box-text-cell-inner dark">
-                  <h1 class="uppercase">Designers</h1>
-
-                  <p>
-                    Veggies es bonus vobis, proinde vos postulo essum magis
-                    kohlrabi welsh onion daikon amaranth.
-                  </p>
-                  <hr class="submini" />
-                  <a class="btn btn-inverse"> SHOP NOW</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--/.box-content-overly -->
-          <div class="img-title">KOLLYWOOD</div>
-          <a class="img-block" href="#">
-            <img class="img-responsive" src="images/look3/2.jpg" alt="img" /></a>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-        <div class="inner">
-          <div class="box-content-overly box-content-overly-white">
-            <div class="box-text-table">
-              <div class="box-text-cell">
-                <div class="box-text-cell-inner dark">
-                  <h1 class="uppercase">Sale Offers</h1>
-
-                  <p>
-                    Veggies es bonus vobis, proinde vos postulo essum magis
-                    kohlrabi welsh onion daikon amaranth.
-                  </p>
-                  <hr class="submini" />
-                  <a class="btn btn-inverse"> SHOP NOW</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--/.box-content-overly -->
-          <div class="img-title">CHENNAI SUPER KINGS</div>
-          <a class="img-block" href="#">
-            <img class="img-responsive" src="images/look3/3.jpg" alt="img" /></a>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
-        <div class="inner">
-          <div class="box-content-overly box-content-overly-white">
-            <div class="box-text-table">
-              <div class="box-text-cell">
-                <div class="box-text-cell-inner dark">
-                  <h1 class="uppercase">T Collections</h1>
-
-                  <p>
-                    Veggies es bonus vobis, proinde vos postulo essum magis
-                    kohlrabi welsh onion daikon amaranth.
-                  </p>
-                  <hr class="submini" />
-                  <a class="btn btn-inverse"> SHOP NOW</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--/.box-content-overly -->
-          <div class="img-title">FOOTBALL</div>
-          <a class="img-block" href="#">
-            <img class="img-responsive" src="images/look3/4.jpg" alt="img" style="
-                  background-size: cover;
-                  background-position: center;
-                  background-repeat: no-repeat;
-                  overflow: hidden;
-                " /></a>
-        </div>
-      </div>
+      {{/each}}
     </div>
     <!--/.featuredImageLook3-->
   </div>
@@ -1023,10 +941,11 @@
 
     <div class="row featuredPostContainer globalPadding style2">
       <h3 class="section-title style2 text-center">
-        <span>FEATURED PRODUCTS</span>
+        <span>OUR PRODUCTS</span>
       </h3>
 
       <div id="productslider" class="owl-carousel owl-theme">
+        {{#each productData}}
         <div class="item">
           <div class="product">
             <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
@@ -1040,21 +959,14 @@
                   data-target="#productSetailsModalAjax">Quick View
                 </a>
               </div>
-              <a href="product-details.html"><img src="images/product/1.jpg" alt="img" class="img-responsive" /></a>
-
-              <div class="promotion">
-                <span class="new-product"> NEW</span>
-                <span class="discount">15% OFF</span>
-              </div>
+              <a href="/productDetails/{{this._id}}"><img src="images/productImages/{{this.productImage1}}" alt="img" class="img-responsive" /></a>
             </div>
             <div class="description">
               <h4>
-                <a href="product-details.html">consectetuer adipiscing </a>
+                <a href="/productDetails/{{this._id}}">{{this.productName}}</a>
               </h4>
-
-              <span class="size">XL / XXL / S </span>
             </div>
-            <div class="price"><span>₹25</span></div>
+            <div class="price"><span>₹{{this.productPrice}}</span></div>
             <div class="action-control">
               <a class="btn btn-primary">
                 <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
@@ -1064,266 +976,7 @@
             </div>
           </div>
         </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/2.jpg" alt="img" class="img-responsive" /></a>
-
-              <div class="promotion">
-                <span class="discount">15% OFF</span>
-              </div>
-            </div>
-            <div class="description">
-              <h4>
-                <a href="product-details.html">luptatum zzril delenit</a>
-              </h4>
-
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/3.jpg" alt="img" class="img-responsive" /></a>
-
-              <div class="promotion">
-                <span class="new-product"> NEW</span>
-              </div>
-            </div>
-            <div class="description">
-              <h4><a href="product-details.html">eleifend option </a></h4>
-
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/4.jpg" alt="img" class="img-responsive" /></a>
-            </div>
-            <div class="description">
-              <h4>
-                <a href="product-details.html">mutationem consuetudium </a>
-              </h4>
-
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/12.jpg" alt="img" class="img-responsive" /></a>
-            </div>
-            <div class="description">
-              <h4><a href="product-details.html">sequitur mutationem </a></h4>
-
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/13.jpg" alt="img" class="img-responsive" /></a>
-            </div>
-            <div class="description">
-              <h4>
-                <a href="product-details.html">consuetudium lectorum.</a>
-              </h4>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/21.jpg" alt="img" class="img-responsive" /></a>
-            </div>
-            <div class="description">
-              <h4><a href="product-details.html">parum claram</a></h4>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/24.jpg" alt="img" class="img-responsive" /></a>
-            </div>
-            <div class="description">
-              <h4><a href="product-details.html">duis dolore </a></h4>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="product">
-            <a class="add-fav tooltipHere" data-toggle="tooltip" data-original-title="Add to Wishlist"
-              data-placement="left">
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-
-            <div class="image">
-              <div class="quickview">
-                <a data-toggle="modal" class="btn btn-xs btn-quickview" href="ajax/product.html"
-                  data-target="#productSetailsModalAjax">Quick View
-                </a>
-              </div>
-              <a href="product-details.html"><img src="images/product/15.jpg" alt="img" class="img-responsive" /></a>
-            </div>
-            <div class="description">
-              <h4>
-                <a href="product-details.html">feugait nulla facilisi</a>
-              </h4>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <span class="size">XL / XXL / S </span>
-            </div>
-            <div class="price"><span>₹25</span></div>
-            <div class="action-control">
-              <a class="btn btn-primary">
-                <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
-                  Add to cart
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
+        {{/each}}
       </div>
       <!--/.productslider-->
     </div>

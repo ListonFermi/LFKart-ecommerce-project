@@ -13,165 +13,154 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-info bg-primary">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand fw-bold" href="#"><img src="images/logo-dark.png" alt="LFKart"></a>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item fw-bold ">
-                            <a class="nav-link" aria-current="page" href="/admin/userManagement">User Management</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link active" aria-current="page" href="#">Categories</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Products</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Orders</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Sales Report</a>
-                        </li>
-                    </ul>
-                    <form action="logout" method="post" class="d-flex">
-                        <button class="btn btn-danger" type="submit">Logout</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-        <div class="pt-3">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Add new Category
+<body class="container">
+
+    <nav class="navbar navbar-expand-lg bg-info bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="/admin/categoryManagement/add" method="POST" enctype="multipart/form-data">
-                        <div class="modal-body">
-                            <div class="input-group mb-3">
-                                <input name="categoryName" type="text" class="form-control" placeholder="Category Name" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input name="description" type="text" class="form-control pb-5"
-                                    placeholder="Description" required>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input name="categoryImage" type="file" class="form-control"
-                                    placeholder="Category Image" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Save changes</button>
-                        </div>
-                    </form>
-                </div>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="images/logo-dark.png" alt="LFKart"></a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/userManagement">User Management</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link active" aria-current="page" href="/admin/categoryManagement">Categories</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/orders">Orders</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/SalesReport">Sales Report</a>
+                    </li>
+                </ul>
+                <form action="logout" method="post" class="d-flex">
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
             </div>
         </div>
+    </nav>
 
-
-        <div class="container pt-3">
-            <table id="example" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Category Name</th>
-                        <th>Description</th>
-                        <th>Category Image</th>
-                        <th>List/Unlist</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each categoryData}}
-                    <tr>
-                        <td>{{this.categoryName}}</td>
-                        <td>{{this.categoryDescription}}</td>
-                        <td>{{this.categoryImage}}</td>
-                        {{#if this.isListed}}
-                        <td>
-                            <form action="/admin/categoryManagement/unList/{{this._id}}" method="POST">
-                                <button type="submit" class="btn btn-danger">Unlist</button>
-                            </form>
-                        </td>
-                        {{else}}
-                        <td>
-                            <form action="/admin/categoryManagement/list/{{this._id}}" method="POST">
-                                <button type="submit" class="btn btn-success">List</button>
-                            </form>
-                        </td>
-                        {{/if}}
-                        <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                data-bs-target="#editModal">
-                                <i class="fas fa-edit"></i>
-                            </button>
-
-                            <button type="button" class="btn btn-info"><a href="/admin/categoryManagement/delete/{{this._id}}">
-                            <i class="fa fa-trash" aria-hidden="true"></i></a>
-                            </button>
-
-                        </td>
-                    </tr>
-                    <!-- Modal  -->
-                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <form action="/admin/categoryManagement/edit" method="POST"
-                                    enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <div class="input-group mb-3">
-                                            <input name="categoryName" type="text" class="form-control"
-                                                value="{{this.categoryName}}">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input name="description" type="text" class="form-control pb-5"
-                                                value="{{this.categoryDescription}}">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input name="categoryImage" type="file" class="form-control"
-                                                value="{{this.categoryImage}}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-info">Save changes</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-
+    <!-- Add Category Modal Button trigger modal -->
+    <div class="pt-3">
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add new Category
+        </button>
     </div>
 
+    <!--Add Category Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/categoryManagement/add" method="POST">
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <input name="categoryName" type="text" class="form-control" placeholder="Category Name"
+                                required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="categoryDescription" type="text" class="form-control pb-5" placeholder="Description"
+                                required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    {{#if categoryExists}}
+    <div class="alert alert-danger" role="alert">
+        Category Already Exists
+    </div>
+    {{/if}}
 
+    <div class="container pt-3">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th>List/Unlist</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each categoryData}}
+                <tr>
+                    <td>{{this.categoryName}}</td>
+                    <td>{{this.categoryDescription}}</td>
+                    {{#if this.isListed}}
+                    <td>
+                        <form action="/admin/categoryManagement/unList/{{this._id}}" method="POST">
+                            <button type="submit" class="btn btn-success">Unlist</button>
+                        </form>
+                    </td>
+                    {{else}}
+                    <td>
+                        <form action="/admin/categoryManagement/list/{{this._id}}" method="POST">
+                            <button type="submit" class="btn btn-danger">List</button>
+                        </form>
+                    </td>
+                    {{/if}}
+                    <td>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal{{@index}}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+
+                        <button type="button" onclick="return confirm('Are you sure you want to delete {{this.categoryName}} category?')" class="btn btn-info"><a
+                                href="/admin/categoryManagement/delete/{{this._id}}">
+                                <i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </button>
+
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Edit Modal  -->
+    {{#each categoryData}}
+    <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/categoryManagement/edit/{{this._id}}" method="POST">
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <input name="categoryName" type="text" class="form-control" value="{{this.categoryName}}" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input name="categoryDescription" type="text" class="form-control pb-5"
+                                value="{{this.categoryDescription}}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/each}}
 
 </body>
 

@@ -10,83 +10,85 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 </head>
 
-<body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-info bg-primary">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand fw-bold" href="#"><img src="images/logo-dark.png" alt="LFKart"></a>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item fw-bold ">
-                            <a class="nav-link active" aria-current="page" href="/admin/userManagement">User Management</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Categories</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Products</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Orders</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="#">Sales Report</a>
-                        </li>
-                    </ul>
-                    <form action="logout" method="post" class="d-flex">
-                        <button class="btn btn-danger" type="submit">Logout</button>
-                    </form>
-                </div>
+<body class="container">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-info bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="images/logo-dark.png" alt="LFKart"></a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link active" aria-current="page" href="/admin/userManagement">User Management</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/orders">Orders</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/SalesReport">Sales Report</a>
+                    </li>
+                </ul>
+                <form action="logout" method="post" class="d-flex">
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
             </div>
-        </nav>
-        <div class="container pt-3">
-            <table id="example" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {{#each allUsersData}}
-                    <tr>
-                        <td>{{this.username}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.phonenumber}}</td>
-                        {{#if this.isBlocked}}
-                        <td>
-                            <form action="/admin/userManagement/unBlock/{{this._id}}" method="POST">
-                                <button type="submit" class="btn btn-danger">Unblock</button>
-                            </form>
-                        </td>
-                        {{else}}
-                        <td>
-                            <form action="/admin/userManagement/block/{{this._id}}" method="POST">
-                                <button type="submit" class="btn btn-success">Block</button>
-                            </form>
-                        </td>
-                        {{/if}}
-                    </tr>
-                {{/each}}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Actions</th>
-                    </tr>
-                </tfoot>
-            </table>
         </div>
+    </nav>
+
+    <!-- User Management Table -->
+    <div class="container pt-3">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allUsersData}}
+                <tr>
+                    <td>{{this.username}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.phonenumber}}</td>
+                    {{#if this.isBlocked}}
+                    <td>
+                        <form action="/admin/userManagement/unBlock/{{this._id}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Unblock</button>
+                        </form>
+                    </td>
+                    {{else}}
+                    <td>
+                        <form action="/admin/userManagement/block/{{this._id}}" method="POST">
+                            <button type="submit" class="btn btn-success">Block</button>
+                        </form>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
+
 </body>
 
 <allScripts>

@@ -5,23 +5,28 @@ const productSchema= new mongoose.Schema({
         type: String,
         required: true
     },
-    productImage1:{
+    parentCategory:{
         type: String,
         required: true
+    },
+    productImage1:{
+        type: String,
     },
     productImage2:{
         type: String,
-        required: true
     },
     productImage3:{
         type: String,
-        required: true
     },
     productPrice:{
         type: Number,
         required: true
     },
-    inStock: {
+    productQuantity: {
+        type: Number,
+        required: true
+    },
+    isListed: {
         type: Boolean,
         default: true
     }
