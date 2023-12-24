@@ -1,13 +1,11 @@
 const express = require('express')
 const app = express()
 const dotenv= require('dotenv').config()
-const path= require('node:path')
 const userRoutes= require('./routes/userRoutes.js')
 const adminRoutes= require('./routes/adminRoutes.js')
 const session= require('express-session')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
-const hbs= require('handlebars')
 
 //connecting db
 const dbConnect= require('./config/config.js')
@@ -27,7 +25,6 @@ app.set('view engine','hbs')
 app.use(express.static('public'))
 app.use('/productDetails',express.static('public'))
 
-
 //express-session
 app.use(
     session({
@@ -35,7 +32,7 @@ app.use(
       saveUninitialized: true,
       secret: "my secret",
     })
-  );
+);
 
 //parse incoming requests
 app.use(express.json())

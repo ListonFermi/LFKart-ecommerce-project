@@ -805,7 +805,7 @@
 
             <form action="/signup" method="POST" role="form" class="regForm">
               <div class="form-group">
-                <input id="OTP" type="hidden" class="form-control" value="{{currentOTP}}">
+                <input id="OTP" type="hidden" minlength="5" class="form-control" value="{{currentOTP}}">
               </div>
               <div class="form-group">
                 <label>OTP</label>
@@ -813,10 +813,16 @@
                   required data-rule-equalTo="#OTP">
               </div>
               <div class="form-group">
-                {{!-- <label>Time Left: </label> --}}
+                <label>Time Left: </label>
+                <span>
+                  <h4 id="timer"></h4>
+                </span>
               </div>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-user"></i> Create an account
+              <button id="verifyOTP" type="submit" class="btn btn-primary"> Verify OTP
               </button>
+            </form>
+            <form  action="/resendOTP" method="POST">
+              <button id="ResendOTP" type="submit" class="btn btn-danger" style="display: none;"> Resend OTP</button>
             </form>
           </div>
         </div>
@@ -826,6 +832,18 @@
 
     </div>
     <!--/row-->
+    <script>
+      let a = 60
+      h = document.getElementById('timer')
+      let otpTimer = setInterval(() => {
+        h.innerText = a--
+        if (a === -1) {
+          clearInterval(otpTimer);
+          verifyOTP.style.display='none'
+          ResendOTP.style.display='block'
+        }
+      }, 1000)
+    </script>
 
     <div style="clear:both"></div>
   </div>

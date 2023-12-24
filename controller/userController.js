@@ -61,12 +61,12 @@ module.exports = {
   },
   sendOTP: async (req, res) => {
     try {
+      req.session.emailOfNewUser = req.body.email || req.session.emailOfNewUser
       const otp = Math.trunc(Math.random() * 10000);
       req.session.otp = otp;
-      req.session.otpTime = new Date();
       await transporter.sendMail({
         from: `${process.env.GMAIL_ID}`,
-        to: `${req.body.email}`,
+        to: `${req.session.emailOfNewUser}`,
         subject: "Registration OTP for LF-Kart",
         text: `Your OTP is ${otp}`,
       });
@@ -167,7 +167,7 @@ module.exports = {
   forgotPasswordReset: async (req,res)=>{
     try {
       let encryptedPassword = bcrypt.hashSync(req.body.newPassword, 10);
-      req.session.currentUser= await userCollection.findOneAndUpdate({ _id: req.session.forgotUserData._id}, { $set:{  password: encryptedPassword  } });
+      await userCollection.findOneAndUpdate({ _id: req.session.forgotUserData._id}, { $set:{  password: encryptedPassword  } });
       req.session.passwordResetSucess= true
       res.redirect("/signupLoginPage");
     } catch (error) {

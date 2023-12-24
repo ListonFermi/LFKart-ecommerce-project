@@ -48,10 +48,10 @@ module.exports = {
   },
   editProduct: async (req, res) => {
     try {
-      let existingProduct = await productCollection.findOne({
+      let existingProduct = await productCollection.find({
         productName: req.body.productName,
       });
-      if (!existingProduct) {
+      if (existingProduct.length==1) {
         const updateFields = {
           $set: {
             productName: req.body.productName,
