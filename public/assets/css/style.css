@@ -2809,7 +2809,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 
 .description {
     margin: 0 auto;
-    min-height: 107px;
+    min-height: 50px;
     max-width: 235px;
 }
 

@@ -12,9 +12,9 @@ module.exports = {
       const categoryData = await categoryCollection.find({ isListed: true });
       const productData = await productCollection.find({ isListed: true });
       res.render("userViews/landingPage", {
-        currentUser: req.session.currentUser || req.session.exisitingUser,
+        currentUser: req.session.currentUser,
         categoryData,
-        productData
+        productData,
       });
     } catch (error) {
       console.error(error);
@@ -22,16 +22,12 @@ module.exports = {
   },
   signupLoginPage: async (req, res) => {
     try {
-      if (!req.cookies.userToken) {
-        res.render("userViews/signupLoginPage", {
-          invalidCredentials: req.session.invalidCredentials,
-          passwordResetSucess: req.session.passwordResetSucess
-        });
-        req.session.passwordResetSucess= null
-        req.session.invalidCredentials = null;
-      } else {
-        res.redirect("/");
-      }
+      res.render("userViews/signupLoginPage", {
+        invalidCredentials: req.session.invalidCredentials,
+        passwordResetSucess: req.session.passwordResetSucess,
+      });
+      req.session.passwordResetSucess = null;
+      req.session.invalidCredentials = null;
     } catch (error) {
       console.error(error);
     }
@@ -61,7 +57,7 @@ module.exports = {
   },
   sendOTP: async (req, res) => {
     try {
-      req.session.emailOfNewUser = req.body.email || req.session.emailOfNewUser
+      req.session.emailOfNewUser = req.body.email || req.session.emailOfNewUser;
       const otp = Math.trunc(Math.random() * 10000);
       req.session.otp = otp;
       await transporter.sendMail({
@@ -90,7 +86,9 @@ module.exports = {
   },
   login: async (req, res) => {
     try {
-      let exisitingUser = await userCollection.findOne({email: req.body.email});
+      let exisitingUser = await userCollection.findOne({
+        email: req.body.email,
+      });
       if (exisitingUser) {
         let passwordMatch = bcrypt.compareSync(
           req.body.password,
@@ -98,7 +96,7 @@ module.exports = {
         );
         console.log(passwordMatch);
         if (passwordMatch) {
-          req.session.exisitingUser = exisitingUser;
+          req.session.currentUser = exisitingUser;
           const userToken = jwt.sign(req.body, process.env.MY_SECRET_KEY, {
             expiresIn: "1h",
           });
@@ -127,25 +125,33 @@ module.exports = {
   },
 
   //forgot password
-  forgotPasswordPage: async (req,res)=>{
-    res.render('userViews/forgotPasswordPage', { forgotUserEmailDoesntExist: req.session.forgotUserEmailDoesntExist })
-    req.session.forgotUserEmailDoesntExist =null
-  },
-  forgotUserDetailsInModel: async (req,res,next)=>{
+  forgotPasswordPage: async (req, res) => {
     try {
-      console.log(req.body);
-      const forgotUserData= await userCollection.findOne({email : req.body.email})
-      if(!forgotUserData){
-        req.session.forgotUserEmailDoesntExist = true
-        return res.redirect('/forgotPasswordPage')
-      }
-      req.session.forgotUserData= forgotUserData
-      next()
+      res.render("userViews/forgotPasswordPage", {
+        forgotUserEmailDoesntExist: req.session.forgotUserEmailDoesntExist,
+      });
+      req.session.forgotUserEmailDoesntExist = null;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   },
-  sendForgotOTP: async (req,res)=>{
+  forgotUserDetailsInModel: async (req, res, next) => {
+    try {
+      console.log(req.body);
+      const forgotUserData = await userCollection.findOne({
+        email: req.body.email,
+      });
+      if (!forgotUserData) {
+        req.session.forgotUserEmailDoesntExist = true;
+        return res.redirect("/forgotPasswordPage");
+      }
+      req.session.forgotUserData = forgotUserData;
+      next();
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  sendForgotOTP: async (req, res) => {
     try {
       const otp = Math.trunc(Math.random() * 10000);
       req.session.otp = otp;
@@ -156,19 +162,24 @@ module.exports = {
         subject: "Change Password OTP for LF-Kart",
         text: `Your OTP is ${otp}`,
       });
-      res.render("userViews/forgotPasswordPage2", { currentOTP: req.session.otp });
+      res.render("userViews/forgotPasswordPage2", {
+        currentOTP: req.session.otp,
+      });
     } catch (error) {
       console.error(error);
     }
   },
-  forgotPasswordPage3: async (req,res)=>{
-    res.render('userViews/forgotPasswordPage3')
+  forgotPasswordPage3: async (req, res) => {
+    res.render("userViews/forgotPasswordPage3");
   },
-  forgotPasswordReset: async (req,res)=>{
+  forgotPasswordReset: async (req, res) => {
     try {
       let encryptedPassword = bcrypt.hashSync(req.body.newPassword, 10);
-      await userCollection.findOneAndUpdate({ _id: req.session.forgotUserData._id}, { $set:{  password: encryptedPassword  } });
-      req.session.passwordResetSucess= true
+      await userCollection.findOneAndUpdate(
+        { _id: req.session.forgotUserData._id },
+        { $set: { password: encryptedPassword } }
+      );
+      req.session.passwordResetSucess = true;
       res.redirect("/signupLoginPage");
     } catch (error) {
       console.error(error);
@@ -176,12 +187,14 @@ module.exports = {
   },
 
   //product details
-  productDetails: async (req,res) =>{
+  productDetails: async (req, res) => {
     try {
-      const currentProduct= await productCollection.findOne({ _id: req.params.id });
-      res.render('userViews/productDetails',{currentProduct})
+      const currentProduct = await productCollection.findOne({
+        _id: req.params.id,
+      });
+      res.render("userViews/productDetails", { currentProduct });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  },
 };
