@@ -63,18 +63,26 @@ module.exports = {
   },
   editCategory: async (req, res) => {
     try {
-      await categoryCollection.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {
-          $set: {
-            categoryName: req.body.categoryName,
-            categoryDescription: req.body.categoryDescription,
+      let existingCategory = await productCollection.findOne({
+        categoryName: req.body.categoryName,
+      });
+      if (!existingCategory || existingCategory._id == req.params.id) {
+        await categoryCollection.findOneAndUpdate(
+          {
+            _id: req.params.id,
           },
-        }
-      );
-      res.redirect("/admin/categoryManagement");
+          {
+            $set: {
+              categoryName: req.body.categoryName,
+              categoryDescription: req.body.categoryDescription,
+            },
+          }
+        );
+        res.redirect("/admin/categoryManagement");
+      } else {
+        req.session.categoryAlreadyExists = existingCategory;
+        res.redirect("/admin/categoryManagement");
+      }
     } catch (error) {
       console.error(error);
     }

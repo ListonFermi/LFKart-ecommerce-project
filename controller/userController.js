@@ -22,12 +22,16 @@ module.exports = {
   },
   signupLoginPage: async (req, res) => {
     try {
-      res.render("userViews/signupLoginPage", {
-        invalidCredentials: req.session.invalidCredentials,
-        passwordResetSucess: req.session.passwordResetSucess,
-      });
-      req.session.passwordResetSucess = null;
-      req.session.invalidCredentials = null;
+      if (!req.cookies.userToken) {
+        res.render("userViews/signupLoginPage", {
+          invalidCredentials: req.session.invalidCredentials,
+          passwordResetSucess: req.session.passwordResetSucess,
+        });
+        req.session.passwordResetSucess = null;
+        req.session.invalidCredentials = null;
+      } else {
+        res.redirect("/");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -101,7 +105,7 @@ module.exports = {
             expiresIn: "1h",
           });
           res.cookie("userToken", userToken, { httpOnly: true });
-          res.redirect("/");
+          res.redirect("back");
         } else {
           req.session.invalidCredentials = true;
           res.redirect("/signupLoginPage");

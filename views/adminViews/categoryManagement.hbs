@@ -69,8 +69,8 @@
                                 required>
                         </div>
                         <div class="input-group mb-3">
-                            <input name="categoryDescription" type="text" class="form-control pb-5" placeholder="Description"
-                                required>
+                            <input name="categoryDescription" type="text" class="form-control pb-5"
+                                placeholder="Description" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -82,6 +82,7 @@
         </div>
     </div>
 
+    <!-- category already exists- alert box div -->
     {{#if categoryExists}}
     <div class="alert alert-danger" role="alert">
         Category Already Exists
@@ -117,12 +118,14 @@
                     </td>
                     {{/if}}
                     <td>
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal{{@index}}">
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#editModal{{@index}}">
                             <i class="fas fa-edit"></i>
                         </button>
 
-                        <button type="button" onclick="return confirm('Are you sure you want to delete {{this.categoryName}} category?')" class="btn btn-info"><a
-                                href="/admin/categoryManagement/delete/{{this._id}}">
+                        <button type="button"
+                            onclick="return confirm('Are you sure you want to delete {{this.categoryName}} category?')"
+                            class="btn btn-info"><a href="/admin/categoryManagement/delete/{{this._id}}">
                                 <i class="fa fa-trash" aria-hidden="true"></i></a>
                         </button>
 
@@ -135,7 +138,8 @@
 
     <!-- Edit Modal  -->
     {{#each categoryData}}
-    <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -145,7 +149,8 @@
                 <form action="/admin/categoryManagement/edit/{{this._id}}" method="POST">
                     <div class="modal-body">
                         <div class="input-group mb-3">
-                            <input name="categoryName" type="text" class="form-control" value="{{this.categoryName}}" required>
+                            <input name="categoryName" type="text" class="form-control" value="{{this.categoryName}}"
+                                required>
                         </div>
                         <div class="input-group mb-3">
                             <input name="categoryDescription" type="text" class="form-control pb-5"

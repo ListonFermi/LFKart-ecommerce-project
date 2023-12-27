@@ -81,10 +81,16 @@
                             </label>
                         </div>
                         <div class="input-group mb-3">
-                            <input name="productImage1" type="file" class="form-control" placeholder="Product Image1" required>
+                            <img id="preview" src="" style="width: 100px; height: 100px; display:none" alt="Img" >
+                            <div class="input-group mb-3">
+                            <input id="productImage1" name="productImage1" type="file" class="form-control" placeholder="Product Image1" onchange="displayImage()" required>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input name="productImage2" type="file" class="form-control" placeholder="Product Image2" required>
+                             <img id="preview2" src="" style="width: 100px; height: 100px; display:none" alt="Img" >
+                             <div class="input-group mb-3">
+                            <input name="productImage2" type="file" class="form-control" placeholder="Product Image2" onchange="displayImage()" required>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <input name="productImage3" type="file" class="form-control" placeholder="Product Image3" required>
@@ -257,6 +263,22 @@
         $(document).ready(function () {
             $('#example').DataTable();
         });
+    </script>
+
+    {{!-- onchange image display --}}
+    <script>
+        function displayImage(imgId){
+            const reader= new FileReader()
+            reader.onload =()=>{
+                preview.src=reader.result
+            }
+            const file = document.querySelector("input[type=file]").files[0];
+            if(file){
+                preview.style.display= 'block'
+                reader.readAsDataURL(file)
+            }
+                
+        }
     </script>
 
 </allScripts>

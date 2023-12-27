@@ -1,49 +1,47 @@
+const cartCollection = require("../models/cartModel.js");
 const productCollection = require("../models/productModels.js");
 const userCollection = require("../models/userModels.js");
 
 module.exports = {
   cart: async (req, res) => {
-    if (req.cookies.userToken) {
-      res.render("userViews/cart", {
-        currentUser: req.session.currentUser,
-      });
-    } else {
-      res.redirect("/signupLoginPage");
+    try {
+      if (req.cookies.userToken) {
+        const userCartData= await cartCollection.findOne({ userId: req.session.currentUser._id})
+        res.render("userViews/cart", {
+          userCartData
+        });
+      } else {
+        res.redirect("/signupLoginPage");
+      }
+    } catch (error) {
+      console.error(error)
     }
+
   },
   addToCart: async (req, res) => {
     console.log(req.session.currentUser);
+    console.log(req.body);
     try {
-        if (req.cookies.userToken) {
-            let userData = await userCollection.findOne({
-              _id: req.session.currentUser._id,
-            });
-            if (userData.cart?.productId==req.params.id) {
-              await userCollection.findOneAndUpdate(
-                { _id: req.session.currentUser._id },
-                {
-                  $addToSet: {
-                    cart: { productId: req.params.id, quantity: req.body.quantity },
-                  },
-                }
-              );
-              res.redirect("back");
-            } else {
-              await userCollection.findOneAndUpdate(
-                { _id: req.session.currentUser._id },
-                {
-                  $set: {
-                    cart: { productId: req.params.id, quantity: req.body.quantity },
-                  },
-                },
-              );
-              res.redirect("back");
-            }
-          } else {
-            res.redirect("/signupLoginPage");
-          } 
+      if (req.cookies.userToken) {
+        const productData= await productCollection.findOne({_id: req.params.id})
+        await cartCollection.insertMany({
+          userId: req.session.currentUser._id,
+          cartProducts: [
+            {
+              productId: productData._id,
+              productName: productData.productName ,
+              productImage: productData.productImage1,
+              productPrice: productData.productPrice,
+              productQuantity: 1,
+            },
+          ]
+        });
+        res.redirect('back')
+      } else {
+        res.redirect("/signupLoginPage");
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   },
 };
