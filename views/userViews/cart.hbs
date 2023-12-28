@@ -691,7 +691,6 @@
             <div class="cartContent w100">
               <table class="cartTable table-responsive" style="width:100%">
                 <tbody>
-
                   <tr class="CartProduct cartTableHeader">
                     <td style="width:15%"> Product</td>
                     <td style="width:40%">Details</td>
@@ -699,7 +698,6 @@
                     <td style="width:10%">QTY</td>
                     <td style="width:15%">Total</td>
                   </tr>
-
                   {{#each userCartData.cartProducts}}
                   <tr class="CartProduct">
                     <td class="CartProductThumb">
@@ -709,15 +707,16 @@
                     <td>
                       <div class="CartDescription">
                         <h4><a href="/productDetails/{{this.productId}}">{{this.productName}}</a></h4>
-                        <div class="price"><span>₹8.80</span></div>
+                        <div class="price"><span>₹{{this.productPrice}}</span></div>
                       </div>
                     </td>
-                    <td class="delete"><a title="Delete"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
-                    <td><input class="quanitySniper" type="text" value="{{this.productQuantity}}" name="quanitySniper"></td>
-                    <td class="price">₹300</td>
+                    <td class="delete"><a title="Delete" href="/cart/delete/{{this.productId}}" onclick="return confirm('Are you sure you want to delete {{this.productName}}')"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
+                    {{!-- <td><input class="quanitySniper" type="number" value="{{this.productQuantity}}" min=1 max=10 name="quanitySniper" readonly></td> --}}
+                    <td><button id="dec" onclick="dec()">-</button><input id="qty" type="number" value="{{this.productQuantity}}" min=1 max=10 readonly style="width:35%"><button>+</button></td>
+                    {{!-- <td><input type="number" value={{this.productQuantity}} min="1" max="1000"></td> --}}
+                    <td class="price">₹{{product this.productPrice this.productQuantity}}</td>
                   </tr>
                   {{/each}}
-
                 </tbody>
               </table>
             </div>
@@ -752,24 +751,20 @@
                 <table id="cart-summary" class="std table">
                   <tbody>
                     <tr>
-                      <td>Total products</td>
-                      <td class="price">$216.51</td>
+                      <td>Total Price</td>
+                      <td class="price">₹</td>
                     </tr>
                     <tr style="">
                       <td>Shipping</td>
                       <td class="price"><span class="success">Free shipping!</span></td>
                     </tr>
-                    <tr class="cart-total-price ">
-                      <td>Total (tax excl.)</td>
-                      <td class="price">$216.51</td>
+                    <tr>
+                      <td>Total Discount</td>
+                      <td class="price" id="total-tax">₹0</td>
                     </tr>
                     <tr>
-                      <td>Total tax</td>
-                      <td class="price" id="total-tax">$0.00</td>
-                    </tr>
-                    <tr>
-                      <td> Total</td>
-                      <td class=" site-color" id="total-price">$216.51</td>
+                      <td>Grand Total</td>
+                      <td class=" site-color" id="total-price">₹</td>
                     </tr>
                     <tr>
                       <td colspan="2">
@@ -833,6 +828,18 @@
 
   <!-- include custom script for site  -->
   <script src="assets/js/script.js"></script>
+
+  {{!-- decrease cart qty --}}
+  <script>
+    function dec(){
+      qty.innerHTML= 
+      console.log('reduced')
+    }
+
+  </script>
+
+
+
 </body>
 
 <!-- Mirrored from templatecycle.com/tshop/v6/gray/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:52:50 GMT -->

@@ -24,5 +24,6 @@ userRouter.get('/productDetails/:id', userController.productDetails )
 //cart
 userRouter.get('/cart', cartController.cart )
 userRouter.post('/addToCart/:id', cartController.addToCart )
+userRouter.get('/cart/delete/:id', cartController.deleteFromCart )
 
 module.exports= userRouter

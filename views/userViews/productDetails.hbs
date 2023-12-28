@@ -679,16 +679,18 @@
                         <form action="/addToCart/{{currentProduct._id}}" method="POST">
                             <div class="col-lg-4 col-sm-4 col-xs-4">
                                 <div class="filterBox">
-                                    <select class="form-control" name="productQuantity">
-                                        <option value="strawberries" selected>Quantity</option>
-                                        <option value="mango">1</option>
-                                        <option value="bananas">2</option>
-                                        <option value="watermelon">3</option>
-                                        <option value="grapes">4</option>
-                                        <option value="oranges">5</option>
-                                        <option value="pineapple">6</option>
-                                        <option value="peaches">7</option>
-                                        <option value="cherries">8</option>
+                                    <label for="qty">Quantity</label>
+                                    <select id="qty" class="form-control" name="productQuantity">
+                                        <option value=1>1</option>
+                                        <option value=2>2</option>
+                                        <option value=3>3</option>
+                                        <option value=4>4</option>
+                                        <option value=5>5</option>
+                                        <option value=6>6</option>
+                                        <option value=7>7</option>
+                                        <option value=8>8</option>
+                                        <option value=9>9</option>
+                                        <option value=10>10</option>
                                     </select>
                                 </div>
                             </div>
@@ -697,7 +699,6 @@
                                     type="button">
                                     Add to Cart
                                 </button>
-
                             </div>
                         </form>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a
