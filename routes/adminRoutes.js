@@ -1,6 +1,7 @@
 const adminRouter= require('express').Router()
 const adminController= require('../controller/adminController.js')
 const categoryController = require('../controller/categoryController.js')
+const orderController = require('../controller/orderController.js')
 const productController = require('../controller/productController.js')
 const adminAuth = require('../middlewares/adminAuth.js')
 const upload= require('../services/multer.js')
@@ -31,5 +32,13 @@ adminRouter.post('/productManagement/edit/:id', adminAuth, upload.any(), product
 adminRouter.post('/productManagement/unList/:id', adminAuth, productController.unListProduct)
 adminRouter.post('/productManagement/list/:id', adminAuth, productController.listProduct)
 adminRouter.get('/productManagement/delete/:id', adminAuth, productController.deleteProduct)
+
+//product management
+adminRouter.get('/orderManagement', adminAuth, orderController.orderManagement)
+adminRouter.get('/orderManagement/status/pending/:id', adminAuth, orderController.changeStatusPending)
+adminRouter.get('/orderManagement/status/shipped/:id', adminAuth, orderController.changeStatusShipped)
+adminRouter.get('/orderManagement/status/delivered/:id', adminAuth, orderController.changeStatusDelivered)
+adminRouter.get('/orderManagement/status/return/:id', adminAuth, orderController.changeStatusReturn)
+adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
 
 module.exports= adminRouter

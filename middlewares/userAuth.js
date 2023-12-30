@@ -1,11 +1,11 @@
-module.exports= async (req,res,next) =>{
+module.exports = async (req, res, next) => {
   try {
-    if(req.cookies.userToken){
-      next()
-    }else{
-      res.redirect('/signupLoginPage')
+    if (req.cookies.userToken) {
+      next();
+    } else {
+      res.redirect("/signupLoginPage");
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};

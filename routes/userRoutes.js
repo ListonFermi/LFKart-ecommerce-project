@@ -2,6 +2,7 @@ const userRouter= require('express').Router()
 const userController = require('../controller/userController.js')
 const userAuth = require('../middlewares/userAuth.js')
 const cartController= require('../controller/cartController.js')
+const accountController = require('../controller/accountController.js')
 
 //signup-login
 userRouter.get('/', userController.landingPage )
@@ -22,8 +23,23 @@ userRouter.post('/forgotPasswordReset', userController.forgotPasswordReset )
 userRouter.get('/productDetails/:id', userController.productDetails )
 
 //cart
-userRouter.get('/cart', cartController.cart )
-userRouter.post('/addToCart/:id', cartController.addToCart )
+userRouter.get('/cart', userAuth, cartController.cart )
+userRouter.post('/addToCart/:id', userAuth, cartController.addToCart )
 userRouter.get('/cart/delete/:id', cartController.deleteFromCart )
+
+//account
+userRouter.get('/account', userAuth, accountController.accountPage )
+userRouter.get('/account/myAddress', userAuth, accountController.myAddress )
+userRouter.get('/account/addAddress', userAuth, accountController.addAddress )
+userRouter.post('/account/addAddress', userAuth, accountController.addAddressPost )
+userRouter.get('/account/editAddress/:id', userAuth, accountController.editAddress )
+userRouter.post('/account/editAddress/:id', userAuth, accountController.editAddressPost )
+userRouter.get('/account/deleteAddress/:id', userAuth, accountController.deleteAddress )
+
+//order routes
+// /checkout
+userRouter.get('/checkout', userAuth, cartController.checkoutPage1 )
+userRouter.get('/checkout2', userAuth, cartController.checkoutPage2 )
+userRouter.get('/orderPlaced', userAuth, cartController.orderPlaced )
 
 module.exports= userRouter

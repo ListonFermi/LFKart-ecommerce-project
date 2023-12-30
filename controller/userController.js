@@ -4,11 +4,33 @@ const jwt = require("jsonwebtoken");
 const transporter = require("../services/sendOTP.js");
 const categoryCollection = require("../models/categoryModel.js");
 const productCollection = require("../models/productModels.js");
+// var currentUser={
+//   _id: '65832ad453251929ae1362ab',
+//   username: 'listonfermi',
+//   email: 'listonfermi@gmail.com',
+//   phonenumber: 7598176052,
+//   password: '$2b$10$fa7VfD/wgw0Ro.xFy5ykourkORCjRzTITWLPZIeBJ0NSTjjiSfd5C',
+//   isBlocked: false,
+//   __v: 0,
+//   cart: [
+//     {
+//       productId: '65842b9b0ade55772b789df3',
+//       quantity: 1,
+//       _id: '658aeafc1425ccfe6086b5e0'
+//     },
+//     {
+//       productId: '65842b9b0ade55772b789df3',
+//       quantity: 1,
+//       _id: '658aeb301425ccfe6086b5e6'
+//     }
+//   ]
+// }
 
 module.exports = {
   //signup-login
   landingPage: async (req, res) => {
     try {
+      console.log(req.session.currentUser);
       const categoryData = await categoryCollection.find({ isListed: true });
       const productData = await productCollection.find({ isListed: true });
       res.render("userViews/landingPage", {
@@ -24,6 +46,7 @@ module.exports = {
     try {
       if (!req.cookies.userToken) {
         res.render("userViews/signupLoginPage", {
+          currentUser: req.session.currentUser,
           invalidCredentials: req.session.invalidCredentials,
           passwordResetSucess: req.session.passwordResetSucess,
         });
@@ -196,9 +219,13 @@ module.exports = {
       const currentProduct = await productCollection.findOne({
         _id: req.params.id,
       });
-      res.render("userViews/productDetails", { currentProduct });
+      res.render("userViews/productDetails", { currentUser: req.session.currentUser, currentProduct });
     } catch (error) {
       console.error(error);
     }
   },
+
+  //order
+  
+
 };

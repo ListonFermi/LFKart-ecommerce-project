@@ -172,16 +172,27 @@
           <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
             <div class="pull-right">
               <ul class="userMenu">
-                <li>
-                  <a href="/">
-                    <span class="hidden-xs">Welcome
-                      {{currentUser.username}}</span>
-                  </a>
+                <li><a href="/account"><span class="hidden-xs"> My Account</span> <i
+                      class="glyphicon glyphicon-user hide visible-xs "></i></a></li>
+
+
+                <li class="dropdown hasUserMenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi, {{currentUser.username}} <b
+                      class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/account"> <i class="fa fa-user"></i> Account</a></li>
+                    <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li>
+                    <li><a href="my-address.html"><i class="fa fa-map-marker"></i> Addresses</a></li>
+                    <li><a href="order-list.html"><i class="fa  fa-calendar"></i> Orders</a></li>
+                    <li><a href="wishlist.html" title="My wishlists">
+                        <i class="fa fa-heart"></i>
+                        My wishlists
+                      </a></li>
+                    <li class="divider"></li>
+                    <li><form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log Out</button></form></li>
+                  </ul>
                 </li>
-                <li>
-                  <form action="/logout" method="post"><button type="submit"
-                      class="btn btn-danger btn-sm">Logout</button></form>
-                </li>
+
               </ul>
             </div>
           </div>
@@ -417,7 +428,7 @@
 
           <div class="miniCartFooter miniCartFooterInMobile text-right">
             <h3 class="text-right subtotal">Subtotal: ₹210</h3>
-            <a class="btn btn-sm btn-danger" href="/cart">
+            <a class="btn btn-sm btn-danger" href="cart.html">
               <i class="fa fa-shopping-cart"> </i>
               VIEW CART
             </a>
@@ -616,7 +627,7 @@
 
               <div class="miniCartFooter text-right">
                 <h3 class="text-right subtotal">Subtotal: ₹210</h3>
-                <a class="btn btn-sm btn-danger" href="cart.html">
+                <a class="btn btn-sm btn-danger" href="/cart">
                   <i class="fa fa-shopping-cart"> </i>
                   VIEW CART
                 </a><a class="btn btn-sm btn-primary"> CHECKOUT </a>
@@ -698,23 +709,24 @@
                     <td style="width:10%">QTY</td>
                     <td style="width:15%">Total</td>
                   </tr>
-                  {{#each userCartData.cartProducts}}
+                  {{#each userCartData}}
                   <tr class="CartProduct">
                     <td class="CartProductThumb">
-                      <div><a href="product-details.html"><img src="images/productImages/{{this.productImage}}" alt="img"></a>
+                      <div><a href="product-details.html"><img src="images/productImages/{{this.productId.productImage1}}" alt="img"></a>
                       </div>
                     </td>
                     <td>
                       <div class="CartDescription">
-                        <h4><a href="/productDetails/{{this.productId}}">{{this.productName}}</a></h4>
-                        <div class="price"><span>₹{{this.productPrice}}</span></div>
+                        <h4><a href="/productDetails/{{this.productId._id}}">{{this.productId.productName}}</a></h4>
+                        <div class="price"><span>₹{{this.productId.productPrice}}</span></div>
                       </div>
                     </td>
-                    <td class="delete"><a title="Delete" href="/cart/delete/{{this.productId}}" onclick="return confirm('Are you sure you want to delete {{this.productName}}')"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
+                    <td class="delete"><a title="Delete" href="/cart/delete/{{this._id}}" onclick="return confirm('Are you sure you want to delete {{this.productId.productName}}')"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
                     {{!-- <td><input class="quanitySniper" type="number" value="{{this.productQuantity}}" min=1 max=10 name="quanitySniper" readonly></td> --}}
-                    <td><button id="dec" onclick="dec()">-</button><input id="qty" type="number" value="{{this.productQuantity}}" min=1 max=10 readonly style="width:35%"><button>+</button></td>
+                    <td>{{this.productQuantity}}</td>
+                    {{!-- <td><button id="dec" onclick="dec()">-</button><input id="qty" type="number" value="{{this.productQuantity}}" min=1 max=10 readonly style="width:35%"><button>+</button></td> --}}
                     {{!-- <td><input type="number" value={{this.productQuantity}} min="1" max="1000"></td> --}}
-                    <td class="price">₹{{product this.productPrice this.productQuantity}}</td>
+                    <td class="price">₹{{this.productId.productPrice}}</td>
                   </tr>
                   {{/each}}
                 </tbody>
@@ -744,7 +756,7 @@
         <div class="contentBox">
           <div class="w100 costDetails">
             <div class="table-block" id="order-detail-content"><a class="btn btn-primary btn-lg btn-block "
-                title="checkout" href="checkout-0.html" style="margin-bottom:20px"> Proceed to
+                title="checkout" href="/checkout" style="margin-bottom:20px"> Proceed to
                 checkout &nbsp; <i class="fa fa-arrow-right"></i> </a>
 
               <div class="w100 cartMiniTable">
@@ -752,7 +764,7 @@
                   <tbody>
                     <tr>
                       <td>Total Price</td>
-                      <td class="price">₹</td>
+                      <td class="price">₹{{grandTotal}}</td>
                     </tr>
                     <tr style="">
                       <td>Shipping</td>
@@ -764,7 +776,7 @@
                     </tr>
                     <tr>
                       <td>Grand Total</td>
-                      <td class=" site-color" id="total-price">₹</td>
+                      <td class=" site-color" id="total-price">₹{{grandTotal}}</td>
                     </tr>
                     <tr>
                       <td colspan="2">

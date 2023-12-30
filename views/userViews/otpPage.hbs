@@ -146,119 +146,6 @@
     <p class="tbtn"> <i class="fa fa-angle-double-left"></i></p>
   </div>
 
-
-
-
-  <!-- Modal Login start -->
-  <div class="modal signUpContent fade" id="ModalLogin" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
-          <h3 class="modal-title-site text-center"> Login to TSHOP </h3>
-        </div>
-        <div class="modal-body">
-          <div class="form-group login-username">
-            <div>
-              <input name="log" id="login-user" class="form-control input" size="20" placeholder="Enter Username"
-                type="text">
-            </div>
-          </div>
-          <div class="form-group login-password">
-            <div>
-              <input name="Password" id="login-password" class="form-control input" size="20" placeholder="Password"
-                type="password">
-            </div>
-          </div>
-          <div class="form-group">
-            <div>
-              <div class="checkbox login-remember">
-                <label>
-                  <input name="rememberme" value="forever" checked="checked" type="checkbox">
-                  Remember Me </label>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div>
-              <input name="submit" class="btn  btn-block btn-lg btn-primary" value="LOGIN" type="submit">
-            </div>
-          </div>
-          <!--userForm-->
-
-        </div>
-        <div class="modal-footer">
-          <p class="text-center"> Not here before? <a data-toggle="modal" data-dismiss="modal" href="#ModalSignup"> Sign
-              Up. </a> <br>
-            <a href="forgot-password.html"> Lost your password? </a>
-          </p>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-
-    </div>
-    <!-- /.modal-dialog -->
-
-  </div>
-  <!-- /.Modal Login -->
-
-  <!-- Modal Signup start -->
-  <div class="modal signUpContent fade" id="ModalSignup" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
-          <h3 class="modal-title-site text-center"> REGISTER </h3>
-        </div>
-        <div class="modal-body">
-          <div class="control-group"><a class="fb_button btn  btn-block btn-lg " href="#"> SIGNUP WITH
-              FACEBOOK </a></div>
-          <h5 style="padding:10px 0 10px 0;" class="text-center"> OR </h5>
-
-          <div class="form-group reg-username">
-            <div>
-              <input name="login" class="form-control input" size="20" placeholder="Enter Username" type="text">
-            </div>
-          </div>
-          <div class="form-group reg-email">
-            <div>
-              <input name="reg" class="form-control input" size="20" placeholder="Enter Email" type="text">
-            </div>
-          </div>
-          <div class="form-group reg-password">
-            <div>
-              <input name="password" class="form-control input" size="20" placeholder="Password" type="password">
-            </div>
-          </div>
-          <div class="form-group">
-            <div>
-              <div class="checkbox login-remember">
-                <label>
-                  <input name="rememberme" id="rememberme" value="forever" checked="checked" type="checkbox">
-                  Remember Me </label>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div>
-              <input name="submit" class="btn  btn-block btn-lg btn-primary" value="REGISTER" type="submit">
-            </div>
-          </div>
-          <!--userForm-->
-
-        </div>
-        <div class="modal-footer">
-          <p class="text-center"> Already member? <a data-toggle="modal" data-dismiss="modal" href="#ModalLogin">
-              Sign in </a></p>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-
-    </div>
-    <!-- /.modal-dialog -->
-
-  </div>
-
   <!-- Fixed navbar start -->
   <div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
     <div class="navbar-top">
@@ -288,17 +175,27 @@
           <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
             <div class="pull-right">
               <ul class="userMenu">
-                <li>
-                  <a href="/">
-                    <span class="hidden-xs">Welcome
-                      {{currentUser.username}}</span>
-                  </a>
+                <li><a href="/account"><span class="hidden-xs"> My Account</span> <i
+                      class="glyphicon glyphicon-user hide visible-xs "></i></a></li>
+
+
+                <li class="dropdown hasUserMenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi, {{currentUser.username}} <b
+                      class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/account"> <i class="fa fa-user"></i> Account</a></li>
+                    <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li>
+                    <li><a href="my-address.html"><i class="fa fa-map-marker"></i> Addresses</a></li>
+                    <li><a href="order-list.html"><i class="fa  fa-calendar"></i> Orders</a></li>
+                    <li><a href="wishlist.html" title="My wishlists">
+                        <i class="fa fa-heart"></i>
+                        My wishlists
+                      </a></li>
+                    <li class="divider"></li>
+                    <li><form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log Out</button></form></li>
+                  </ul>
                 </li>
-                <li>
-                  <a href="/logout">
-                    <span class="hidden-xs">Logout</span>
-                  </a>
-                </li>
+
               </ul>
             </div>
           </div>
@@ -307,12 +204,7 @@
             <div class="pull-right">
               <ul class="userMenu">
                 <li>
-                  <a href="/signupLoginPage"><span class="hidden-xs">
-                      My Account</span>
-                    <i class="glyphicon glyphicon-user hide visible-xs"></i></a>
-                </li>
-                <li>
-                  <a href="/signupLoginPage" data-toggle="modal">
+                  <a href="/signupLoginPage">
                     <span class="hidden-xs">Sign In</span>
                     <i class="glyphicon glyphicon-log-in hide visible-xs"></i>
                   </a>
@@ -738,7 +630,7 @@
 
               <div class="miniCartFooter text-right">
                 <h3 class="text-right subtotal">Subtotal: ₹210</h3>
-                <a class="btn btn-sm btn-danger" href="cart.html">
+                <a class="btn btn-sm btn-danger" href="/cart">
                   <i class="fa fa-shopping-cart"> </i>
                   VIEW CART
                 </a><a class="btn btn-sm btn-primary"> CHECKOUT </a>
