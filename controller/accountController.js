@@ -83,5 +83,14 @@ module.exports = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  //personal info
+  personalInfo: async (req,res) =>{
+    try {
+      res.render('userViews/personalInfo')
+    } catch (error) {
+      console.error(eror)
+    }
   }
 };

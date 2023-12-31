@@ -35,6 +35,8 @@ userRouter.post('/account/addAddress', userAuth, accountController.addAddressPos
 userRouter.get('/account/editAddress/:id', userAuth, accountController.editAddress )
 userRouter.post('/account/editAddress/:id', userAuth, accountController.editAddressPost )
 userRouter.get('/account/deleteAddress/:id', userAuth, accountController.deleteAddress )
+userRouter.get('/account/personalInfo', userAuth, accountController.personalInfo )
+
 
 //order routes
 // /checkout
