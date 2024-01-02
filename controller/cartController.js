@@ -3,20 +3,31 @@ const cartCollection = require("../models/cartModel.js");
 const orderCollection = require("../models/orderModel.js");
 
 //finding grand total in cart-page
-async function grandTotal() {
-  let userCartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");
-  let grandTotal=0
-  for (const v of userCartData) {
-    grandTotal += v.productId.productPrice * v.productQuantity;
+async function grandTotal(req) {
+  try {
+    let userCartData = await cartCollection
+      .find({ userId: req.session.currentUser._id })
+      .populate("productId");
+    let grandTotal = 0;
+    for (const v of userCartData) {
+      grandTotal += v.productId.productPrice * v.productQuantity;
+      await cartCollection.updateOne(
+        { _id: v._id },
+        {
+          $set: {
+            totalCostPerProduct: v.productId.productPrice * v.productQuantity,
+          },
+        }
+      );
+    }
+    userCartData = await cartCollection
+      .find({ userId: req.session.currentUser._id })
+      .populate("productId");
+    req.session.grandTotal = grandTotal;
 
-    await cartCollection.updateOne(
-      { _id: v._id },
-      {
-        $set: {
-          totaCostPerProduct: v.productId.productPrice * v.productQuantity,
-        },
-      }
-    );
+    return userCartData;
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -24,37 +35,12 @@ module.exports = {
   //cart
   cart: async (req, res) => {
     try {
-      let userCartData = await cartCollection
-        .find({ userId: req.session.currentUser._id })
-        .populate("productId");
-      let grandTotal = 0;
+      let userCartData=await grandTotal(req);
       console.log(userCartData);
-      if (userCartData) {
-        for (const v of userCartData) {
-          grandTotal += v.productId.productPrice * v.productQuantity;
-          try {
-            await cartCollection.updateOne(
-              { _id: v._id },
-              {
-                $set: {
-                  totaCostPerProduct:
-                    v.productId.productPrice * v.productQuantity,
-                },
-              }
-            );
-          } catch (error) {
-            console.error("Error updating document:", error);
-          }
-        }
-      }
-      userCartData = await cartCollection
-        .find({ userId: req.session.currentUser._id })
-        .populate("productId");
-      req.session.grandTotal = grandTotal;
       res.render("userViews/cart", {
         currentUser: req.session.currentUser,
         userCartData,
-        grandTotal,
+        grandTotal: req.session.grandTotal,
       });
     } catch (error) {
       console.error(error);
@@ -79,6 +65,7 @@ module.exports = {
             productQuantity: req.body.productQuantity,
           },
         ]);
+        console.log(req.body);
       res.redirect("back");
     } catch (error) {
       console.log(error);
@@ -93,28 +80,18 @@ module.exports = {
     res.redirect("back");
   },
   decQty: async (req, res) => {
-    let cartProduct = await cartCollection.findOne({ _id: req.params.id });
-    cartProduct.totaCostPerProduct -=
-      cartProduct.totaCostPerProduct / cartProduct.productQuantity;
-    cartProduct.productQuantity--;
-    cartProduct.save();
-    req.session.grandTotal -=
-      cartProduct.totaCostPerProduct / cartProduct.productQuantity;
-    let grandTotal = req.session.grandTotal;
-    console.log(cartProduct);
-    res.json({ cartProduct, grandTotal });
+    let cartProduct= await cartCollection.findOne({ _id: req.params.id})
+    cartProduct.productQuantity--
+    cartProduct= await cartProduct.save()
+    await grandTotal(req);
+    res.json({ cartProduct, grandTotal: req.session.grandTotal });
   },
   incQty: async (req, res) => {
-    let cartProduct = await cartCollection.findOne({ _id: req.params.id });
-    cartProduct.totaCostPerProduct +=
-      cartProduct.totaCostPerProduct / cartProduct.productQuantity;
-    cartProduct.productQuantity++;
-    cartProduct.save();
-    req.session.grandTotal -=
-      cartProduct.totaCostPerProduct / cartProduct.productQuantity;
-    let grandTotal = req.session.grandTotal;
-    console.log(cartProduct);
-    res.json({ cartProduct, grandTotal });
+    let cartProduct= await cartCollection.findOne({ _id: req.params.id})
+    cartProduct.productQuantity++
+    cartProduct= await cartProduct.save()
+    await grandTotal(req);
+    res.json({ cartProduct, grandTotal: req.session.grandTotal });
   },
   //checkout
   checkoutPage1: async (req, res) => {
