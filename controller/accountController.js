@@ -1,6 +1,8 @@
 const addressCollection = require("../models/addressModel");
+const orderCollection = require("../models/orderModel");
 
 module.exports = {
+  //account
   accountPage: async (req, res) => {
     try {
       res.render("userViews/account", { currentUser: req.session.currentUser });
@@ -8,6 +10,18 @@ module.exports = {
       console.error(error);
     }
   },
+
+  //account-orderList
+  orderList: async (req, res) => {
+    try {
+      let cartData= await orderCollection.find({userId: req.session.currentUser._id})
+      res.render('userViews/orderList', { cartData })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
+  
   myAddress: async (req, res) => {
     try {
       const addressData = await addressCollection.find({
@@ -90,7 +104,7 @@ module.exports = {
     try {
       res.render('userViews/personalInfo')
     } catch (error) {
-      console.error(eror)
+      console.error(error)
     }
   }
 };

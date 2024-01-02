@@ -33,7 +33,7 @@ module.exports = {
             productImage2: req.files[1].filename,
             productImage3: req.files[2].filename,
             productPrice: req.body.productPrice,
-            productQuantity: req.body.productQuantity,
+            productStock: req.body.productStock,
           },
         ]);
         console.log(req.files[0].filename);
@@ -57,7 +57,7 @@ module.exports = {
             productName: req.body.productName,
             parentCategory: req.body.parentCategory,
             productPrice: req.body.productPrice,
-            productQuantity: req.body.productQuantity,
+            productStock: req.body.productStock,
           },
         };
 

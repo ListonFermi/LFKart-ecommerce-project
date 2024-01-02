@@ -106,7 +106,7 @@
                                 required>
                         </div>
                         <div class="input-group mb-3">
-                            <input name="productQuantity" type="tel" class="form-control" placeholder="Product Quantity"
+                            <input name="productStock" type="tel" class="form-control" placeholder="Product Stock"
                                 required>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                     <th>Product Image2</th>
                     <th>Product Image3</th>
                     <th>Price in INR</th>
-                    <th>Quantity</th>
+                    <th>In stock</th>
                     <th>List/Unlist</th>
                     <th>Actions</th>
                 </tr>
@@ -154,7 +154,7 @@
                     <td><img src="/images/productImages/{{this.productImage3}}" alt=""
                             style="width: 100px; height: 100px"></td>
                     <td>₹{{this.productPrice}}</td>
-                    <td>{{this.productQuantity}}</td>
+                    <td>{{this.productStock}}</td>
 
                     {{#if this.isListed}}
                     <td>
@@ -240,8 +240,8 @@
                             <input name="productPrice" type="text" class="form-control" value="{{this.productPrice}}">
                         </div>
                         <div class="input-group mb-3">
-                            <input name="productQuantity" type="text" class="form-control"
-                                value="{{this.productQuantity}}">
+                            <input name="productStock" type="text" class="form-control"
+                                value="{{this.productStock}}">
                         </div>
                     </div>
                     <div class="modal-footer">

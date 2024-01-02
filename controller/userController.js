@@ -115,6 +115,7 @@ module.exports = {
     try {
       let exisitingUser = await userCollection.findOne({
         email: req.body.email,
+        isBlocked: false
       });
       if (exisitingUser) {
         let passwordMatch = bcrypt.compareSync(
@@ -219,7 +220,13 @@ module.exports = {
       const currentProduct = await productCollection.findOne({
         _id: req.params.id,
       });
-      res.render("userViews/productDetails", { currentUser: req.session.currentUser, currentProduct });
+      let productQtyLimit= [],i=0
+      while(i<currentProduct.productStock){
+        productQtyLimit.push(i+1)
+        i++
+      }
+        
+      res.render("userViews/productDetails", { currentUser: req.session.currentUser, currentProduct, productQtyLimit });
     } catch (error) {
       console.error(error);
     }
