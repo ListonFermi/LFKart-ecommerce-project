@@ -105,7 +105,7 @@ module.exports = {
         expiresIn: "1h",
       });
       res.cookie("userToken", userToken, { httpOnly: true });
-      req.session.currentUser = req.session.tempUserData;
+      req.session.currentUser = await userCollection.findOne({ email: req.session.tempUserData.email});
       res.redirect("/");
     } catch (error) {
       console.error(error);
@@ -232,7 +232,12 @@ module.exports = {
     }
   },
 
-  //order
-  
-
+  //shop page
+  shopPage: async (req, res) => {
+    try {
+      res.render('userViews/shop')      
+    } catch (error) {
+      console.error(error)
+    }
+  }
 };
