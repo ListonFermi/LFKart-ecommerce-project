@@ -27,7 +27,7 @@ userRouter.get('/productDetails/:id', blockedUserCheck, userController.productDe
 userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) //cart-page
 userRouter.post('/addToCart/:id', blockedUserCheck, userAuth, cartController.addToCart) //add to cart from product page
 //cart-page
-userRouter.get('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart from cart page
+userRouter.delete('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart from cart page
 userRouter.put('/cart/decQty/:id', blockedUserCheck, userAuth, cartController.decQty)
 userRouter.put('/cart/incQty/:id', blockedUserCheck, userAuth, cartController.incQty)
 

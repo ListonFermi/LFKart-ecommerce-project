@@ -1,6 +1,7 @@
 const orderCollection = require("../models/orderModel")
 
 module.exports={
+    //admin side- orderManagement
     orderManagement: async(req,res)=>{
         try {
             let orderData= await orderCollection.find().populate('userId')

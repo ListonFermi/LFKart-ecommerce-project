@@ -713,7 +713,7 @@
                     <td style="width:15%">Total</td>
                   </tr>
                   {{#each userCartData}}
-                  <tr class="CartProduct">
+                  <tr class="CartProduct" id="cartProduct{{@index}}">
                     <td class="CartProductThumb">
                       <div><a href="product-details.html"><img
                             src="images/productImages/{{this.productId.productImage1}}" alt="img"></a>
@@ -727,8 +727,7 @@
                       </div>
                     </td>
                     <div id="stockLimit{{@index}}" class="d-none">{{this.productId.productStock}}</div>
-                    <td class="delete"><a title="Delete" href="/cart/delete/{{this._id}}"
-                        onclick="return confirm('Are you sure you want to delete {{this.productId.productName}}')"> <i
+                    <td class="delete"><a title="Delete" onclick="deleteCart('{{this._id}}','{{@index}}')"> <i
                           class="glyphicon glyphicon-trash fa-2x"></i></a></td>
                     <td>
                       <button type="button" class="btn btn-danger btn-sm"
@@ -750,9 +749,7 @@
                 <div class="pull-left"><a href="index.html" class="btn btn-default"> <i class="fa fa-arrow-left"></i>
                     &nbsp; Continue shopping </a></div>
                 <div class="pull-right">
-                  <button type="submit" class="btn btn-default"><i class="fa fa-undo"></i> &nbsp; Update
-                    cart
-                  </button>
+                  <button type="submit" class="btn btn-default"><i class="fa fa-undo"></i> &nbsp; Update cart  </button>
                 </div>
               </div>
             </div>
@@ -766,10 +763,11 @@
       <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar">
         <div class="contentBox">
           <div class="w100 costDetails">
+            {{#if userCartData.length}}
             <div class="table-block" id="order-detail-content"><a class="btn btn-primary btn-lg btn-block "
                 title="checkout" href="/checkout" style="margin-bottom:20px"> Proceed to
                 checkout &nbsp; <i class="fa fa-arrow-right"></i> </a>
-
+            {{/if}}
               <div class="w100 cartMiniTable">
                 <table id="cart-summary" class="std table">
                   <tbody>
@@ -855,7 +853,7 @@
   {{!-- swal script --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  {{!-- decrease cart qty --}}
+  {{!-- decrease cart quantity --}}
   <script>
     async function cartDec(id, index) {
       try {
@@ -865,45 +863,45 @@
         let totalPriceElement = document.getElementById('totalPrice');
         let grandTotalElement = document.getElementById('total-price');
 
-        console.log(stockLimitElement)
-        if (productQuantityElement.innerText == 1)
+        if (Number(productQuantityElement.innerText) == 1)
           return Swal.fire({
             icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            footer: '<a href="#">Why do I have this issue?</a>'
-          });
-
-        if (Number(productQuantityElement.innerText) >= Number(stockLimitElement))
-          return Swal.fire({
-            icon: "error",
-            title: "Oopsvsdfv...",
-            text: "Something went wrong!",
-            footer: '<a href="#">Why do I have this issue?</a>'
+            title: "Minimum One Quantity",
+            text: "Please select atleast one quantity",
           });
 
         let response = await fetch('/cart/decQty/' + id, { method: 'PUT' })
         let data = await response.json()
 
-        productQuantityElement.innerHTML = data.cartProduct.productQuantity;
-        totalCostPerProductElement.innerHTML = '₹' + data.cartProduct.totalCostPerProduct;
-        totalPriceElement.innerHTML = '₹' + data.grandTotal
-        grandTotalElement.innerHTML = '₹' + data.grandTotal
+        productQuantityElement.innerHTML = await data.cartProduct.productQuantity;
+        totalCostPerProductElement.innerHTML = '₹' + await data.cartProduct.totalCostPerProduct;
+        totalPriceElement.innerHTML = '₹' + await data.grandTotal
+        grandTotalElement.innerHTML = '₹' + await data.grandTotal
       } catch (error) {
         console.error(error)
       }
     }
-
+  </script>
+  {{!-- increase cart quantity --}}
+  <script>
     async function cartInc(id, index) {
       try {
-        let response = await fetch('/cart/incQty/' + id, { method: 'PUT' })
-        let data = await response.json()
-
+        let stockLimitElement = document.getElementById('stockLimit' + index).innerText;
         let productQuantityElement = document.getElementById('productQuantity' + index);
         let totalCostPerProductElement = document.getElementById('totalCostPerProduct' + index);
         let totalPriceElement = document.getElementById('totalPrice');
         let grandTotalElement = document.getElementById('total-price');
 
+        if (Number(productQuantityElement.innerText) >= Number(stockLimitElement))
+          return Swal.fire({
+            icon: "info",
+            title: "Avlo dan da iruku venna",
+            text: "Something went wrong!",
+          });
+
+        let response = await fetch('/cart/incQty/' + id, { method: 'PUT' })
+        let data = await response.json()
+
         productQuantityElement.innerHTML = data.cartProduct.productQuantity;
         totalCostPerProductElement.innerHTML = '₹' + data.cartProduct.totalCostPerProduct;
         totalPriceElement.innerHTML = '₹' + data.grandTotal
@@ -912,10 +910,36 @@
         console.error(error)
       }
     }
-
   </script>
-
-
+  {{!-- delete cart--}}
+  <script>
+    async function deleteCart(id, index) {
+      try {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            let cartProductElement = document.getElementById('cartProduct' + index)
+            cartProductElement.style.display = "none"
+            fetch('/cart/delete/' + id, { method: 'DELETE' }).then(data => console.log(data))
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          }
+        });
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  </script>
 
 </body>
 

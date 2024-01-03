@@ -56,7 +56,7 @@ module.exports = {
         phone: req.body.phone,
       };
       await addressCollection.insertMany([address])
-      res.redirect("/account");
+      res.redirect("..");
     } catch (error) {
       console.error(error);
     }
@@ -85,7 +85,7 @@ module.exports = {
       };
       await addressCollection.updateOne({_id:req.params.id},address)
 
-      res.redirect('/account/myAddress')
+      res.redirect('back')
     } catch (error) {
       console.error(error);
     }

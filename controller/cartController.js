@@ -2,7 +2,7 @@ const addressCollection = require("../models/addressModel.js");
 const cartCollection = require("../models/cartModel.js");
 const orderCollection = require("../models/orderModel.js");
 
-//finding grand total in cart-page
+//updating totalCostPerProduct and grand total in cart-page
 async function grandTotal(req) {
   try {
     let userCartData = await cartCollection
@@ -35,7 +35,7 @@ module.exports = {
   //cart
   cart: async (req, res) => {
     try {
-      let userCartData=await grandTotal(req);
+      let userCartData = await grandTotal(req);
       console.log(userCartData);
       res.render("userViews/cart", {
         currentUser: req.session.currentUser,
@@ -65,7 +65,7 @@ module.exports = {
             productQuantity: req.body.productQuantity,
           },
         ]);
-        console.log(req.body);
+      console.log(req.body);
       res.redirect("back");
     } catch (error) {
       console.log(error);
@@ -73,23 +73,28 @@ module.exports = {
   },
   //cart-page
   deleteFromCart: async (req, res) => {
-    await cartCollection.findOneAndUpdate(
-      { userId: req.session.currentUser._id },
-      { $pull: { cartProducts: { productId: req.params.id } } }
-    );
-    res.redirect("back");
+    await cartCollection.findOneAndDelete({ _id: req.params.id });
+    res.send("hello ur cart is deleted");
   },
   decQty: async (req, res) => {
-    let cartProduct= await cartCollection.findOne({ _id: req.params.id})
-    cartProduct.productQuantity--
-    cartProduct= await cartProduct.save()
+    let cartProduct = await cartCollection
+      .findOne({ _id: req.params.id })
+      .populate("productId");
+    if (cartProduct.productQuantity > 1) {
+      cartProduct.productQuantity--;
+    }
+    cartProduct = await cartProduct.save();
     await grandTotal(req);
     res.json({ cartProduct, grandTotal: req.session.grandTotal });
   },
   incQty: async (req, res) => {
-    let cartProduct= await cartCollection.findOne({ _id: req.params.id})
-    cartProduct.productQuantity++
-    cartProduct= await cartProduct.save()
+    let cartProduct = await cartCollection
+      .findOne({ _id: req.params.id })
+      .populate("productId");
+    if (cartProduct.productQuantity < cartProduct.productId.productStock) {
+      cartProduct.productQuantity++;
+    }
+    cartProduct = await cartProduct.save();
     await grandTotal(req);
     res.json({ cartProduct, grandTotal: req.session.grandTotal });
   },
@@ -121,24 +126,24 @@ module.exports = {
   },
   orderPlaced: async (req, res) => {
     try {
-      let cartData = await cartCollection
-        .find({ userId: req.session.currentUser._id })
-        .populate("productId"); ////check this again ffs
-      console.log("cart data ===>", cartData);
-      let orderNumber = Math.trunc(Math.random() * 10000);
-      await orderCollection.insertMany({
+      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");                           ////check this again ffs
+      let orderData= await orderCollection.insertMany({
         userId: req.session.currentUser._id,
-        orderNumber,
         addressChosen: req.session.chosenAddress,
+        orderNumber: await orderCollection.countDocuments()+1,
         cartData,
         grandTotalCost: req.session.grandTotal,
       });
-      let orderData = await orderCollection.findOne({ orderNumber });
+      console.log(orderData);
+      orderData[0].orderNumber= orderData[0]._id.toString().slice(0,4).toUpperCase()
+      await orderData[0].save()
+      orderData= await orderCollection.findOne({_id: orderData[0]._id})
       console.log("order data ===>", orderData);
       res.render("userViews/orderPlacedPage", {
         orderCartData: cartData,
-        orderNumber,
-      }); ////check this again ffs
+        orderData,
+      });
+      ////check this again ffs
     } catch (error) {
       console.error(error);
     }
