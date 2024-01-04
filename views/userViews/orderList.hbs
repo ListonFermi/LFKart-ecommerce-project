@@ -460,16 +460,16 @@
                             <tbody>
                                 {{#each orderData}}
                                 <tr>
-                                    <td>#{{orderData.orderNumber}}</td>
-                                    <td>{{orderData.cartData}}
+                                    <td>#{{this.orderNumber}}</td>
+                                    <td>{{this.cartData.length}}
                                         <small>item(s)</small>
                                     </td>
                                     <td><a target="_blank">-</a></td>
-                                    <td>Bank Wire</td>
-                                    <td><a href="order-status.html" class="btn btn-primary btn-sm">view status</a></td>
-                                    <td>$403</td>
-                                    <td data-value="78025368997">22 Jun 2014</td>
-                                    <td data-value="3"><span class="label label-success">Done</span>
+                                    <td>{{this.paymentType}}</td>
+                                    <td><a href="/account/orderList/orderStatus/{{this._id}}" class="btn btn-primary btn-sm">view status</a></td>
+                                    <td>${{this.grandTotalCost}}</td>
+                                    <td data-value="78025368997">{{this.orderDate}}</td>
+                                    <td data-value="3"><span class="label label-primary">{{this.orderStatus}}</span>
                                     </td>
                                 </tr>
                                 {{/each}}

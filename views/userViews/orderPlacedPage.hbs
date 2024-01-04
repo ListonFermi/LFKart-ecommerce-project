@@ -763,7 +763,7 @@
           <div class="row userInfo">
             <div class="thanxContent text-center">
               <h1>
-                Thank you for your order <a href="order-status.html">#{{orderData.orderNumber}}</a>
+                Thank you for your order <a href="/account/orderList/orderStatus/{{orderData._id}}">#{{orderData.orderNumber}}</a>
               </h1>
               <h4>we'll let you know when your items are on their way</h4>
             </div>
@@ -800,7 +800,7 @@
                         </div>
                       </td>
 
-                      <td class="price">₹{{this.totaCostPerProduct}}</td>
+                      <td class="price">₹{{this.totalCostPerProduct}}</td>
                     </tr>
                     {{/each}}
                   </tbody>

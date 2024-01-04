@@ -126,24 +126,20 @@ module.exports = {
   },
   orderPlaced: async (req, res) => {
     try {
-      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");                           ////check this again ffs
-      let orderData= await orderCollection.insertMany({
+      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId"); 
+      cartData= JSON.parse(JSON.stringify(cartData))     
+      let orderData= await orderCollection.create({
         userId: req.session.currentUser._id,
-        addressChosen: req.session.chosenAddress,
         orderNumber: await orderCollection.countDocuments()+1,
+        orderDate: new Date().toLocaleString(),
         cartData,
+        addressChosen: req.session.chosenAddress,        
         grandTotalCost: req.session.grandTotal,
       });
-      console.log(orderData);
-      orderData[0].orderNumber= orderData[0]._id.toString().slice(0,4).toUpperCase()
-      await orderData[0].save()
-      orderData= await orderCollection.findOne({_id: orderData[0]._id})
-      console.log("order data ===>", orderData);
       res.render("userViews/orderPlacedPage", {
         orderCartData: cartData,
-        orderData,
+        orderData
       });
-      ////check this again ffs
     } catch (error) {
       console.error(error);
     }

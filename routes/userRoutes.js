@@ -24,7 +24,7 @@ userRouter.post('/forgotPasswordReset', userController.forgotPasswordReset)
 userRouter.get('/productDetails/:id', blockedUserCheck, userController.productDetails)
 
 //cart
-userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) //cart-page
+userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) 
 userRouter.post('/addToCart/:id', blockedUserCheck, userAuth, cartController.addToCart) //add to cart from product page
 //cart-page
 userRouter.delete('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart from cart page
@@ -35,20 +35,26 @@ userRouter.put('/cart/incQty/:id', blockedUserCheck, userAuth, cartController.in
 userRouter.get('/account', blockedUserCheck, userAuth, accountController.accountPage)
 //account-orderList
 userRouter.get('/account/orderList', blockedUserCheck, userAuth, accountController.orderList)
-
+userRouter.get('/account/orderList/orderStatus/:id', blockedUserCheck, userAuth, accountController.orderStatus)
+userRouter.delete('/account/orderList/orderStatus/cancelOrder/:id', blockedUserCheck, userAuth, accountController.cancelOrder )
+//account-my address
 userRouter.get('/account/myAddress', blockedUserCheck, userAuth, accountController.myAddress)
+//account-edit address
 userRouter.get('/account/addAddress', blockedUserCheck, userAuth, accountController.addAddress)
 userRouter.post('/account/addAddress', blockedUserCheck, userAuth, accountController.addAddressPost)
 userRouter.get('/account/editAddress/:id', blockedUserCheck, userAuth, accountController.editAddress)
 userRouter.post('/account/editAddress/:id', blockedUserCheck, userAuth, accountController.editAddressPost)
 userRouter.get('/account/deleteAddress/:id', blockedUserCheck, userAuth, accountController.deleteAddress)
+//account-personal info
 userRouter.get('/account/personalInfo', blockedUserCheck, userAuth, accountController.personalInfo)
+//account-wishlist
 
 //order routes-checkout
 userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutPage1)
 userRouter.get('/checkout2', blockedUserCheck, userAuth, cartController.checkoutPage2)
 userRouter.get('/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
 
+//shop page
 userRouter.get('/shop', blockedUserCheck, userController.shopPage)
 
 module.exports = userRouter

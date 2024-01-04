@@ -14,22 +14,46 @@ module.exports = {
   //account-orderList
   orderList: async (req, res) => {
     try {
-      let cartData= await orderCollection.find({userId: req.session.currentUser._id})
-      res.render('userViews/orderList', { cartData })
+      let orderData = await orderCollection.find({
+        userId: req.session.currentUser._id,
+      });
+      res.render("userViews/orderList", { orderData });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  orderStatus: async (req, res) => {
+    try {
+      let orderData = await orderCollection
+        .findOne({ _id: req.params.id })
+        .populate("addressChosen");
+      console.log(orderData.cartData);
+      console.log('hello=>'+orderData.orderStatus);
+      let isCancelled =  (orderData.orderStatus == 'Cancelled')
+      console.log(isCancelled);
+      res.render("userViews/orderStatus", { orderData, isCancelled});
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  cancelOrder: async (req, res) => {
+    try {
+      await orderCollection.findByIdAndDelete({_id: req.params.id})
+      res.json({success: true})
     } catch (error) {
       console.error(error)
     }
   },
 
-  
   myAddress: async (req, res) => {
     try {
       const addressData = await addressCollection.find({
-        userId: req.session.currentUser._id
+        userId: req.session.currentUser._id,
       });
       res.render("userViews/myAddress", {
         currentUser: req.session.currentUser,
-        addressData
+        addressData,
       });
     } catch (error) {
       console.error(error);
@@ -55,7 +79,7 @@ module.exports = {
         addressLine2: req.body.addressLine2,
         phone: req.body.phone,
       };
-      await addressCollection.insertMany([address])
+      await addressCollection.insertMany([address]);
       res.redirect("..");
     } catch (error) {
       console.error(error);
@@ -63,7 +87,10 @@ module.exports = {
   },
   editAddress: async (req, res) => {
     try {
-      const existingAddress = await addressCollection.findOne({userId: req.session.currentUser._id, _id:req.params.id});
+      const existingAddress = await addressCollection.findOne({
+        userId: req.session.currentUser._id,
+        _id: req.params.id,
+      });
       console.log(existingAddress);
       res.render("userViews/editAddress", {
         currentUser: req.session.currentUser,
@@ -83,28 +110,28 @@ module.exports = {
         addressLine2: req.body.addressLine2,
         phone: req.body.phone,
       };
-      await addressCollection.updateOne({_id:req.params.id},address)
+      await addressCollection.updateOne({ _id: req.params.id }, address);
 
-      res.redirect('back')
+      res.redirect("back");
     } catch (error) {
       console.error(error);
     }
   },
   deleteAddress: async (req, res) => {
     try {
-      await addressCollection.deleteOne({_id: req.params.id})
-      res.redirect('/account/myAddress')
+      await addressCollection.deleteOne({ _id: req.params.id });
+      res.redirect("/account/myAddress");
     } catch (error) {
       console.log(error);
     }
   },
 
   //personal info
-  personalInfo: async (req,res) =>{
+  personalInfo: async (req, res) => {
     try {
-      res.render('userViews/personalInfo')
+      res.render("userViews/personalInfo");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  },
 };
