@@ -707,23 +707,8 @@
 
                         <p class="required"><sup>*</sup> Required field</p>
                     </div>
-                    <form>
+                    <form role="form" class="passwordForm" >
                         <div class="col-xs-12 col-sm-6">
-                            <div class="form-group required">
-                                <label for="InputName">Username <sup>*</sup> </label>
-                                <input required type="text" class="form-control" id="InputName">
-                            </div>
-                            <div class="form-group">
-                                <label for="InputEmail"> Email </label>
-                                <input type="email" class="form-control" id="InputEmail" placeholder="gtanim@gmail.com">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="form-group required">
-                                <label for="InputPasswordCurrent"> Password <sup> * </sup> </label>
-                                <input type="password" value="123456" name="InputPasswordCurrent" class="form-control"
-                                    id="InputPasswordCurrent">
-                            </div>
                             <div class="form-group required">
                                 <label for="InputPasswordnew"> New Password </label>
                                 <input type="password" name="InputPasswordnew" class="form-control"
@@ -732,11 +717,17 @@
                             <div class="form-group required">
                                 <label for="InputPasswordnewConfirm"> Confirm Password </label>
                                 <input type="password" name="InputPasswordnewConfirm" class="form-control"
-                                    id="InputPasswordnewConfirm">
+                                    id="InputPasswordnewConfirm" data-rule-equalTo="#InputPasswordnew">
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> Password <sup> * </sup> </label>
+                                <input type="password" value="" name="InputPasswordCurrent" class="form-control"
+                                    id="InputPasswordCurrent">
                             </div>
                         </div>
+                        <div class="error"></div>
                         <div class="col-lg-12">
-                            <button type="submit" class="btn   btn-primary"><i class="fa fa-save"></i> &nbsp;
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> &nbsp;
                                 Save</button>
                         </div>
                     </form>
@@ -795,6 +786,18 @@
 
     <!-- include custom script for site  -->
     <script src="assets/js/script.js"></script>
+
+    <script>
+        $().ready(function () {
+            $("#passwordForm").validate();
+            // validate change passsword form on keyup and submit
+            $(".passwordForm").validate({
+                errorLabelContainer: $(".passwordForm div.error")
+            });
+        });
+    </script>
+
+
 </body>
 
 <!-- Mirrored from templatecycle.com/tshop/v6/gray/user-information.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:55:47 GMT -->

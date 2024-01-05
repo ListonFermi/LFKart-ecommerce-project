@@ -4,27 +4,7 @@ const jwt = require("jsonwebtoken");
 const transporter = require("../services/sendOTP.js");
 const categoryCollection = require("../models/categoryModel.js");
 const productCollection = require("../models/productModels.js");
-// var currentUser={
-//   _id: '65832ad453251929ae1362ab',
-//   username: 'listonfermi',
-//   email: 'listonfermi@gmail.com',
-//   phonenumber: 7598176052,
-//   password: '$2b$10$fa7VfD/wgw0Ro.xFy5ykourkORCjRzTITWLPZIeBJ0NSTjjiSfd5C',
-//   isBlocked: false,
-//   __v: 0,
-//   cart: [
-//     {
-//       productId: '65842b9b0ade55772b789df3',
-//       quantity: 1,
-//       _id: '658aeafc1425ccfe6086b5e0'
-//     },
-//     {
-//       productId: '65842b9b0ade55772b789df3',
-//       quantity: 1,
-//       _id: '658aeb301425ccfe6086b5e6'
-//     }
-//   ]
-// }
+const cartCollection = require("../models/cartModel.js");
 
 module.exports = {
   //signup-login
@@ -220,12 +200,18 @@ module.exports = {
       const currentProduct = await productCollection.findOne({
         _id: req.params.id,
       });
+      var cartProductQuantity=0
+      if(req.session?.currentUser?._id){
+        const cartProduct = await cartCollection.findOne({ userId: req.session.currentUser._id, productId: req.params.id })
+        if(cartProduct){
+          var cartProductQuantity= cartProduct.productQuantity
+        }
+      }     
       let productQtyLimit= [],i=0
-      while(i<currentProduct.productStock){
+      while(i<(currentProduct.productStock - cartProductQuantity )){
         productQtyLimit.push(i+1)
         i++
       }
-        
       res.render("userViews/productDetails", { currentUser: req.session.currentUser, currentProduct, productQtyLimit });
     } catch (error) {
       console.error(error);

@@ -127,13 +127,14 @@ module.exports = {
   orderPlaced: async (req, res) => {
     try {
       let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId"); 
-      cartData= JSON.parse(JSON.stringify(cartData))     
+      cartData= JSON.parse(JSON.stringify(cartData))
+      let addressChosen= await addressCollection.findOne({ _id: req.session.chosenAddress })   
       let orderData= await orderCollection.create({
         userId: req.session.currentUser._id,
         orderNumber: await orderCollection.countDocuments()+1,
         orderDate: new Date().toLocaleString(),
         cartData,
-        addressChosen: req.session.chosenAddress,        
+        addressChosen,        
         grandTotalCost: req.session.grandTotal,
       });
       console.log('deleting', req.session.currentUser._id);

@@ -21,7 +21,7 @@
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand fw-bold" href="/admin"><img src="images/logo-dark.png" alt="LFKart"></a>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item fw-bold">
@@ -53,15 +53,22 @@
             <div class="row">
                 <div class="col-6">
                     <p><strong>Order Number:</strong> #{{orderData.orderNumber}}</p>
-                    <p><strong>Status:</strong></p>
-                    <p>{{orderData.orderStatus}}</p>
+                    <div class="card text-dark bg-info  mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{orderData.orderStatus}}</h5>
+                        </div>
+                    </div>
+                    <span>
+                        <p><strong>Status:</strong></p>
+                        <h5>{{orderData.orderStatus}}</h5>
+                    </span>
                     <p><strong>Order Date:</strong> {{orderData.orderDate}}</p>
                 </div>
                 <div class="col-6 ">
                     <div class="card bg-light mb-3" style="max-width: 18rem;">
                         <div class="card-header">Address</div>
                         <div class="card-body">
-                            <h5 class="card-title">Light card title</h5>
+                            <h5 class="card-title">{{orderData.addressChosen.addressTitle}}</h5>
                             <p class="card-text">{{orderData.addressChosen.addressLine1}} <br />
                                 {{orderData.addressChosen.addressLine2}} <br /> Phone:
                                 {{orderData.addressChosen.phone}}</p>
@@ -70,29 +77,46 @@
                 </div>
             </div>
             <div class="row p-3">
-                <table class="">
+                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Payment</div>
+                    <div class="card-body">
+                        <h5 class="card-title">₹{{orderData.grandTotalCost}}</h5>
+                        <p class="card-text">{{orderData.paymentType}}</p>
+                    </div>
+                </div>
+            </div>
+            <h5>Product details:</h5>
+            <div class="row p-3">
+                <table id="orderStatus" class="table">
+                    <thead>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </thead>
                     <tbody>
+                        {{#each orderData.cartData}}
                         <tr>
                             <td>
-                                <div><a href=""><img src="/images/productImages/{{this.productId.productImage1}}"
-                                            alt=""></a></div>
+                                <div><a href=""><img style="height: 100px; width: 100px;"
+                                            src="/images/productImages/{{this.productId.productImage1}}" alt=""></a>
+                                </div>
                             </td>
                             <td>
                                 <div>
                                     <h4>{{this.productId.productName}}</h4>
-                                    <div><span>{{this.productId.productName}}</span></div>
+                                    <div><span>₹{{this.productId.productPrice}}</span></div>
                                 </div>
                             </td>
-                            <td> X{{this.productQuantity}}</td>
-                            <td> <span> ₹{{this.totalCostPerProduct}} </span></td>
+                            <td> X &nbsp; {{this.productQuantity}}</td>
+                            <td> <span>
+                                    <h4>₹{{this.totalCostPerProduct}} </h4>
+                                </span></td>
                         </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>
-
-
-
-
         </div>
     </div>
 
@@ -115,7 +139,7 @@
     {{!-- Table details --}}
     <script>
         $(document).ready(function () {
-            $('#example').DataTable();
+            $(' orderStatus').DataTable();
         });
     </script>
 

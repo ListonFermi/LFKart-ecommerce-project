@@ -45,8 +45,9 @@ userRouter.post('/account/addAddress', blockedUserCheck, userAuth, accountContro
 userRouter.get('/account/editAddress/:id', blockedUserCheck, userAuth, accountController.editAddress)
 userRouter.post('/account/editAddress/:id', blockedUserCheck, userAuth, accountController.editAddressPost)
 userRouter.get('/account/deleteAddress/:id', blockedUserCheck, userAuth, accountController.deleteAddress)
-//account-personal info
-userRouter.get('/account/personalInfo', blockedUserCheck, userAuth, accountController.personalInfo)
+//account-change password
+userRouter.get('/account/changepassword', blockedUserCheck, userAuth, accountController.changePassword)
+userRouter.patch('/account/changepassword', blockedUserCheck, userAuth, accountController.changePassword)
 //account-wishlist
 
 //order routes-checkout

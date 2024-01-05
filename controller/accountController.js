@@ -1,5 +1,7 @@
 const addressCollection = require("../models/addressModel");
 const orderCollection = require("../models/orderModel");
+const bcrypt = require("bcrypt");
+const userCollection = require("../models/userModels");
 
 module.exports = {
   //account
@@ -27,11 +29,8 @@ module.exports = {
       let orderData = await orderCollection
         .findOne({ _id: req.params.id })
         .populate("addressChosen");
-      console.log(orderData.cartData);
-      console.log('hello=>'+orderData.orderStatus);
-      let isCancelled =  (orderData.orderStatus == 'Cancelled')
-      console.log(isCancelled);
-      res.render("userViews/orderStatus", { orderData, isCancelled});
+      let isCancelled = orderData.orderStatus == "Cancelled";
+      res.render("userViews/orderStatus", { orderData, isCancelled });
     } catch (error) {
       console.error(error);
     }
@@ -39,10 +38,13 @@ module.exports = {
 
   cancelOrder: async (req, res) => {
     try {
-      await orderCollection.findByIdAndUpdate({_id: req.params.id},{ $set: { orderStatus: 'Cancelled'  } })
-      res.json({success: true})
+      await orderCollection.findByIdAndUpdate(
+        { _id: req.params.id },
+        { $set: { orderStatus: "Cancelled" } }
+      );
+      res.json({ success: true });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   },
 
@@ -127,11 +129,27 @@ module.exports = {
   },
 
   //personal info
-  personalInfo: async (req, res) => {
+  changePassword: async (req, res) => {
     try {
-      res.render("userViews/personalInfo");
+      res.render("userViews/changePassword", {
+        invalidCurrentPassword: req.session.invalidCurrentPassword,
+      });
     } catch (error) {
       console.error(error);
+    }
+  },
+  changePasswordPost: async (req, res) => {
+    const compareCurrentPass = bcrypt.compareSync(
+      req.body.currentPassword,
+      req.session.currentUser.password
+    );
+    if (compareCurrentPass) {
+      const encryptedNewPassword= bcrypt.hashSync( req.body.currentPassword, 10 )
+      await userCollection.updateOne({ _id: req.session.currentUser._id},{ $set: { password: encryptedNewPassword}})
+      res.redirect("/account/changepassword")
+    } else {
+      req.session.invalidCurrentPassword = true;
+      res.redirect("/account/changepassword");
     }
   },
 };

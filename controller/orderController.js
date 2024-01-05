@@ -5,6 +5,7 @@ module.exports={
     orderManagement: async(req,res)=>{
         try {
             let orderData= await orderCollection.find().populate('userId')
+            
             res.render('adminViews/orderManagement', { orderData })
         } catch (error) {
             console.error(error)
@@ -67,8 +68,8 @@ module.exports={
     },
     orderStatusPage: async(req,res)=>{
         try {
-            console.log('here');
-            res.render('adminViews/orderStatus')
+            let orderData = await orderCollection.findOne({ _id: req.params.id }).populate("addressChosen");
+            res.render('adminViews/orderStatus',{ orderData})
         } catch (error) {
             console.error(error)
         }

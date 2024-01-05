@@ -32,11 +32,7 @@ app.use("/account", express.static("public"));
 
 //express-session
 app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: "my secret",
-  })
+  session({ resave: true, saveUninitialized: true, secret: "my secret" })
 );
 
 //parse incoming requests
