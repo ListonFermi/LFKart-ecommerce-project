@@ -83,9 +83,10 @@
     </div>
 
     <!-- category already exists- alert box div -->
+    <div class="p-3"></div>
     {{#if categoryExists}}
     <div class="alert alert-danger" role="alert">
-        Category Already Exists
+        Category <strong>{{categoryExists.categoryName}}</strong>  Already Exists
     </div>
     {{/if}}
 

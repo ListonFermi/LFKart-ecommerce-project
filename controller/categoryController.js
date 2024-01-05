@@ -17,7 +17,7 @@ module.exports = {
   addCategory: async (req, res) => {
     try {
       let categoryExists = await categoryCollection.findOne({
-        categoryName: req.body.categoryName,
+        categoryName: { $regex: new RegExp(req.body.categoryName, 'i'  ) },
       });
       console.log(categoryExists);
       console.log(req.body);
@@ -42,9 +42,6 @@ module.exports = {
         { _id: req.params.id },
         { $set: { isListed: false } }
       );
-      // const unlistedCategory= await categoryCollection.findOne({_id: req.params.id})
-      // await productCollection.updateMany([ { parentCategory : unlistedCategory.categoryName } ,
-      //   { $set: { isListed: false }  } ])
       res.redirect("/admin/categoryManagement");
     } catch (error) {
       console.error(error);
@@ -63,9 +60,10 @@ module.exports = {
   },
   editCategory: async (req, res) => {
     try {
-      let existingCategory = await productCollection.findOne({
-        categoryName: req.body.categoryName,
+      let existingCategory = await categoryCollection.findOne({
+        categoryName: { $regex: new RegExp(req.body.categoryName, 'i'  ) },
       });
+      console.log(existingCategory);
       if (!existingCategory || existingCategory._id == req.params.id) {
         await categoryCollection.findOneAndUpdate(
           {
@@ -80,7 +78,7 @@ module.exports = {
         );
         res.redirect("/admin/categoryManagement");
       } else {
-        req.session.categoryAlreadyExists = existingCategory;
+        req.session.categoryExists = existingCategory;
         res.redirect("/admin/categoryManagement");
       }
     } catch (error) {

@@ -65,4 +65,12 @@ module.exports={
             console.error(error)
         }
     },
+    orderStatusPage: async(req,res)=>{
+        try {
+            console.log('here');
+            res.render('adminViews/orderStatus')
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }

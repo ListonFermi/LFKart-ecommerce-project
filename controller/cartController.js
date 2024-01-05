@@ -136,6 +136,10 @@ module.exports = {
         addressChosen: req.session.chosenAddress,        
         grandTotalCost: req.session.grandTotal,
       });
+      console.log('deleting', req.session.currentUser._id);
+
+      let dc= await cartCollection.deleteMany( { userId: req.session.currentUser._id} )
+      console.log(dc);
       res.render("userViews/orderPlacedPage", {
         orderCartData: cartData,
         orderData

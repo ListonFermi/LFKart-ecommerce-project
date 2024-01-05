@@ -36,7 +36,7 @@ userRouter.get('/account', blockedUserCheck, userAuth, accountController.account
 //account-orderList
 userRouter.get('/account/orderList', blockedUserCheck, userAuth, accountController.orderList)
 userRouter.get('/account/orderList/orderStatus/:id', blockedUserCheck, userAuth, accountController.orderStatus)
-userRouter.delete('/account/orderList/orderStatus/cancelOrder/:id', blockedUserCheck, userAuth, accountController.cancelOrder )
+userRouter.put('/account/orderList/orderStatus/cancelOrder/:id', blockedUserCheck, userAuth, accountController.cancelOrder )
 //account-my address
 userRouter.get('/account/myAddress', blockedUserCheck, userAuth, accountController.myAddress)
 //account-edit address

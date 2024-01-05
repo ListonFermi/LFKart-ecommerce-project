@@ -39,7 +39,7 @@ module.exports = {
 
   cancelOrder: async (req, res) => {
     try {
-      await orderCollection.findByIdAndDelete({_id: req.params.id})
+      await orderCollection.findByIdAndUpdate({_id: req.params.id},{ $set: { orderStatus: 'Cancelled'  } })
       res.json({success: true})
     } catch (error) {
       console.error(error)

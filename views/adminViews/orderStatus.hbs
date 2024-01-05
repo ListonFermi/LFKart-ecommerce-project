@@ -47,44 +47,53 @@
         </div>
     </nav>
 
-    <div class="container pt-3">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th scope="col" class="border-dark">Order No</th>
-                    <th scope="col" class="border-dark">Name</th>
-                    {{!-- <th scope="col" class="border-dark">Date</th> --}}
-                    <th scope="col" class="border-dark">Amount</th>
-                    <th scope="col" class="border-dark">Payment</th>
-                    <th scope="col" class="border-dark">Status</th>
-                    <th class="border-dark">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each orderData}}
-                <tr>
-                    <td><a href="/admin/orderManagement/orderStatus/{{this._id}}">{{this.orderNumber}}</a></td>
-                    <td>{{this.userId.username}}</td>
-                    {{!-- <td></td> --}}
-                    <td>₹{{this.grandTotalCost}}</td>
-                    <td>{{this.paymentType}}</td>
-                    <td>{{this.orderStatus}}</td>
-                    <td>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/orderManagement/status/pending/{{this._id}}">Pending</a></li>
-                            <li> <a class="dropdown-item" href="/admin/orderManagement/status/shipped/{{this._id}}">Shipped</a></li>
-                            <li> <a class="dropdown-item" href="/admin/orderManagement/status/delivered/{{this._id}}">Delivered</a></li>
-                            <li> <a class="dropdown-item" href="/admin/orderManagement/status/return/{{this._id}}">Return</a></li>
-                            <li><a class="dropdown-item" href="/admin/orderManagement/status/cancelled/{{this._id}}">Cancelled</a></li>
-                        </ul>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    <div class="container p-3">
+        <h1><strong>ORDER STATUS</strong></h1>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-6">
+                    <p><strong>Order Number:</strong> #{{orderData.orderNumber}}</p>
+                    <p><strong>Status:</strong></p>
+                    <p>{{orderData.orderStatus}}</p>
+                    <p><strong>Order Date:</strong> {{orderData.orderDate}}</p>
+                </div>
+                <div class="col-6 ">
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Address</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Light card title</h5>
+                            <p class="card-text">{{orderData.addressChosen.addressLine1}} <br />
+                                {{orderData.addressChosen.addressLine2}} <br /> Phone:
+                                {{orderData.addressChosen.phone}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-3">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div><a href=""><img src="/images/productImages/{{this.productId.productImage1}}"
+                                            alt=""></a></div>
+                            </td>
+                            <td>
+                                <div>
+                                    <h4>{{this.productId.productName}}</h4>
+                                    <div><span>{{this.productId.productName}}</span></div>
+                                </div>
+                            </td>
+                            <td> X{{this.productQuantity}}</td>
+                            <td> <span> ₹{{this.totalCostPerProduct}} </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+        </div>
     </div>
 
 
