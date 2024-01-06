@@ -4,6 +4,8 @@ const userAuth = require('../middlewares/userAuth.js')
 const cartController = require('../controller/cartController.js')
 const accountController = require('../controller/accountController.js')
 const blockedUserCheck = require('../middlewares/blockedUserCheck.js')
+const upload= require('../services/multer.js')
+const shopPageController = require('../controller/shopPageController.js')
 
 //signup-login
 userRouter.get('/', blockedUserCheck, userController.landingPage)
@@ -46,8 +48,8 @@ userRouter.get('/account/editAddress/:id', blockedUserCheck, userAuth, accountCo
 userRouter.post('/account/editAddress/:id', blockedUserCheck, userAuth, accountController.editAddressPost)
 userRouter.get('/account/deleteAddress/:id', blockedUserCheck, userAuth, accountController.deleteAddress)
 //account-change password
-userRouter.get('/account/changepassword', blockedUserCheck, userAuth, accountController.changePassword)
-userRouter.patch('/account/changepassword', blockedUserCheck, userAuth, accountController.changePassword)
+userRouter.get('/account/changePassword', blockedUserCheck, userAuth, accountController.changePassword)
+userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, upload.any(), accountController.changePasswordPatch)
 //account-wishlist
 
 //order routes-checkout
@@ -56,6 +58,13 @@ userRouter.get('/checkout2', blockedUserCheck, userAuth, cartController.checkout
 userRouter.get('/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
 
 //shop page
-userRouter.get('/shop', blockedUserCheck, userController.shopPage)
+userRouter.get('/shop', blockedUserCheck, shopPageController.shopPage)
+userRouter.get('/shop/filter/category/:categoryName', blockedUserCheck, shopPageController.filterCategory)
+userRouter.get('/shop/filter/priceRange', blockedUserCheck, shopPageController.filterPriceRange)
+userRouter.get('/shop/sort/priceRangeAscending', blockedUserCheck, shopPageController.sortPriceRangeAscending)
+userRouter.get('/shop/sort/priceRangeDescending', blockedUserCheck, shopPageController.sortPriceRangeDescending)
+
+
+
 
 module.exports = userRouter

@@ -178,7 +178,11 @@ module.exports = {
     }
   },
   forgotPasswordPage3: async (req, res) => {
-    res.render("userViews/forgotPasswordPage3");
+    try {
+      res.render("userViews/forgotPasswordPage3");
+    } catch (error) {
+      console.error(error)
+    } 
   },
   forgotPasswordReset: async (req, res) => {
     try {
@@ -217,13 +221,4 @@ module.exports = {
       console.error(error);
     }
   },
-
-  //shop page
-  shopPage: async (req, res) => {
-    try {
-      res.render('userViews/shop')      
-    } catch (error) {
-      console.error(error)
-    }
-  }
 };

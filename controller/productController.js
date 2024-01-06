@@ -111,7 +111,11 @@ module.exports = {
     }
   },
   deleteProduct: async (req, res) => {
-    await productCollection.findOneAndDelete({ _id: req.params.id });
-    res.redirect("/admin/productManagement");
+    try {
+      await productCollection.findOneAndDelete({ _id: req.params.id });
+      res.redirect("/admin/productManagement");
+    } catch (error) {
+      console.error(error)
+    }
   }
 };

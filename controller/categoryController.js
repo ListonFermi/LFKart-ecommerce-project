@@ -17,7 +17,7 @@ module.exports = {
   addCategory: async (req, res) => {
     try {
       let categoryExists = await categoryCollection.findOne({
-        categoryName: { $regex: new RegExp(req.body.categoryName, 'i'  ) },
+        categoryName: { $regex: new RegExp(req.body.categoryName, "i") },
       });
       console.log(categoryExists);
       console.log(req.body);
@@ -61,7 +61,7 @@ module.exports = {
   editCategory: async (req, res) => {
     try {
       let existingCategory = await categoryCollection.findOne({
-        categoryName: { $regex: new RegExp(req.body.categoryName, 'i'  ) },
+        categoryName: { $regex: new RegExp(req.body.categoryName, "i") },
       });
       console.log(existingCategory);
       if (!existingCategory || existingCategory._id == req.params.id) {
@@ -86,7 +86,11 @@ module.exports = {
     }
   },
   deleteCategory: async (req, res) => {
-    await categoryCollection.findOneAndDelete({ _id: req.params.id });
-    res.redirect("/admin/categoryManagement");
+    try {
+      await categoryCollection.findOneAndDelete({ _id: req.params.id });
+      res.redirect("/admin/categoryManagement");
+    } catch (error) {
+      console.error(error);
+    }
   },
 };

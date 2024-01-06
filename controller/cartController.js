@@ -73,30 +73,42 @@ module.exports = {
   },
   //cart-page
   deleteFromCart: async (req, res) => {
-    await cartCollection.findOneAndDelete({ _id: req.params.id });
-    res.send("hello ur cart is deleted");
+    try {
+      await cartCollection.findOneAndDelete({ _id: req.params.id });
+      res.send("hello ur cart is deleted");
+    } catch (error) {
+      console.error(error);
+    }
   },
   decQty: async (req, res) => {
-    let cartProduct = await cartCollection
-      .findOne({ _id: req.params.id })
-      .populate("productId");
-    if (cartProduct.productQuantity > 1) {
-      cartProduct.productQuantity--;
+    try {
+      let cartProduct = await cartCollection
+        .findOne({ _id: req.params.id })
+        .populate("productId");
+      if (cartProduct.productQuantity > 1) {
+        cartProduct.productQuantity--;
+      }
+      cartProduct = await cartProduct.save();
+      await grandTotal(req);
+      res.json({ cartProduct, grandTotal: req.session.grandTotal });
+    } catch (error) {
+      console.error(error);
     }
-    cartProduct = await cartProduct.save();
-    await grandTotal(req);
-    res.json({ cartProduct, grandTotal: req.session.grandTotal });
   },
   incQty: async (req, res) => {
-    let cartProduct = await cartCollection
-      .findOne({ _id: req.params.id })
-      .populate("productId");
-    if (cartProduct.productQuantity < cartProduct.productId.productStock) {
-      cartProduct.productQuantity++;
+    try {
+      let cartProduct = await cartCollection
+        .findOne({ _id: req.params.id })
+        .populate("productId");
+      if (cartProduct.productQuantity < cartProduct.productId.productStock) {
+        cartProduct.productQuantity++;
+      }
+      cartProduct = await cartProduct.save();
+      await grandTotal(req);
+      res.json({ cartProduct, grandTotal: req.session.grandTotal });
+    } catch (error) {
+      console.error(error);
     }
-    cartProduct = await cartProduct.save();
-    await grandTotal(req);
-    res.json({ cartProduct, grandTotal: req.session.grandTotal });
   },
   //checkout
   checkoutPage1: async (req, res) => {
@@ -126,24 +138,30 @@ module.exports = {
   },
   orderPlaced: async (req, res) => {
     try {
-      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId"); 
-      cartData= JSON.parse(JSON.stringify(cartData))
-      let addressChosen= await addressCollection.findOne({ _id: req.session.chosenAddress })   
-      let orderData= await orderCollection.create({
+      let cartData = await cartCollection
+        .find({ userId: req.session.currentUser._id })
+        .populate("productId");
+      cartData = JSON.parse(JSON.stringify(cartData));
+      let addressChosen = await addressCollection.findOne({
+        _id: req.session.chosenAddress,
+      });
+      let orderData = await orderCollection.create({
         userId: req.session.currentUser._id,
-        orderNumber: await orderCollection.countDocuments()+1,
+        orderNumber: (await orderCollection.countDocuments()) + 1,
         orderDate: new Date().toLocaleString(),
         cartData,
-        addressChosen,        
+        addressChosen,
         grandTotalCost: req.session.grandTotal,
       });
-      console.log('deleting', req.session.currentUser._id);
+      console.log("deleting", req.session.currentUser._id);
 
-      let dc= await cartCollection.deleteMany( { userId: req.session.currentUser._id} )
+      let dc = await cartCollection.deleteMany({
+        userId: req.session.currentUser._id,
+      });
       console.log(dc);
       res.render("userViews/orderPlacedPage", {
         orderCartData: cartData,
-        orderData
+        orderData,
       });
     } catch (error) {
       console.error(error);

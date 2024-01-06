@@ -138,18 +138,29 @@ module.exports = {
       console.error(error);
     }
   },
-  changePasswordPost: async (req, res) => {
-    const compareCurrentPass = bcrypt.compareSync(
-      req.body.currentPassword,
-      req.session.currentUser.password
-    );
-    if (compareCurrentPass) {
-      const encryptedNewPassword= bcrypt.hashSync( req.body.currentPassword, 10 )
-      await userCollection.updateOne({ _id: req.session.currentUser._id},{ $set: { password: encryptedNewPassword}})
-      res.redirect("/account/changepassword")
-    } else {
-      req.session.invalidCurrentPassword = true;
-      res.redirect("/account/changepassword");
+  changePasswordPatch: async (req, res) => {
+    try {
+      console.log(req.body, req.session.currentUser);
+      const compareCurrentPass = bcrypt.compareSync(
+        req.body.currentPassword,
+        req.session.currentUser.password
+      );
+      if (compareCurrentPass) {
+        const encryptedNewPassword = bcrypt.hashSync(
+          req.body.currentPassword,
+          10
+        );
+        await userCollection.updateOne(
+          { _id: req.session.currentUser._id },
+          { $set: { password: encryptedNewPassword } }
+        );
+        res.json({ success: true });
+      } else {
+        req.session.invalidCurrentPassword = true;
+        res.json({ success: false });
+      }
+    } catch (error) {
+      console.error(error);
     }
   },
 };
