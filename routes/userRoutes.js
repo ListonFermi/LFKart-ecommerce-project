@@ -61,10 +61,7 @@ userRouter.get('/orderPlaced', blockedUserCheck, userAuth, cartController.orderP
 userRouter.get('/shop', blockedUserCheck, shopPageController.shopPage)
 userRouter.get('/shop/filter/category/:categoryName', blockedUserCheck, shopPageController.filterCategory)
 userRouter.get('/shop/filter/priceRange', blockedUserCheck, shopPageController.filterPriceRange)
-userRouter.get('/shop/sort/priceRangeAscending', blockedUserCheck, shopPageController.sortPriceRangeAscending)
-userRouter.get('/shop/sort/priceRangeDescending', blockedUserCheck, shopPageController.sortPriceRangeDescending)
-
-
-
+userRouter.get('/shop/sort/priceAscending', blockedUserCheck, shopPageController.sortPriceAscending)
+userRouter.get('/shop/sort/priceDescending', blockedUserCheck, shopPageController.sortPriceDescending)
 
 module.exports = userRouter

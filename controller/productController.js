@@ -22,7 +22,7 @@ module.exports = {
   addProduct: async (req, res) => {
     try {
       let existingProduct = await productCollection.findOne({
-        productName: req.body.productName,
+        productName: { $regex: new RegExp(req.body.productName, "i") },
       });
       if (!existingProduct) {
         await productCollection.insertMany([
@@ -49,9 +49,9 @@ module.exports = {
   editProduct: async (req, res) => {
     try {
       let existingProduct = await productCollection.findOne({
-        productName: req.body.productName,
+        productName: { $regex: new RegExp(req.body.productName, "i") },
       });
-      if (!existingProduct || existingProduct._id == req.params.id ) {
+      if (!existingProduct || existingProduct._id == req.params.id) {
         const updateFields = {
           $set: {
             productName: req.body.productName,
@@ -115,7 +115,7 @@ module.exports = {
       await productCollection.findOneAndDelete({ _id: req.params.id });
       res.redirect("/admin/productManagement");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  },
 };

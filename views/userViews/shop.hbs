@@ -830,9 +830,9 @@
                     <div class="pull-right">
                         <div class="change-order pull-right">
                             <select id="sortDropdown" class="form-control" name="orderby" onchange="sortDropdownFn()">
-                                <option value="default" selected="selected">Default sorting</option>
-                                <option value="price">Sort by price: low to high</option>
-                                <option value="price-desc">Sort by price: high to low</option>
+                                <option id="default" value="default" selected="selected">Default sorting</option>
+                                <option id="priceAscending" value="priceAscending">Sort by price: low to high</option>
+                                <option id="priceDescending" value="priceDescending">Sort by price: high to low</option>
                             </select>
                         </div>
                         <div class="change-view pull-right">
@@ -880,7 +880,7 @@
 
                 <!--/.categoryProduct || product content end-->
 
-                <div class="w100 categoryFooter">
+                {{!-- <div class="w100 categoryFooter">
                     <div class="pagination pull-left no-margin-top">
                         <ul class="pagination no-margin-top">
                             <li><a href="#">«</a></li>
@@ -895,7 +895,7 @@
                     <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
                         <p>Showing 1–450 of 12 results</p>
                     </div>
-                </div>
+                </div> --}}
                 <!--/.categoryFooter-->
             </div>
             <!--/right column end-->
@@ -940,14 +940,33 @@
     <script src="assets/js/script.js"></script>
 
     <script>
-        async function sortDropdownFn(){
-            try{
+        async function sortDropdownFn() {
+            try {
                 console.log(sortDropdown.value)
-                await fetch('')
-            }catch(error){
+                if(sortDropdown.value=='default'){
+                    return window.location.href = '/shop'
+                }
+                const response = await fetch('/shop/sort/' + sortDropdown.value, { method: 'GET' })
+                const data = await response.json()
+                let sortDropdownElement = document.getElementById(`${sortDropdown.value}`)
+                sortDropdownElement.setAttribute('selected', true)
+                if (data.success) {
+                    localStorage.setItem('selectedDropdownOption', sortDropdown.value  )
+                    window.location.href = '/shop'
+                }
+            } catch (error) {
                 console.error(error)
             }
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const selectedDropdownOption= localStorage.getItem('selectedDropdownOption')
+            if(selectedDropdownOption){
+                document.getElementById('sortDropdown').value= selectedDropdownOption
+            }
+        })
     </script>
 
 </body>
