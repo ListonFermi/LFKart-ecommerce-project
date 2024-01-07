@@ -5,7 +5,7 @@ module.exports = {
   //shop page
   shopPage: async (req, res) => {
     try {
-      let categoryData = await categoryCollection.find();
+      let categoryData = await categoryCollection.find({isListed: true});
       let productData =
         req.session?.shopProductData || (await productCollection.find());
       res.render("userViews/shop", { categoryData, productData });
@@ -17,6 +17,7 @@ module.exports = {
   filterCategory: async (req, res) => {
     try {
       req.session.shopProductData = await productCollection.find({
+        isListed: true,
         parentCategory: req.params.categoryName,
       });
       res.redirect("/shop");
@@ -27,6 +28,7 @@ module.exports = {
   filterPriceRange: async (req, res) => {
     try {
       req.session.shopProductData = await productCollection.find({
+        isListed: true,
         productPrice: {
           $gt: 0 + 500 * req.query.priceRange,
           $lte: 500 + 500 * req.query.priceRange,
@@ -39,7 +41,7 @@ module.exports = {
   },
   sortPriceAscending: async (req, res) => {
     try {
-        req.session.shopProductData = await productCollection.find().sort({ productPrice: 1 });
+        req.session.shopProductData = await productCollection.find({ isListed: true}).sort({ productPrice: 1 });
         res.json({success: true})
       } catch (error) {
         console.error(error);
@@ -47,7 +49,7 @@ module.exports = {
   },
   sortPriceDescending: async (req, res) => {
     try {
-        req.session.shopProductData = await productCollection.find().sort({ productPrice: -1 });
+        req.session.shopProductData = await productCollection.find({isListed: true}).sort({ productPrice: -1 });
         res.json({success: true})
       } catch (error) {
         console.error(error);

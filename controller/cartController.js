@@ -131,6 +131,7 @@ module.exports = {
       req.session.chosenAddress = req.query.chosenAddress;
       res.render("userViews/checkoutPage2", {
         grandTotal: req.session.grandTotal,
+        paypalClientId: process.env.CLIENT_ID
       });
     } catch (error) {
       console.error(error);

@@ -722,8 +722,9 @@
       <div class="col-lg-6 col-md-6 col-sm-5">
         <h1 class="product-title"> {{currentProduct.productName}}</h1>
 
-        <div class="product-price"><span class="price-sales"> ₹{{currentProduct.productPrice}}</span> <span
-            class="price-standard">₹999</span>
+        <div class="product-price">
+          <span class="price-sales"> ₹{{currentProduct.productPrice}}</span>
+          <span class="price-standard">₹{{sum currentProduct.productPrice 500}}</span>
         </div>
 
         <!-- productFilter -->
@@ -740,7 +741,7 @@
                     <option value=1>{{this}}</option>
                     {{/each}}
                     {{else}}
-                    <span class="text-danger" >Out of stock!</span>
+                    <span class="text-danger">Out of stock!</span>
                     {{/if}}
                   </select>
                 </div>
@@ -752,8 +753,9 @@
                 </button>
               </div>
             </form>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a class="link-wishlist wishlist btn-block ">Add
-                to Wishlist</a></div>
+            <div id="wishlist" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+              <a class="link-wishlist wishlist btn-block ">Add to Wishlist</a>
+            </div>
           </div>
           <div style="clear:both"></div>
           <h3 class="incaps"><i class="fa fa fa-check-circle-o color-in"></i> In stock</h3>
@@ -917,6 +919,14 @@
       });
     }
   </script>
+  
+  <script>
+    const wishlistElement= document.getElementById('wishlist')
+    
+  </script>
+
+
+
 
 </body>
 

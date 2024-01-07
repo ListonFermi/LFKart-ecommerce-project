@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 
 //hbs helpers
 hbs.registerHelper("product", (val1, val2) => val1 * val2);
+hbs.registerHelper("sum", (val1, val2) => val1 + val2);
 
 //setting view engine and giving the path of static pages
 app.set("view engine", "hbs");
