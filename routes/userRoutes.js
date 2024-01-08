@@ -56,6 +56,9 @@ userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, upload.a
 userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutPage1)
 userRouter.get('/checkout2', blockedUserCheck, userAuth, cartController.checkoutPage2)
 userRouter.get('/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
+//order routes-checkout- Paypal
+userRouter.post('/checkout/paypal/pay', blockedUserCheck, userAuth, cartController.paypalPay)
+
 
 //shop page
 userRouter.get('/shop', blockedUserCheck, shopPageController.shopPage)

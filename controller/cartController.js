@@ -1,6 +1,7 @@
 const addressCollection = require("../models/addressModel.js");
 const cartCollection = require("../models/cartModel.js");
 const orderCollection = require("../models/orderModel.js");
+const paypalCreateOrder = require("../services/paypalCreateOrder.js");
 
 //updating totalCostPerProduct and grand total in cart-page
 async function grandTotal(req) {
@@ -131,10 +132,48 @@ module.exports = {
       req.session.chosenAddress = req.query.chosenAddress;
       res.render("userViews/checkoutPage2", {
         grandTotal: req.session.grandTotal,
-        paypalClientId: process.env.CLIENT_ID
+        paypalClientId: process.env.CLIENT_ID,
       });
     } catch (error) {
       console.error(error);
+    }
+  },
+  //create paypal order
+  paypalPay: async (req, res) => {
+    try {
+      const create_payment_json = {
+        intent: "sale",
+        payer: {
+          payment_method: "paypal",
+        },
+        redirect_urls: {
+          return_url: "http://localhost:3000/success",
+          cancel_url: "http://localhost:3000/cancel",
+        },
+        transactions: [
+          {
+            item_list: {
+              items: [
+                {
+                  name: "Red Sox Hat",
+                  sku: "001",
+                  price: "25.00",
+                  currency: "USD",
+                  quantity: 1,
+                },
+              ],
+            },
+            amount: {
+              currency: "USD",
+              total: "25.00",
+            },
+            description: "Hat for the best team ever",
+          },
+        ],
+      };
+      res.json(order);
+    } catch (error) {
+      console.log(error);
     }
   },
   orderPlaced: async (req, res) => {
