@@ -5,7 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    {{!-- cropper js --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"
+        integrity="sha512-9KkIqdfN7ipEW6B6k+Aq20PV31bjODg4AA52W+tYtAE0jE0kMx49bjJ3FgvS56wzmyfMUHbQ4Km2b7l9+Y/+Eg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -19,7 +27,7 @@
                 </button>
                 <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">                  
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item fw-bold">
                             <a class="nav-link" aria-current="page" href="/admin/userManagement">User Management</a>
                         </li>
@@ -28,7 +36,7 @@
                         </li>
                         <li class="nav-item fw-bold">
                             <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
-                        </li>     
+                        </li>
                         <li class="nav-item fw-bold">
                             <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
                         </li>
@@ -128,7 +136,49 @@
                 </div>
             </div> --}}
         </div>
+
+        {{!-- Banner Image --}}
+        <div class="container-fluid">
+            <p class="h1">Upload LFKart Banner Image</p>
+
+            <div class="input-group mb-3">
+                <img id="previewBannerImg" src="" style="width: 480px; height: 212px; " alt="Img">
+                <div class="input-group mb-3">
+                    <input id="bannerImage" name="productImage1" type="file" class="form-control"
+                        placeholder="Product Image1" onchange="displayImage()">
+                    <button type="button" class="btn btn-info">Upload</label>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    <allScripts>
+        {{!-- display image --}}
+        <script>
+            function displayImage() {
+                const reader = new FileReader()
+                reader.onload = () => {
+                    previewBannerImg.src = reader.result
+                }
+                const file = document.querySelector("#bannerImage").files[0];
+                if (file) {
+                    previewBannerImg.style.display = 'block'
+                    reader.readAsDataURL(file)
+                }
+            }
+        </script>
+        {{!-- cropperjs --}}
+        <script>
+            const previewBannerImgElement = document.getElementById('previewBannerImg')
+            const cropper = new Cropper(previewBannerImgElement, {
+                aspectRatio: 0,
+                viewMode: 0
+            })
+        </script>
+    </allScripts>
+
+
 </body>
 
 </html>

@@ -29,8 +29,9 @@
 
   <!-- include pace script for automatic web page progress bar  -->
 
-  {{!-- paypal button --}}
-  <script src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&components=buttons"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 
@@ -751,31 +752,74 @@
 
                             </div>
 
+                            <div id="grandTotal" style="display: none;">{{grandTotal}}</div>
 
-                            <div id="paypal-button-container"></div>
+                            <button id="rzp-button1">Pay with Razorpay</button>
+                            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
                             <script>
-                              paypal.Buttons({
-                                createOrder() {
-                                  return fetch("/my-server/create-paypal-order", {
-                                    method: "POST",
-                                    headers: {
-                                      "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify({
-                                      cart: [
-                                        {
-                                          sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
-                                          quantity: "YOUR_PRODUCT_QUANTITY",
-                                        },
-                                      ]
-                                    })
-                                  })
-                                    .then((response) => response.json())
-                                    .then((order) => order.id);
-                                }
-                              }).render('#paypal-button-container');
-                            </script>
+                              var grandTotal = document.getElementById("grandTotal").innerText
+                              var orderId;
+                              $(document).ready(function () {
+                                var settings = {
+                                  "url": "/checkout/razorpay/create/orderId",
+                                  "method": "POST",
+                                  "timeout": 0,
+                                  "headers": {
+                                    "Content-Type": "application/json"
+                                  },
+                                  "data": JSON.stringify({
+                                    "amount": grandTotal + '00'
+                                  }),
+                                };
 
+                                //creates new orderId everytime
+                                $.ajax(settings).done(function (response) {
+                                  orderId = response.orderId;
+                                  console.log(orderId);
+                                  $("button").show();
+                                });
+                              });
+                            </script>
+                            <script>
+                              var options = {
+                                "key": "rzp_test_gBci89XBeQRRe9", // Enter the Key ID generated from the Dashboard
+                                "amount": grandTotal + '00', // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                "currency": "INR",
+                                "name": "Acme Corp",
+                                "description": "Test Transaction",
+                                "image": "https://example.com/your_logo",
+                                "handler": function (response) {
+                                  alert(response.razorpay_payment_id);
+                                  alert(response.razorpay_order_id);
+                                  alert(response.razorpay_signature);
+                                },
+                                "prefill": {
+                                  "name": "Gaurav Kumar",
+                                  "email": "gaurav.kumar@example.com",
+                                  "contact": "9000090000"
+                                },
+                                "notes": {
+                                  "address": "Razorpay Corporate Office"
+                                },
+                                "theme": {
+                                  "color": "#3399cc"
+                                }
+                              };
+                              var rzp1 = new Razorpay(options);
+                              rzp1.on('payment.failed', function (response) {
+                                alert(response.error.code);
+                                alert(response.error.description);
+                                alert(response.error.source);
+                                alert(response.error.step);
+                                alert(response.error.reason);
+                                alert(response.error.metadata.order_id);
+                                alert(response.error.metadata.payment_id);
+                              });
+                              document.getElementById('rzp-button1').onclick = function (e) {
+                                rzp1.open();
+                                e.preventDefault();
+                              }
+                            </script>
 
                             <div style="clear:both;"></div>
 
@@ -843,8 +887,6 @@
             <tbody>
             </tbody>
           </table>
-
-
         </div>
         <!--  /cartMiniTable-->
 

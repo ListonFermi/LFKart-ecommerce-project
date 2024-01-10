@@ -7,7 +7,6 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const hbs = require("hbs");
-const paypal = require('paypal-rest-sdk');
 
 //connecting db
 const dbConnect = require("./config/config.js");
@@ -36,13 +35,6 @@ app.use("/account", express.static("public"));
 app.use(
   session({ resave: true, saveUninitialized: true, secret: "my secret" })
 );
-
-//paypal sdk
-paypal.configure({
-  'mode': 'sandbox', //sandbox or live
-  'client_id': process.env.CLIENT_ID,
-  'client_secret': process.env.CLIENT_SECRET_KEY
-});
 
 //parse incoming requests
 app.use(express.json());

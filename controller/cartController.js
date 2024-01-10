@@ -2,13 +2,16 @@ const addressCollection = require("../models/addressModel.js");
 const cartCollection = require("../models/cartModel.js");
 const orderCollection = require("../models/orderModel.js");
 const paypalCreateOrder = require("../services/paypalCreateOrder.js");
+const razorpay = require("../services/razorpay.js");
 
 //updating totalCostPerProduct and grand total in cart-page
 async function grandTotal(req) {
   try {
+    console.log('session'+req.session.currentUser);
     let userCartData = await cartCollection
       .find({ userId: req.session.currentUser._id })
       .populate("productId");
+    console.log(Array.isArray(userCartData));
     let grandTotal = 0;
     for (const v of userCartData) {
       grandTotal += v.productId.productPrice * v.productQuantity;
@@ -37,7 +40,6 @@ module.exports = {
   cart: async (req, res) => {
     try {
       let userCartData = await grandTotal(req);
-      console.log(userCartData);
       res.render("userViews/cart", {
         currentUser: req.session.currentUser,
         userCartData,
@@ -128,77 +130,42 @@ module.exports = {
   },
   checkoutPage2: async (req, res) => {
     try {
-      console.log(req.query);
-      req.session.chosenAddress = req.query.chosenAddress;
-      res.render("userViews/checkoutPage2", {
-        grandTotal: req.session.grandTotal,
-        paypalClientId: process.env.CLIENT_ID,
+      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");
+      cartData = JSON.parse(JSON.stringify(cartData));
+      await orderCollection.create({
+        userId: req.session.currentUser._id,
+        orderNumber: (await orderCollection.countDocuments()) + 1,
+        orderDate: new Date().toLocaleString(),
+        cartData,
+        addressChosen: req.query.chosenAddress,
+        grandTotalCost: req.session.grandTotal,
       });
+      res.render("userViews/checkoutPage2", { grandTotal: req.session.grandTotal });
     } catch (error) {
       console.error(error);
     }
   },
-  //create paypal order
-  paypalPay: async (req, res) => {
-    try {
-      const create_payment_json = {
-        intent: "sale",
-        payer: {
-          payment_method: "paypal",
-        },
-        redirect_urls: {
-          return_url: "http://localhost:3000/success",
-          cancel_url: "http://localhost:3000/cancel",
-        },
-        transactions: [
-          {
-            item_list: {
-              items: [
-                {
-                  name: "Red Sox Hat",
-                  sku: "001",
-                  price: "25.00",
-                  currency: "USD",
-                  quantity: 1,
-                },
-              ],
-            },
-            amount: {
-              currency: "USD",
-              total: "25.00",
-            },
-            description: "Hat for the best team ever",
-          },
-        ],
-      };
-      res.json(order);
-    } catch (error) {
-      console.log(error);
-    }
+  //razorpay
+  razorpayCreateOrderId: async (req, res) => {
+    var options = {
+      amount: req.session.grandTotal+'00', // amount in the smallest currency unit
+      currency: "INR",
+      receipt: "order_rcptid_11",
+    };
+    razorpay.instance.orders.create(options, function (err, order) {
+      console.log(order);
+    });
   },
+
   orderPlaced: async (req, res) => {
     try {
       let cartData = await cartCollection
         .find({ userId: req.session.currentUser._id })
         .populate("productId");
-      cartData = JSON.parse(JSON.stringify(cartData));
-      let addressChosen = await addressCollection.findOne({
-        _id: req.session.chosenAddress,
-      });
-      let orderData = await orderCollection.create({
-        userId: req.session.currentUser._id,
-        orderNumber: (await orderCollection.countDocuments()) + 1,
-        orderDate: new Date().toLocaleString(),
-        cartData,
-        addressChosen,
-        grandTotalCost: req.session.grandTotal,
-      });
-      console.log("deleting", req.session.currentUser._id);
-
-      let dc = await cartCollection.deleteMany({
+      //delete the cart- since the order is placed
+      await cartCollection.deleteMany({
         userId: req.session.currentUser._id,
       });
-      console.log(dc);
       res.render("userViews/orderPlacedPage", {
         orderCartData: cartData,
         orderData,
