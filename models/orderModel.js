@@ -8,7 +8,8 @@ const orderSchema= new mongoose.Schema({
     orderStatus: {type: String, default:'Pending'},
     addressChosen : { type: mongoose.Types.ObjectId, required: true, ref: 'addresses'},
     cartData: { type: Array},
-    grandTotalCost: { type: Number}
+    grandTotalCost: { type: Number},
+    paymentId: {type: String,}
 })
 
 const orderCollection= mongoose.model( 'orders', orderSchema )

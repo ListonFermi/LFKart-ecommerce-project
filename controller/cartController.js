@@ -29,7 +29,7 @@ async function grandTotal(req) {
       .populate("productId");
     req.session.grandTotal = grandTotal;
 
-    return userCartData;
+    return JSON.parse(JSON.stringify(userCartData));
   } catch (error) {
     console.log(error);
   }
@@ -114,13 +114,22 @@ module.exports = {
     }
   },
   //checkout
-  checkoutPage1: async (req, res) => {
+  checkoutPage: async (req, res) => {
     try {
-      let addressData = await addressCollection.find({
+      let addressData = await addressCollection.find({ userId: req.session.currentUser._id });
+
+      //creating an order in database with default address, before cod or razor pay is chosen
+      req.session.currentOrder= await orderCollection.create({
         userId: req.session.currentUser._id,
-      });
-      console.log(addressData);
-      res.render("userViews/checkoutPage1", {
+        orderNumber: await orderCollection.countDocuments() +1,
+        orderDate: new Date(),
+        addressChosen: JSON.parse(JSON.stringify(addressData[0])), //default address
+        cartData: await grandTotal(req), 
+        grandTotalCost: req.session.grandTotal
+      })
+      console.log('req.session.currentOrder'+req.session.currentOrder);
+
+      res.render("userViews/checkoutPage", {
         grandTotal: req.session.grandTotal,
         addressData,
       });
@@ -128,48 +137,31 @@ module.exports = {
       console.error(error);
     }
   },
-  checkoutPage2: async (req, res) => {
-    try {
-      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");
-      cartData = JSON.parse(JSON.stringify(cartData));
-      await orderCollection.create({
-        userId: req.session.currentUser._id,
-        orderNumber: (await orderCollection.countDocuments()) + 1,
-        orderDate: new Date().toLocaleString(),
-        cartData,
-        addressChosen: req.query.chosenAddress,
-        grandTotalCost: req.session.grandTotal,
-      });
-      res.render("userViews/checkoutPage2", { grandTotal: req.session.grandTotal });
-    } catch (error) {
-      console.error(error);
-    }
-  },
   //razorpay
   razorpayCreateOrderId: async (req, res) => {
+    
     var options = {
       amount: req.session.grandTotal+'00', // amount in the smallest currency unit
-      currency: "INR",
-      receipt: "order_rcptid_11",
+      currency: "INR"
     };
+    console.log('options'+options);
     razorpay.instance.orders.create(options, function (err, order) {
+      res.json(order)
       console.log(order);
     });
   },
 
   orderPlaced: async (req, res) => {
     try {
-      let cartData = await cartCollection
-        .find({ userId: req.session.currentUser._id })
-        .populate("productId");
+      if(res.razorpay_payment_id){
+        await orderCollection.updateOne({_id: req.session.currentOrder._id }, { $set: { paymentId: res.razorpay_payment_id  } })
+      }
+
+      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");
+      res.render("userViews/orderPlacedPage", {orderCartData: cartData})
+
       //delete the cart- since the order is placed
-      await cartCollection.deleteMany({
-        userId: req.session.currentUser._id,
-      });
-      res.render("userViews/orderPlacedPage", {
-        orderCartData: cartData,
-        orderData,
-      });
+      await cartCollection.deleteMany({ userId: req.session.currentUser._id});
     } catch (error) {
       console.error(error);
     }

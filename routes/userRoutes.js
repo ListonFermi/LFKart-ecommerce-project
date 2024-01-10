@@ -53,10 +53,9 @@ userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, upload.a
 //account-wishlist
 
 //order routes-checkout
-userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutPage1)
-userRouter.get('/checkout2', blockedUserCheck, userAuth, cartController.checkoutPage2)
+userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutPage)
 userRouter.post('/checkout/razorpay/create/orderId', blockedUserCheck, userAuth, cartController.razorpayCreateOrderId)
-userRouter.get('/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
+userRouter.all('/checkout/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
 
 //shop page
 userRouter.get('/shop', blockedUserCheck, shopPageController.shopPage)
