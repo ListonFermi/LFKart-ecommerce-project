@@ -52,74 +52,69 @@
         </nav>
         <div class="container pt-3">
             <div class="row">
-                <div class="col-lg-4">
+                {{!-- user count --}}
+                <div class="col-lg-3">
                     <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Revenue</div>
+                        <div class="card-header">Your Products Count</div>
                         <div class="card-body">
-                            <h5 class="card-title">Rs10000</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the card's content.</p>
+                            <h5 class="card-title">{{productsCount}}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Revenue</div>
+                        <div class="card-header">Completed Orders</div>
                         <div class="card-body">
-                            <h5 class="card-title">Rs10000</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the card's content.</p>
+                            <h5 class="card-title">{{completedOrdersCount}}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Online Payment</div>
+                        <div class="card-header">Pending Orders</div>
                         <div class="card-body">
-                            <h5 class="card-title">Rs10000</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the card's content.</p>
+                            <h5 class="card-title">{{pendingOrdersCount}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Today's Revenue</div>
+                        <div class="card-body">
+                            <h5 class="card-title">₹{{todayRevenueToday}}</h5>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Revenue</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Rs10000</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the card's content.</p>
-                        </div>
-                    </div>
+                <div class="col-lg-6">
+                    <canvas id="twoWeeksChart"></canvas>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">User Count</div>
-                        <div class="card-body">
-                            <h5 class="card-title">100</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Product Count</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Rs10000</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk
-                                of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <script>
+                    const twoWeeksChartElement = document.getElementById('twoWeeksChart');
+
+                    new Chart(twoWeeksChartElement, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            datasets: [{
+                                label: 'Sales',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
             </div>
             {{!-- <div class="row">
                 <div class="col-lg-6">

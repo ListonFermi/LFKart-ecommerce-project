@@ -729,12 +729,19 @@
                                         Change Password</a></div>
                             </li>
                             {{!-- <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
-                                <div class="thumbnail"><a title="My wishlists" href="wishlist.html"><i
-                                            class="fa fa-heart"></i> My wishlists </a></div>
+                                <div class="thumbnail"><a title="Personal information" href="/account/wallet"><i
+                                            class="fa fa-id-card"></i>
+                                        Wallet</a></div>
                             </li> --}}
                         </ul>
                         <div class="clear clearfix"></div>
                     </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-7 push-right">
+                    <h1 class="section-title-inner"><span><i class="fa fa-list-alt"></i> Wallet</span></h1>
+
+                    <h1>Your Wallet Balance: ₹ {{userData.wallet}} </h1>
                 </div>
                 <!--/row end-->
 
@@ -747,6 +754,8 @@
     </div>
     <!-- /wrapper -->
     <div class="gap"></div>
+
+
 
     <!-- Le javascript
 ================================================== -->

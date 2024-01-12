@@ -6,6 +6,7 @@ const userSchema= new mongoose.Schema({
     phonenumber: { type: Number, required: true},
     password: { type: String, required: true},
     isBlocked: { type: Boolean, default: false},
+    wallet: { type: Number }
 })
 
 const userCollection=mongoose.model('users', userSchema)

@@ -22,18 +22,18 @@ userRouter.post('/forgotOTP', userController.forgotUserDetailsInModel, userContr
 userRouter.post('/forgotPasswordPage3', userController.forgotPasswordPage3)
 userRouter.post('/forgotPasswordReset', userController.forgotPasswordReset)
 
-//product details 
+//product details page
 userRouter.get('/productDetails/:id', blockedUserCheck, userController.productDetails)
 
-//cart
-userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) 
+//product page - add to cart option
 userRouter.post('/addToCart/:id', blockedUserCheck, userAuth, cartController.addToCart) //add to cart from product page
 //cart-page
-userRouter.delete('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart from cart page
+userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) //cart page - show cart page
+userRouter.delete('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart page
 userRouter.put('/cart/decQty/:id', blockedUserCheck, userAuth, cartController.decQty)
 userRouter.put('/cart/incQty/:id', blockedUserCheck, userAuth, cartController.incQty)
 
-//account
+//account page
 userRouter.get('/account', blockedUserCheck, userAuth, accountController.accountPage)
 //account-orderList
 userRouter.get('/account/orderList', blockedUserCheck, userAuth, accountController.orderList)
@@ -54,8 +54,9 @@ userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, upload.a
 
 //order routes-checkout
 userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutPage)
-userRouter.post('/checkout/razorpay/create/orderId', blockedUserCheck, userAuth, cartController.razorpayCreateOrderId)
 userRouter.all('/checkout/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
+userRouter.all('/checkout/orderPlacedEnd', blockedUserCheck, userAuth, cartController.orderPlacedEnd)
+userRouter.post('/checkout/razorpay/create/orderId', blockedUserCheck, userAuth, cartController.razorpayCreateOrderId)
 
 //shop page
 userRouter.get('/shop', blockedUserCheck, shopPageController.shopPage)

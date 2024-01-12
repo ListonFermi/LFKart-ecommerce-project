@@ -70,16 +70,23 @@
                     <td>{{this.paymentType}}</td>
                     <td>{{this.orderStatus}}</td>
                     <td>
+                        {{#if (equal this.orderStatus 'Cancelled') }}
+                        {{else}}
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/orderManagement/status/pending/{{this._id}}">Pending</a></li>
+                            <li>
+                                <a class="dropdown-item" href="/admin/orderManagement/status/pending/{{this._id}}"
+                                onclick="return confirm('Are you sure you want to change the status to 'Pending' ?')">
+                                Pending</a>
+                            </li>
                             <li> <a class="dropdown-item" href="/admin/orderManagement/status/shipped/{{this._id}}">Shipped</a></li>
                             <li> <a class="dropdown-item" href="/admin/orderManagement/status/delivered/{{this._id}}">Delivered</a></li>
                             <li> <a class="dropdown-item" href="/admin/orderManagement/status/return/{{this._id}}">Return</a></li>
                             <li><a class="dropdown-item" href="/admin/orderManagement/status/cancelled/{{this._id}}">Cancelled</a></li>
                         </ul>
+                        {{/if}}
                     </td>
                 </tr>
                 {{/each}}

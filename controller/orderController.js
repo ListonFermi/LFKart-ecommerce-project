@@ -1,11 +1,11 @@
 const orderCollection = require("../models/orderModel")
+const userCollection = require("../models/userModels")
 
 module.exports={
     //admin side- orderManagement
     orderManagement: async(req,res)=>{
         try {
-            let orderData= await orderCollection.find().populate('userId')
-            
+            let orderData= await orderCollection.find().populate('userId')            
             res.render('adminViews/orderManagement', { orderData })
         } catch (error) {
             console.error(error)
@@ -57,10 +57,10 @@ module.exports={
     },
     changeStatusCancelled: async(req,res)=>{
         try {
-            await orderCollection.findOneAndUpdate(
-                { _id: req.params.id },
-                { $set: { orderStatus: 'Cancelled' } }
-            )
+            let orderData= await orderCollection.findOne( { _id: req.params.id } )
+            orderData.orderStatus='Cancelled'
+            orderData.save()
+            await userCollection.findByIdAndUpdate( { _id: req.session.currentUser._id }, { wallet: orderData.grandTotalCost } )
             res.redirect('/admin/orderManagement')
         } catch (error) {
             console.error(error)

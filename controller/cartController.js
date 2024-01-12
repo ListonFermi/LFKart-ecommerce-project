@@ -1,13 +1,13 @@
 const addressCollection = require("../models/addressModel.js");
 const cartCollection = require("../models/cartModel.js");
 const orderCollection = require("../models/orderModel.js");
-const paypalCreateOrder = require("../services/paypalCreateOrder.js");
+const userCollection = require("../models/userModels.js");
 const razorpay = require("../services/razorpay.js");
 
 //updating totalCostPerProduct and grand total in cart-page
 async function grandTotal(req) {
   try {
-    console.log('session'+req.session.currentUser);
+    console.log("session" + req.session.currentUser);
     let userCartData = await cartCollection
       .find({ userId: req.session.currentUser._id })
       .populate("productId");
@@ -36,19 +36,7 @@ async function grandTotal(req) {
 }
 
 module.exports = {
-  //cart
-  cart: async (req, res) => {
-    try {
-      let userCartData = await grandTotal(req);
-      res.render("userViews/cart", {
-        currentUser: req.session.currentUser,
-        userCartData,
-        grandTotal: req.session.grandTotal,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  },
+  //product page - add to cart option
   addToCart: async (req, res) => {
     try {
       let existingProduct = await cartCollection.findOne({
@@ -74,7 +62,20 @@ module.exports = {
       console.log(error);
     }
   },
-  //cart-page
+  //cart page - show cart page
+  cart: async (req, res) => {
+    try {
+      let userCartData = await grandTotal(req);
+      res.render("userViews/cart", {
+        currentUser: req.session.currentUser,
+        userCartData,
+        grandTotal: req.session.grandTotal,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  //cart page - delete cart page
   deleteFromCart: async (req, res) => {
     try {
       await cartCollection.findOneAndDelete({ _id: req.params.id });
@@ -116,18 +117,19 @@ module.exports = {
   //checkout
   checkoutPage: async (req, res) => {
     try {
-      let addressData = await addressCollection.find({ userId: req.session.currentUser._id });
+      let addressData = await addressCollection.find({
+        userId: req.session.currentUser._id,
+      });
 
       //creating an order in database with default address, before cod or razor pay is chosen
-      req.session.currentOrder= await orderCollection.create({
+      req.session.currentOrder = await orderCollection.create({
         userId: req.session.currentUser._id,
-        orderNumber: await orderCollection.countDocuments() +1,
+        orderNumber: (await orderCollection.countDocuments()) + 1,
         orderDate: new Date(),
         addressChosen: JSON.parse(JSON.stringify(addressData[0])), //default address
-        cartData: await grandTotal(req), 
-        grandTotalCost: req.session.grandTotal
-      })
-      console.log('req.session.currentOrder'+req.session.currentOrder);
+        cartData: await grandTotal(req),
+        grandTotalCost: req.session.grandTotal,
+      });
 
       res.render("userViews/checkoutPage", {
         grandTotal: req.session.grandTotal,
@@ -137,33 +139,75 @@ module.exports = {
       console.error(error);
     }
   },
-  //razorpay
+  //razorpay- creating an orderId with razorpay
   razorpayCreateOrderId: async (req, res) => {
-    
     var options = {
-      amount: req.session.grandTotal+'00', // amount in the smallest currency unit
-      currency: "INR"
+      amount: req.session.grandTotal + "00", // amount in the smallest currency unit
+      currency: "INR",
     };
-    console.log('options'+options);
+
     razorpay.instance.orders.create(options, function (err, order) {
-      res.json(order)
+      res.json(order);
       console.log(order);
     });
   },
 
   orderPlaced: async (req, res) => {
     try {
-      if(res.razorpay_payment_id){
-        await orderCollection.updateOne({_id: req.session.currentOrder._id }, { $set: { paymentId: res.razorpay_payment_id  } })
+      console.log(req.session.grandTotal);
+      if (req.body.razorpay_payment_id) { //razorpay payment
+        await orderCollection.updateOne(
+          { _id: req.session.currentOrder._id },
+          {
+            $set: {
+              paymentId: req.body.razorpay_payment_id,
+              paymentType: "Razorpay",
+            },
+          }
+        );
+        res.redirect("/checkout/orderPlacedEnd");
+      } else if (req.body.walletPayment) {
+        const userData = await userCollection.findOne({
+          _id: req.session.currentUser._id,
+        });
+        console.log("userData" + userData);
+        if (userData.wallet >= req.session.grandTotal) {
+          userData.wallet -= req.session.grandTotal;
+          await userData.save();
+          console.log("userData" + userData);
+          res.json({ success: true });
+        } else {
+          return res.json({ insufficientWalletBalance: true });
+        }
+      } else { //incase of COD
+        await orderCollection.updateOne(
+          { _id: req.session.currentOrder._id },
+          {
+            $set: {
+              paymentId: "generatedAtDelivery",
+              paymentType: "COD",
+            },
+          }
+        );
+        res.json({ success: true });
       }
-
-      let cartData = await cartCollection.find({ userId: req.session.currentUser._id }).populate("productId");
-      res.render("userViews/orderPlacedPage", {orderCartData: cartData})
-
-      //delete the cart- since the order is placed
-      await cartCollection.deleteMany({ userId: req.session.currentUser._id});
     } catch (error) {
       console.error(error);
     }
+  },
+  orderPlacedEnd: async (req, res) => {
+    let cartData = await cartCollection
+      .find({ userId: req.session.currentUser._id })
+      .populate("productId");
+
+    console.log("rendering next");
+    res.render("userViews/orderPlacedPage", {
+      orderCartData: cartData,
+      orderData: req.session.currentOrder,
+    });
+
+    //delete the cart- since the order is placed
+    await cartCollection.deleteMany({ userId: req.session.currentUser._id });
+    console.log("deleting finished");
   },
 };

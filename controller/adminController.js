@@ -1,6 +1,45 @@
 const adminCollection = require("../models/adminModels.js");
 const jwt = require("jsonwebtoken");
 const userCollection = require("../models/userModels.js");
+const orderCollection = require("../models/orderModel.js");
+const productCollection = require("../models/productModels.js");
+
+async function dashboardData() {
+
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1); 
+
+  console.log('tdy'+today,'ystrday'+yesterday);
+
+  //Weekly data
+  let lastWeek=[]
+  let i=0, day=new Date
+  while(i<7){
+    lastWeek.push( new Date().setDate(today.getDate() -i) )
+    i++
+  }
+
+  console.log(lastWeek);
+
+  let totalRevenueToday =await orderCollection.aggregate([
+    { $match: { orderDate: { $gte: yesterday, $lt: today } } },
+    { $group: { _id: '', totalRevenue : { $sum: '$grandTotalCost' }}}
+  ])
+
+  console.log("Today's revenue:", totalRevenueToday);
+
+  return {
+    productsCount: await productCollection.countDocuments(),
+    pendingOrdersCount: await orderCollection.countDocuments({
+      orderStatus: { $ne: "Delivered" },
+    }),
+    completedOrdersCount: await orderCollection.countDocuments({
+      orderStatus: "Delivered",
+    }),
+    todayRevenueToday: totalRevenueToday.length>0?totalRevenueToday[0].totalRevenue : 0
+  };
+}
 
 module.exports = {
   //login and logout
@@ -38,7 +77,8 @@ module.exports = {
   },
   dashboard: async (req, res) => {
     try {
-      res.render("adminViews/adminDashboard");
+      const data = await dashboardData();
+      res.render("adminViews/adminDashboard", data);
     } catch (error) {
       console.error(error);
     }

@@ -7,12 +7,12 @@ module.exports = {
   //account
   accountPage: async (req, res) => {
     try {
-      res.render("userViews/account", { currentUser: req.session.currentUser });
+      let userData= await userCollection.findOne({ _id: req.session.currentUser._id})
+      res.render("userViews/account", { currentUser: req.session.currentUser, userData });
     } catch (error) {
       console.error(error);
     }
   },
-
   //account-orderList
   orderList: async (req, res) => {
     try {
@@ -38,10 +38,17 @@ module.exports = {
 
   cancelOrder: async (req, res) => {
     try {
+      const orderData= await orderCollection.findOne( { _id: req.params.id } )
+      
       await orderCollection.findByIdAndUpdate(
         { _id: req.params.id },
         { $set: { orderStatus: "Cancelled" } }
-      );
+      )
+      
+      console.log(await userCollection.findByIdAndUpdate(
+        { _id: req.session.currentUser._id },
+        { $inc: { wallet: orderData.grandTotalCost  } } 
+      ));
       res.json({ success: true });
     } catch (error) {
       console.error(error);
@@ -162,5 +169,5 @@ module.exports = {
     } catch (error) {
       console.error(error);
     }
-  },
+  }
 };

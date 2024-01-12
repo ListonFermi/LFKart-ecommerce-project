@@ -20,6 +20,9 @@
   <!-- Custom styles for this template -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  {{!-- sweet alert --}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Just for debugging purposes. -->
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -818,10 +821,17 @@
                                   </div>
 
                                   <div class="card-paynemt-box payment-method">
+                                    <label class="radio-inline" for="wallet" aria-controls="CashOnDeliveryCollapse">
+                                      <input name="radios" id="wallet" value="wallet" type="radio">Wallet
+                                    </label>
+                                  </div>
+
+                                  <div class="card-paynemt-box payment-method">
                                     <label class="radio-inline" for="razorpay" aria-controls="CashOnDeliveryCollapse">
                                       <input name="radios" id="razorpay" value="razorpay" type="radio">Razorpay
                                     </label>
                                   </div>
+
                                 </div>
                               </div>
                             </div>
@@ -937,25 +947,39 @@
     const orderBtnElement = document.getElementById('orderBtn')
     const CODElement = document.getElementById('COD')
     const razorpayElement = document.getElementById('razorpay')
+    const walletElement = document.getElementById('wallet')
 
     orderBtnElement.addEventListener('click', orderBtnClickFunction)
 
     async function orderBtnClickFunction(event) {
       try {
-        console.log('hhh')
         event.preventDefault()
-
-        if (razorpayElement.checked) {
+        if (CODElement.checked) {//cash on delivery 
+          window.location.href = '/checkout/orderPlacedEnd'
+        } else if (walletElement.checked) {
+          let response = await fetch("/checkout/orderPlaced", {
+            method: "POST", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ walletPayment: true }),
+          });
+          response = await response.json()
+          if (response.insufficientWalletBalance) {
+            return Swal.fire({
+              icon: "error",
+              title: "Insufficient Balance",
+              text: "No sufficent balance"
+            });
+          } else if (response.success) {
+            window.location.href = '/checkout/orderPlacedEnd'
+          }
+        } else if (razorpayElement.checked) {
           const orderResponse = await fetch('/checkout/razorpay/create/orderId', { method: 'POST' })
-          const order= await orderResponse.json()
+          const order = await orderResponse.json()
           console.log(order)
           await openRazorpay(order.amount, order.id)
-
-        } else { //cash on delivery 
-          window.location.href = '/checkout/orderPlaced'
         }
-
-
       } catch (error) {
         console.error(error)
       }
