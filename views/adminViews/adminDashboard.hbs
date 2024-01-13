@@ -81,40 +81,50 @@
                     <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
                         <div class="card-header">Today's Revenue</div>
                         <div class="card-body">
-                            <h5 class="card-title">₹{{todayRevenueToday}}</h5>
+                            <h5 class="card-title">₹{{currentDayRevenue}}</h5>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <canvas id="twoWeeksChart"></canvas>
+                    <canvas id="myChart"></canvas>
                 </div>
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
                 <script>
-                    const twoWeeksChartElement = document.getElementById('twoWeeksChart');
+                    const fetchDataAndRenderChart = async () => {
+                        const response = await fetch('/admin/dashboardData'); // Replace with the actual endpoint
+                        const data = await response.json();
 
-                    new Chart(twoWeeksChartElement, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                            datasets: [{
-                                label: 'Sales',
-                                data: [12, 19, 3, 5, 2, 3],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
+                        console.log(data);
+
+                        const ctx = document.getElementById('myChart');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: data.date,
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: data.revenue,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
+
+                    fetchDataAndRenderChart();
                 </script>
+
+
             </div>
             {{!-- <div class="row">
                 <div class="col-lg-6">
@@ -171,6 +181,18 @@
                 viewMode: 0
             })
         </script>
+
+        {{!-- fetch all data for dashboard --}}
+        <script>
+            var fetchLandingPageData = async () => {
+                const response = await fetch('/admin/dashboardData', { method: 'GET' })
+                var data = await response.json()
+                console.log(data)
+                console.log(data.fourteenDaysRevenue)
+            }()
+        </script>
+
+
     </allScripts>
 
 

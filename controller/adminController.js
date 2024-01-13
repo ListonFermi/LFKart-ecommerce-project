@@ -3,43 +3,8 @@ const jwt = require("jsonwebtoken");
 const userCollection = require("../models/userModels.js");
 const orderCollection = require("../models/orderModel.js");
 const productCollection = require("../models/productModels.js");
-
-async function dashboardData() {
-
-  const today = new Date();
-  const yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1); 
-
-  console.log('tdy'+today,'ystrday'+yesterday);
-
-  //Weekly data
-  let lastWeek=[]
-  let i=0, day=new Date
-  while(i<7){
-    lastWeek.push( new Date().setDate(today.getDate() -i) )
-    i++
-  }
-
-  console.log(lastWeek);
-
-  let totalRevenueToday =await orderCollection.aggregate([
-    { $match: { orderDate: { $gte: yesterday, $lt: today } } },
-    { $group: { _id: '', totalRevenue : { $sum: '$grandTotalCost' }}}
-  ])
-
-  console.log("Today's revenue:", totalRevenueToday);
-
-  return {
-    productsCount: await productCollection.countDocuments(),
-    pendingOrdersCount: await orderCollection.countDocuments({
-      orderStatus: { $ne: "Delivered" },
-    }),
-    completedOrdersCount: await orderCollection.countDocuments({
-      orderStatus: "Delivered",
-    }),
-    todayRevenueToday: totalRevenueToday.length>0?totalRevenueToday[0].totalRevenue : 0
-  };
-}
+const dashboardHelper = require("../helpers/dashboardHelper.js");
+const { CLOSING } = require("ws");
 
 module.exports = {
   //login and logout
@@ -77,11 +42,39 @@ module.exports = {
   },
   dashboard: async (req, res) => {
     try {
-      const data = await dashboardData();
-      res.render("adminViews/adminDashboard", data);
+      res.render("adminViews/adminDashboard");
     } catch (error) {
       console.error(error);
     }
+  },
+  dashboardData: async (req, res) => {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const [
+      productsCount,
+      pendingOrdersCount,
+      completedOrdersCount,
+      currentDayRevenue,
+      fourteenDaysRevenue,
+    ] = await Promise.all([
+      dashboardHelper.productsCount(),
+      dashboardHelper.pendingOrdersCount(),
+      dashboardHelper.completedOrdersCount(),
+      dashboardHelper.currentDayRevenue(today, yesterday),
+      dashboardHelper.fourteenDaysRevenue(),
+    ]);
+
+    const data = {
+      productsCount,
+      pendingOrdersCount,
+      completedOrdersCount,
+      currentDayRevenue,
+      fourteenDaysRevenue,
+    };
+    console.log(fourteenDaysRevenue);
+    res.json(data)
   },
   logout: async (req, res) => {
     try {

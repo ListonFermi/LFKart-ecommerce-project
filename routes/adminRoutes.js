@@ -10,6 +10,7 @@ const upload= require('../services/multer.js')
 adminRouter.get('/', adminController.loginPage )
 adminRouter.post('/', adminController.login)
 adminRouter.get('/dashboard', adminAuth, adminController.dashboard)
+adminRouter.get('/dashboardData', adminAuth, adminController.dashboardData )
 adminRouter.post('/logout', adminController.logout )
 
 //user management
