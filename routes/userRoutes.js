@@ -49,7 +49,7 @@ userRouter.post('/account/editAddress/:id', blockedUserCheck, userAuth, accountC
 userRouter.get('/account/deleteAddress/:id', blockedUserCheck, userAuth, accountController.deleteAddress)
 //account-change password
 userRouter.get('/account/changePassword', blockedUserCheck, userAuth, accountController.changePassword)
-userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, upload.any(), accountController.changePasswordPatch)
+userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, accountController.changePasswordPatch)
 //account-wishlist
 
 //order routes-checkout

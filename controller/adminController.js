@@ -48,33 +48,35 @@ module.exports = {
     }
   },
   dashboardData: async (req, res) => {
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-
     const [
       productsCount,
+      categoryCount,
       pendingOrdersCount,
       completedOrdersCount,
       currentDayRevenue,
       fourteenDaysRevenue,
+      categoryWiseRevenue,
     ] = await Promise.all([
       dashboardHelper.productsCount(),
+      dashboardHelper.categoryCount(),
       dashboardHelper.pendingOrdersCount(),
       dashboardHelper.completedOrdersCount(),
-      dashboardHelper.currentDayRevenue(today, yesterday),
+      dashboardHelper.currentDayRevenue(),
       dashboardHelper.fourteenDaysRevenue(),
+      dashboardHelper.categoryWiseRevenue(),
     ]);
 
     const data = {
       productsCount,
+      categoryCount,
       pendingOrdersCount,
       completedOrdersCount,
       currentDayRevenue,
       fourteenDaysRevenue,
+      categoryWiseRevenue,
     };
-    console.log(fourteenDaysRevenue);
-    res.json(data)
+
+    res.json(data);
   },
   logout: async (req, res) => {
     try {
