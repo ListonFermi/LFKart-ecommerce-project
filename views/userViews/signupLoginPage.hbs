@@ -180,8 +180,8 @@
 
 
                 <li class="dropdown hasUserMenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi, {{currentUser.username}} <b
-                      class="caret"></b></a>
+                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi,
+                    {{currentUser.username}} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="/account"> <i class="fa fa-user"></i> Account</a></li>
                     <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li>
@@ -192,7 +192,10 @@
                         My wishlists
                       </a></li>
                     <li class="divider"></li>
-                    <li><form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log Out</button></form></li>
+                    <li>
+                      <form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log
+                          Out</button></form>
+                    </li>
                   </ul>
                 </li>
 
@@ -714,15 +717,15 @@
                 <label>Password</label>
                 <input name="password" required id="password" minlength="5" maxlength="12"
                   title="Please enter your password, between 5 and 12 characters" type="password" class="form-control"
-                  placeholder="Password">
+                  placeholder="Password" onkeyup="checkPasswordStrength();">
               </div>
+              <label id="password-strength-status"></label>
               <div class="form-group">
                 <label>Confirm Password</label>
                 <input required minlength="5" title="Passwords doesn't match" id="confirmPass" type="password"
                   class="form-control" placeholder="Confirm Password" data-rule-equalTo="#password">
               </div>
-              <div class="error">
-              </div>
+              
               {{#if emailPhoneExists}}
               <div class="form-group">
                 <label style="color: red;">Email/Phone Number already exists!</label>
@@ -733,12 +736,12 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <h2 class="block-title-2"><span>Already registered?</span></h2>
-                          
-              {{#if passwordResetSucess}}
-              <div class="form-group">
-                <label style="color: rgb(64, 255, 0);">Password changed successfully, Login now!</label>
-              </div>
-              {{/if}}
+
+            {{#if passwordResetSucess}}
+            <div class="form-group">
+              <label style="color: rgb(64, 255, 0);">Password changed successfully, Login now!</label>
+            </div>
+            {{/if}}
 
             <form action="/login" method="POST" class="logForm">
               <div class="form-group">
@@ -822,6 +825,33 @@
         errorLabelContainer: $(".regForm div.error")
       });
     });
+
+    function checkPasswordStrength() {
+    var number = /([0-9])/;
+    var alphabets = /([a-zA-Z])/;
+    var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+    var password = document.getElementById('password').value.trim();
+    var passwordStrengthStatus = document.getElementById('password-strength-status');
+
+    if (password.length < 6) {
+        passwordStrengthStatus.className = 'weak-password';
+        passwordStrengthStatus.innerHTML = "Weak (should be at least 6 characters.)";
+        passwordStrengthStatus.style.color = "red";
+    } else {
+        if (password.match(number) && password.match(alphabets) && password.match(special_characters)) {
+            passwordStrengthStatus.className = 'strong-password';
+            passwordStrengthStatus.innerHTML = "Strong";
+            passwordStrengthStatus.style.color = "green";
+
+        } else {
+            passwordStrengthStatus.className = 'medium-password';
+            passwordStrengthStatus.innerHTML = "Medium (should include alphabets, numbers and special characters.)";
+            passwordStrengthStatus.style.color = "yellow";
+        }
+    }
+}
+
+
   </script>
 
 

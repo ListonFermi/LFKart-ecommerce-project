@@ -41,18 +41,22 @@ module.exports = {
   },
   sortPriceAscending: async (req, res) => {
     try {
-        req.session.shopProductData = await productCollection.find({ isListed: true}).sort({ productPrice: 1 });
-        res.json({success: true})
-      } catch (error) {
-        console.error(error);
-      }
+      req.session.shopProductData = await productCollection
+        .find({ isListed: true })
+        .sort({ productPrice: 1 });
+      res.json({ success: true });
+    } catch (error) {
+      console.error(error);
+    }
   },
   sortPriceDescending: async (req, res) => {
     try {
-        req.session.shopProductData = await productCollection.find({isListed: true}).sort({ productPrice: -1 });
-        res.json({success: true})
-      } catch (error) {
-        console.error(error);
-      }
-  }
+      req.session.shopProductData = await productCollection
+        .find({ isListed: true })
+        .sort({ productPrice: -1 });
+      res.json({ success: true });
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };

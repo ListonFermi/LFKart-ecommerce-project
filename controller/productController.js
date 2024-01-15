@@ -36,7 +36,6 @@ module.exports = {
             productStock: req.body.productStock,
           },
         ]);
-        console.log(req.files[0].filename);
         res.redirect("/admin/productManagement");
       } else {
         req.session.productAlreadyExists = existingProduct;
@@ -61,7 +60,7 @@ module.exports = {
           },
         };
 
-        // Check and conditionally add image fields to the update query
+        // Check and add image to the query
         if (req.files[0]) {
           updateFields.$set.productImage1 = req.files[0].filename;
         }
@@ -73,8 +72,7 @@ module.exports = {
         if (req.files[2]) {
           updateFields.$set.productImage3 = req.files[2].filename;
         }
-
-        // Perform the update
+        
         await productCollection.findOneAndUpdate(
           { _id: req.params.id },
           updateFields

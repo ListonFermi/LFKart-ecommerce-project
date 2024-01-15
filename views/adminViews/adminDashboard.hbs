@@ -11,6 +11,8 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="/extras/cropper.css">
+
 </head>
 
 <body>
@@ -39,7 +41,7 @@
                             <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
                         </li>
                         <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="/admin/SalesReport">Sales Report</a>
+                            <a class="nav-link" aria-current="page" href="/admin/salesReport">Sales Report</a>
                         </li>
                     </ul>
                     <form action="logout" method="post" class="d-flex">
@@ -101,12 +103,13 @@
             <p class="h1">Upload LFKart Banner Image</p>
 
             <div class="input-group mb-3">
-                <img id="previewBannerImg" src="" style="width: 480px; height: 212px; " alt="Img"
-                    onchange="cropImage()">
+                <img id="previewBannerImg" src="" style="width: 100%; height: auto; display:none;">
                 <div class="input-group mb-3">
-                    <input id="bannerImage" name="productImage1" type="file" class="form-control"
-                        placeholder="Product Image1" onchange="displayImage()">
-                    <button type="button" class="btn btn-info">Upload</label>
+                    <form id="bannerImgForm" enctype="multipart/form-data">
+                        <input id="bannerImage" name="productImage1" type="file" class="form-control"
+                            placeholder="Product Image1" onchange="displayImage()">
+                        <button id="uploadBtn" type="button" class="btn btn-info">Upload</label>
+                    </form>
                 </div>
             </div>
 
@@ -128,27 +131,42 @@
                 }
             }
         </script>
-        {{!-- cropperjs --}}
-        {{!-- cropper js --}}
-        <script src="../node_modules/cropperjs/dist/cropper.js"></script>
+
+        <script src="/extras/cropper.js"></script>
 
         <script>
-                console.log('vannu')
-                const previewBannerImgElement = document.getElementById('previewBannerImg');
-                const cropper = new Cropper(previewBannerImgElement, {
-                    aspectRatio: 16 / 9,
-                    crop(event) {
-                        console.log(event.detail.x);
-                        console.log(event.detail.y);
-                        console.log(event.detail.width);
-                        console.log(event.detail.height);
-                        console.log(event.detail.rotate);
-                        console.log(event.detail.scaleX);
-                        console.log(event.detail.scaleY);
-                    },
-                });
-                Cropper.setDefaults(options)
+            const previewBannerImgElement = document.getElementById('previewBannerImg');
+            const cropper = new Cropper(previewBannerImgElement, {
+                aspectRatio: 0,
+                viewMode: 0
+            });
         </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const uploadBtnElement = document.getElementById('uploadBtn')
+            uploadBtnElement.addEventListener('click', uploadBtnClickFn.call(this))
+
+            async function uploadBtnClickFn(e) {
+                try{
+                e.preventDefault()
+                let formData = new FormData(this)
+                const response = await fetch('/admin/dashboard/bannerImage/upload', { method: 'POST', body: formData })
+                const data = response.json()
+                if (data.success) {
+                    return Swal.fire({
+                        title: "Banner image uploaded Successfully",
+                        icon: "success"
+                    });
+                }
+                }catch(error){
+                    console.error(error)
+                }
+            }
+
+        </script>
+
 
 
         {{!-- Charts --}}

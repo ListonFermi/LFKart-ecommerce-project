@@ -3,15 +3,20 @@ const adminController= require('../controller/adminController.js')
 const categoryController = require('../controller/categoryController.js')
 const orderController = require('../controller/orderController.js')
 const productController = require('../controller/productController.js')
+const salesReportController = require('../controller/salesReportController.js')
 const adminAuth = require('../middlewares/adminAuth.js')
 const upload= require('../services/multer.js')
 
 //login and logout 
 adminRouter.get('/', adminController.loginPage )
 adminRouter.post('/', adminController.login)
+adminRouter.post('/logout', adminController.logout )
+
+//dashboard
 adminRouter.get('/dashboard', adminAuth, adminController.dashboard)
 adminRouter.get('/dashboardData', adminAuth, adminController.dashboardData )
-adminRouter.post('/logout', adminController.logout )
+adminRouter.get('/dashboard/bannerImage/upload', adminAuth, upload.any(), adminController.uploadBannerImage )
+
 
 //user management
 adminRouter.get('/userManagement', adminAuth, adminController.userManagement)
@@ -43,5 +48,8 @@ adminRouter.get('/orderManagement/status/return/:id', adminAuth, orderController
 adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
 adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
 adminRouter.get('/orderManagement/orderStatus/:id', adminAuth, orderController.orderStatusPage)
+
+//sales report
+adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)
 
 module.exports= adminRouter

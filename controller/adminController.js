@@ -1,8 +1,7 @@
 const adminCollection = require("../models/adminModels.js");
 const jwt = require("jsonwebtoken");
 const userCollection = require("../models/userModels.js");
-const orderCollection = require("../models/orderModel.js");
-const productCollection = require("../models/productModels.js");
+const bannerCollection= require("../models/bannerModel")
 const dashboardHelper = require("../helpers/dashboardHelper.js");
 const { CLOSING } = require("ws");
 
@@ -40,44 +39,6 @@ module.exports = {
       console.error(error);
     }
   },
-  dashboard: async (req, res) => {
-    try {
-      res.render("adminViews/adminDashboard");
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  dashboardData: async (req, res) => {
-    const [
-      productsCount,
-      categoryCount,
-      pendingOrdersCount,
-      completedOrdersCount,
-      currentDayRevenue,
-      fourteenDaysRevenue,
-      categoryWiseRevenue,
-    ] = await Promise.all([
-      dashboardHelper.productsCount(),
-      dashboardHelper.categoryCount(),
-      dashboardHelper.pendingOrdersCount(),
-      dashboardHelper.completedOrdersCount(),
-      dashboardHelper.currentDayRevenue(),
-      dashboardHelper.fourteenDaysRevenue(),
-      dashboardHelper.categoryWiseRevenue(),
-    ]);
-
-    const data = {
-      productsCount,
-      categoryCount,
-      pendingOrdersCount,
-      completedOrdersCount,
-      currentDayRevenue,
-      fourteenDaysRevenue,
-      categoryWiseRevenue,
-    };
-
-    res.json(data);
-  },
   logout: async (req, res) => {
     try {
       res.clearCookie("token");
@@ -86,6 +47,62 @@ module.exports = {
       console.error(error);
     }
   },
+  
+  //dashboard
+  dashboard: async (req, res) => {
+    try {
+      res.render("adminViews/adminDashboard");
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  dashboardData: async (req, res) => {
+    try {
+      const [
+        productsCount,
+        categoryCount,
+        pendingOrdersCount,
+        completedOrdersCount,
+        currentDayRevenue,
+        fourteenDaysRevenue,
+        categoryWiseRevenue,
+      ] = await Promise.all([
+        dashboardHelper.productsCount(),
+        dashboardHelper.categoryCount(),
+        dashboardHelper.pendingOrdersCount(),
+        dashboardHelper.completedOrdersCount(),
+        dashboardHelper.currentDayRevenue(),
+        dashboardHelper.fourteenDaysRevenue(),
+        dashboardHelper.categoryWiseRevenue(),
+      ]);
+
+      const data = {
+        productsCount,
+        categoryCount,
+        pendingOrdersCount,
+        completedOrdersCount,
+        currentDayRevenue,
+        fourteenDaysRevenue,
+        categoryWiseRevenue,
+      };
+
+      res.json(data);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+   uploadBannerImage: async (req, res) => {
+    try {
+      console.log('req.url'+req.url);
+      await bannerCollection.insertMany({
+        images: req.files.filename
+      })
+      res.json({ success: true})
+    } catch (error) {
+      console.error(error)
+    }
+   },
+
 
   //user management
   userManagement: async (req, res) => {
