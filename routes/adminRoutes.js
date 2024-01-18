@@ -1,6 +1,7 @@
 const adminRouter= require('express').Router()
 const adminController= require('../controller/adminController.js')
 const categoryController = require('../controller/categoryController.js')
+const couponController = require('../controller/couponController.js')
 const orderController = require('../controller/orderController.js')
 const productController = require('../controller/productController.js')
 const salesReportController = require('../controller/salesReportController.js')
@@ -48,6 +49,10 @@ adminRouter.get('/orderManagement/status/return/:id', adminAuth, orderController
 adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
 adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
 adminRouter.get('/orderManagement/orderStatus/:id', adminAuth, orderController.orderStatusPage)
+
+//coupon management
+adminRouter.get('/couponManagement', adminAuth, couponController.couponManagement)
+adminRouter.post('/couponManagement/addCoupon', adminAuth, couponController.addCoupon)
 
 //sales report
 adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)

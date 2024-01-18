@@ -7,11 +7,9 @@ const razorpay = require("../services/razorpay.js");
 //updating totalCostPerProduct and grand total in cart-page
 async function grandTotal(req) {
   try {
-    console.log("session" + req.session.currentUser);
     let userCartData = await cartCollection
       .find({ userId: req.session.currentUser._id })
       .populate("productId");
-    console.log(Array.isArray(userCartData));
     let grandTotal = 0;
     for (const v of userCartData) {
       grandTotal += v.productId.productPrice * v.productQuantity;
