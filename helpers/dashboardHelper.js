@@ -47,8 +47,7 @@ module.exports = {
         { $match: { orderDate: { $gte: yesterday, $lt: today } } },
         { $group: { _id: "", totalRevenue: { $sum: "$grandTotalCost" } } },
       ]);
-
-      return result[0].totalRevenue;
+      return result.length>0?result[0].totalRevenue: 0;
     } catch (error) {
       console.error(error);
     }

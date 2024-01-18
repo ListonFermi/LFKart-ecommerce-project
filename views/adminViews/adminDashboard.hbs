@@ -10,146 +10,143 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="/extras/cropper.css">
-
 </head>
-
 <body>
-    <div class="container">
 
-        <nav class="navbar navbar-expand-lg bg-info bg-primary">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="/admin/userManagement">User Management</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link" aria-current="page" href="/admin/salesReport">Sales Report</a>
-                        </li>
-                    </ul>
-                    <form action="logout" method="post" class="d-flex">
-                        <button class="btn btn-danger" type="submit">Logout</button>
-                    </form>
-                </div>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg bg-info bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/userManagement">User Management</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/salesReport">Sales Report</a>
+                    </li>
+                </ul>
+                <form action="logout" method="post" class="d-flex">
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <div class="container pt-3">
-            <div class="row">
-                {{!-- user count --}}
-                <div class="col-lg-3">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Your Products Count</div>
-                        <div class="card-body">
-                            <h5 id="productsCount" class="card-title"></h5>
-                            <h6 id="categoryCount"></h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Completed Orders</div>
-                        <div class="card-body">
-                            <h5 id="completedOrdersCount" class="card-title"></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Pending Orders</div>
-                        <div class="card-body">
-                            <h5 id="pendingOrdersCount" class="card-title"></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Today's Revenue</div>
-                        <div class="card-body">
-                            <h5 id="currentDayRevenue" class="card-title"></h5>
-                        </div>
+    <div class="container pt-3">
+        <div class="row">
+            {{!-- user count --}}
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Your Products Count</div>
+                    <div class="card-body">
+                        <h5 id="productsCount" class="card-title"></h5>
+                        <h6 id="categoryCount"></h6>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <canvas id="twoWeeksSalesChart"></canvas>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Completed Orders</div>
+                    <div class="card-body">
+                        <h5 id="completedOrdersCount" class="card-title"></h5>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <canvas id="categoryWiseRevenueChart"></canvas>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Pending Orders</div>
+                    <div class="card-body">
+                        <h5 id="pendingOrdersCount" class="card-title"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Today's Revenue</div>
+                    <div class="card-body">
+                        <h5 id="currentDayRevenue" class="card-title"></h5>
+                    </div>
                 </div>
             </div>
         </div>
-
-        {{!-- Banner Image --}}
-        <div class="container-fluid">
-            <p class="h1">Upload LFKart Banner Image</p>
-
-            <div class="input-group mb-3">
-                <img id="previewBannerImg" src="" style="width: 100%; height: auto; display:none;">
-                <div class="input-group mb-3">
-                    <form id="bannerImgForm" enctype="multipart/form-data">
-                        <input id="bannerImage" name="productImage1" type="file" class="form-control"
-                            placeholder="Product Image1" onchange="displayImage()">
-                        <button id="uploadBtn" type="button" class="btn btn-info">Upload</label>
-                    </form>
-                </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="twoWeeksSalesChart"></canvas>
             </div>
-
+            <div class="col-lg-6">
+                <canvas id="categoryWiseRevenueChart"></canvas>
+            </div>
         </div>
     </div>
 
-    <allScripts>
-        {{!-- display image --}}
-        <script>
-            function displayImage() {
-                const reader = new FileReader()
-                reader.onload = () => {
-                    previewBannerImg.src = reader.result
-                }
-                const file = document.querySelector("#bannerImage").files[0];
-                if (file) {
-                    previewBannerImg.style.display = 'block'
-                    reader.readAsDataURL(file)
-                }
+    {{!-- Banner Image --}}
+    <div class="container-fluid">
+        <p class="h1">Upload LFKart Banner Image</p>
+
+        <div class="input-group mb-3">
+            <img id="previewBannerImg" src="" style="width: 100%; height: auto; display:none;">
+            <div class="input-group mb-3">
+                <form id="bannerImgForm" enctype="multipart/form-data">
+                    <input id="bannerImage" name="productImage1" type="file" class="form-control"
+                        placeholder="Product Image1" onchange="displayImage()">
+                    <button id="uploadBtn" type="button" class="btn btn-info">Upload</label>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<allScripts>
+    {{!-- display image --}}
+    <script>
+        function displayImage() {
+            const reader = new FileReader()
+            reader.onload = () => {
+                previewBannerImg.src = reader.result
             }
-        </script>
+            const file = document.querySelector("#bannerImage").files[0];
+            if (file) {
+                previewBannerImg.style.display = 'block'
+                reader.readAsDataURL(file)
+            }
+        }
+    </script>
 
-        <script src="/extras/cropper.js"></script>
+    <script src="/extras/cropper.js"></script>
 
-        <script>
-            const previewBannerImgElement = document.getElementById('previewBannerImg');
-            const cropper = new Cropper(previewBannerImgElement, {
-                aspectRatio: 0,
-                viewMode: 0
-            });
-        </script>
+    <script>
+        const previewBannerImgElement = document.getElementById('previewBannerImg');
+        const cropper = new Cropper(previewBannerImgElement, {
+            aspectRatio: 0,
+            viewMode: 0
+        });
+    </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script>
-            const uploadBtnElement = document.getElementById('uploadBtn')
-            uploadBtnElement.addEventListener('click', uploadBtnClickFn.call(this))
+    <script>
+        const uploadBtnElement = document.getElementById('uploadBtn')
+        uploadBtnElement.addEventListener('click', uploadBtnClickFn.call(this))
 
-            async function uploadBtnClickFn(e) {
-                try{
+        async function uploadBtnClickFn(e) {
+            try {
                 e.preventDefault()
                 let formData = new FormData(this)
                 const response = await fetch('/admin/dashboard/bannerImage/upload', { method: 'POST', body: formData })
@@ -160,84 +157,83 @@
                         icon: "success"
                     });
                 }
-                }catch(error){
-                    console.error(error)
-                }
+            } catch (error) {
+                console.error(error)
             }
+        }
 
-        </script>
+    </script>
 
 
 
-        {{!-- Charts --}}
+    {{!-- Charts --}}
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script>
-            const fetchData = (async () => {
-                try {
-                    const response = await fetch('/admin/dashboardData', { method: 'GET' });
-                    const data = await response.json();
-                    const {
-                        productsCount,
-                        categoryCount,
-                        pendingOrdersCount,
-                        completedOrdersCount,
-                        currentDayRevenue,
-                        fourteenDaysRevenue,
-                        categoryWiseRevenue
-                    } = data
+    <script>
+        const fetchData = (async () => {
+            try {
+                const response = await fetch('/admin/dashboardData', { method: 'GET' });
+                const data = await response.json();
+                const {
+                    productsCount,
+                    categoryCount,
+                    pendingOrdersCount,
+                    completedOrdersCount,
+                    currentDayRevenue,
+                    fourteenDaysRevenue,
+                    categoryWiseRevenue
+                } = data
 
-                    document.getElementById('productsCount').innerText = productsCount
-                    document.getElementById('categoryCount').innerText = 'in ' + categoryCount + ' categories'
-                    document.getElementById('pendingOrdersCount').innerText = pendingOrdersCount
-                    document.getElementById('completedOrdersCount').innerText = completedOrdersCount
-                    document.getElementById('currentDayRevenue').innerText = '₹' + currentDayRevenue
+                document.getElementById('productsCount').innerText = productsCount
+                document.getElementById('categoryCount').innerText = 'in ' + categoryCount + ' categories'
+                document.getElementById('pendingOrdersCount').innerText = pendingOrdersCount
+                document.getElementById('completedOrdersCount').innerText = completedOrdersCount
+                document.getElementById('currentDayRevenue').innerText = '₹' + currentDayRevenue
 
-                    const twoWeeksSalesChartElement = document.getElementById('twoWeeksSalesChart');
-                    const twoWeeksSalesChartOptions = {
-                        type: 'line',
-                        data: {
-                            labels: fourteenDaysRevenue.date,
-                            datasets: [{
-                                label: 'Last 2 weeks revenue per day',
-                                data: fourteenDaysRevenue.revenue,
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: { y: { beginAtZero: true } }
-                        }
+                const twoWeeksSalesChartElement = document.getElementById('twoWeeksSalesChart');
+                const twoWeeksSalesChartOptions = {
+                    type: 'line',
+                    data: {
+                        labels: fourteenDaysRevenue.date,
+                        datasets: [{
+                            label: 'Last 2 weeks revenue per day',
+                            data: fourteenDaysRevenue.revenue,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: { y: { beginAtZero: true } }
                     }
-
-                    const categoryWiseRevenueChartElement = document.getElementById('categoryWiseRevenueChart');
-                    const categoryWiseRevenueChartOptions = {
-                        type: 'polarArea',
-                        data: {
-                            labels: categoryWiseRevenue.categoryName,
-                            datasets: [{
-                                data: categoryWiseRevenue.revenuePerCategory,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.5)',
-                                    'rgba(75, 192, 192, 0.5)',
-                                    'rgba(255, 255, 0, 0.5)',
-                                    'rgba(169, 169, 169, 0.5)',
-                                    'rgba(0, 0, 255, 0.5)'
-                                ]
-                            }]
-                        }
-                    }
-
-                    new Chart(twoWeeksSalesChartElement, twoWeeksSalesChartOptions);
-                    new Chart(categoryWiseRevenueChartElement, categoryWiseRevenueChartOptions);
-                } catch (error) {
-                    console.error(error)
                 }
-            })();
-        </script>
 
-    </allScripts>
+                const categoryWiseRevenueChartElement = document.getElementById('categoryWiseRevenueChart');
+                const categoryWiseRevenueChartOptions = {
+                    type: 'polarArea',
+                    data: {
+                        labels: categoryWiseRevenue.categoryName,
+                        datasets: [{
+                            data: categoryWiseRevenue.revenuePerCategory,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(75, 192, 192, 0.5)',
+                                'rgba(255, 255, 0, 0.5)',
+                                'rgba(169, 169, 169, 0.5)',
+                                'rgba(0, 0, 255, 0.5)'
+                            ]
+                        }]
+                    }
+                }
+
+                new Chart(twoWeeksSalesChartElement, twoWeeksSalesChartOptions);
+                new Chart(categoryWiseRevenueChartElement, categoryWiseRevenueChartOptions);
+            } catch (error) {
+                console.error(error)
+            }
+        })();
+    </script>
+
+</allScripts>
 
 </body>
-
 </html>

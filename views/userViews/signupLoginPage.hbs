@@ -731,6 +731,7 @@
                 <label style="color: red;">Email/Phone Number already exists!</label>
               </div>
               {{/if}}
+              
               <button type="submit" class="btn btn-primary"><i class="fa fa-user"></i> Create an account </button>
             </form>
           </div>
@@ -846,7 +847,7 @@
         } else {
             passwordStrengthStatus.className = 'medium-password';
             passwordStrengthStatus.innerHTML = "Medium (should include alphabets, numbers and special characters.)";
-            passwordStrengthStatus.style.color = "yellow";
+            passwordStrengthStatus.style.color = "orange";
         }
     }
 }
