@@ -726,13 +726,13 @@
                         </div>
                       </div>
                     </td>
-                    <div id="stockLimit{{@index}}" class="d-none">{{this.productId.productStock}}</div>
+                    <div id="stockLimit{{@index}}" style="display: none;">{{this.productId.productStock}}</div>
                     <td class="delete"><a title="Delete" onclick="deleteCart('{{this._id}}','{{@index}}')"> <i
                           class="glyphicon glyphicon-trash fa-2x"></i></a></td>
                     <td>
                       <button type="button" class="btn btn-danger btn-sm"
                         onclick="cartDec('{{this._id}}','{{@index}}')">-</button>
-                      <span id="productQuantity{{@index}}"> &nbsp; &nbsp;{{this.productQuantity}} &nbsp; &nbsp; </span>
+                      <span id="productQuantity{{@index}}"> &nbsp;  &nbsp;{{this.productQuantity}} &nbsp; &nbsp; </span>
                       <button type="button" class="btn btn-primary btn-sm"
                         onclick="cartInc('{{this._id}}','{{@index}}')">+</button>
                     </td>

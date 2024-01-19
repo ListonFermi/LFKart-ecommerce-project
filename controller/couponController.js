@@ -1,28 +1,36 @@
 const couponCollection = require("../models/couponModel")
-const orderCollection = require("../models/orderModel")
+const formatDate= require('../helpers/formatDateHelper.js')
 
 module.exports={
     couponManagement: async (req,res)=>{
         try {
-            
+            let couponData = await couponCollection.find()
+            couponData= couponData.map( v=>{
+                v.startDateFormatted = formatDate(v.startDate)
+                v.expiryDateFormatted = formatDate(v.expiryDate)
+                return v
+            }  )
+            res.render('adminViews/couponManagement', { couponData })
         } catch (error) {
             console.error(error)
         }
-        res.render('adminViews/couponManagement')
     },
     addCoupon: async (req,res)=>{
         try {
-            console.log('test');
-            console.log(req.body);
-            await couponCollection.insertMany([{
-                couponCode: req.body.couponCode,
-                discountPercentage: req.body.discountPercentage,
-                // startDate: new Date(req.body.startDate),
-                // expiryDate: new Date(req.body.expiryDate),
-                minimumPurchase: req.body.minimumPurchase,
-                minimumDiscount: req.body.maximumDiscount
-            }])
-            res.json({ couponAdded: true})
+            let existingCoupon= await couponCollection.findOne({ couponCode : req.body.couponCode })
+            if(!existingCoupon){
+                await couponCollection.insertMany([{
+                    couponCode: req.body.couponCode,
+                    discountPercentage: req.body.discountPercentage,
+                    startDate: new Date(req.body.startDate),
+                    expiryDate: new Date(req.body.expiryDate),
+                    minimumPurchase: req.body.minimumPurchase,
+                    maximumDiscount: req.body.maximumDiscount
+                }])
+                res.json({ couponAdded: true})
+            }else{
+                res.json({couponCodeExists: true})
+            }           
         } catch (error) {
             console.error(error)
         }

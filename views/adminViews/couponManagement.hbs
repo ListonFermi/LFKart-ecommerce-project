@@ -73,7 +73,7 @@
                         <div class="couponCodeInput p-2">
                             <label for="couponCode" class="mb-2">Coupon Code: </label>
                             <div class="input-group">
-                                <input name="couponCode" title="Enter a valid coupon code" type="text"
+                                <input id="couponCode" name="couponCode" title="Enter a valid coupon code" type="text"
                                     class="form-control" placeholder="Enter coupon code" required minlength="5"
                                     maxlength="16">
                             </div>
@@ -83,8 +83,8 @@
                         <div class="discountPercentageInput p-2">
                             <label for="expiryDate" class="mb-2">Discount Percentage: </label>
                             <div class="input-group">
-                                <input name="discountPercentage" type="text" class="form-control"
-                                    placeholder="Enter discount percentage" required>
+                                <input id="discountPercentage" name="discountPercentage" type="text"
+                                    class="form-control" placeholder="Enter discount percentage" required>
                             </div>
                             <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
                         </div>
@@ -92,7 +92,8 @@
                         <div class="startDateInput p-2">
                             <label for="startDate">Coupon Start Date: </label>
                             <div class="input-group">
-                                <input name="startDate" id="startDate" type="date" class="form-control" required>
+                                <input id="startDate" name="startDate" id="startDate" type="date" class="form-control"
+                                    required>
                             </div>
                             <div class="form-text">Choose a start date for the discount to be considered.</div>
                         </div>
@@ -100,7 +101,7 @@
                         <div class="expiryDateInput p-2">
                             <label for="expiryDate">Coupon Expiry Date : </label>
                             <div class="input-group">
-                                <input name="expiryDate" type="date" class="form-control" required>
+                                <input id="expiryDate" name="expiryDate" type="date" class="form-control" required>
                             </div>
                             <div class="form-text">Choose an exipry date for the discount to end.</div>
                         </div>
@@ -108,7 +109,7 @@
                         <div class="minimumPurchaseInput p-2">
                             <label for="minimumPurchase">Minimum Purchase: </label>
                             <div class="input-group">
-                                <input name="minimumPurchase" type="text" class="form-control"
+                                <input id="minimumPurchase" name="minimumPurchase" type="text" class="form-control"
                                     placeholder="Enter minimum purchase required" required>
                             </div>
                             <div class="form-text">Minimum amount of purchase to be done to allow the coupon discount.
@@ -118,7 +119,7 @@
                         <div class="maximumDiscount p-2">
                             <label for="maximumDiscount">Maximum Discount: </label>
                             <div class="input-group">
-                                <input name="maximumDiscount" type="text" class="form-control"
+                                <input id="maximumDiscount" name="maximumDiscount" type="text" class="form-control"
                                     placeholder="Maximum discount applicable" required>
                             </div>
                             <div class="form-text">Maximum amount of discount to be allowed while using the coupon.
@@ -146,25 +147,111 @@
                     <th scope="col" class="border-dark">Expiry Date</th>
                     <th scope="col" class="border-dark">Minimum Purchase</th>
                     <th scope="col" class="border-dark">Maximum Discount</th>
+                    <th scope="col" class="border-dark">Current Status</th>
                     <th scope="col" class="border-dark">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {{!-- {{#each }} --}}
+                {{#each couponData}}
                 <tr>
+                    <td>{{sum @index 1}}</td>
+                    <td>{{this.couponCode}}</td>
+                    <td>{{this.discountPercentage}}%</td>
+                    <td>{{this.startDateFormatted}}</td>
+                    <td>{{this.expiryDateFormatted}}</td>
+                    <td>₹ {{this.minimumPurchase}}</td>
+                    <td>₹ {{this.maximumDiscount}}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#editModal{{@index}}">
+                            <i class="fas fa-edit"></i>
+                        </button></td>
                 </tr>
-                {{!-- {{/each}} --}}
+                {{/each}}
             </tbody>
         </table>
     </div>
+
+
+    <!-- Edit Product Modal  -->
+    {{#each couponData}}
+    <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Coupon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+
+                        <div class="couponCodeInput p-2">
+                            <label for="couponCode" class="mb-2">Coupon Code: </label>
+                            <div class="input-group">
+                                <input id="couponCode" name="couponCode" title="Enter a valid coupon code" type="text"
+                                    class="form-control" placeholder="Enter coupon code" required minlength="5"
+                                    maxlength="16">
+                            </div>
+                            <div class="form-text">Add a relevant coupon code eg: NEWYEAR2024, PONGAL2024, VYZ548</div>
+                        </div>
+
+                        <div class="discountPercentageInput p-2">
+                            <label for="expiryDate" class="mb-2">Discount Percentage: </label>
+                            <div class="input-group">
+                                <input id="discountPercentage" name="discountPercentage" type="text"
+                                    class="form-control" placeholder="Enter discount percentage" required>
+                            </div>
+                            <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
+                        </div>
+
+                        <div class="startDateInput p-2">
+                            <label for="startDate">Coupon Start Date: </label>
+                            <div class="input-group">
+                                <input id="startDate" name="startDate" id="startDate" type="date" class="form-control"
+                                    required>
+                            </div>
+                            <div class="form-text">Choose a start date for the discount to be considered.</div>
+                        </div>
+
+                        <div class="expiryDateInput p-2">
+                            <label for="expiryDate">Coupon Expiry Date : </label>
+                            <div class="input-group">
+                                <input id="expiryDate" name="expiryDate" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-text">Choose an exipry date for the discount to end.</div>
+                        </div>
+
+                        <div class="minimumPurchaseInput p-2">
+                            <label for="minimumPurchase">Minimum Purchase: </label>
+                            <div class="input-group">
+                                <input id="minimumPurchase" name="minimumPurchase" type="text" class="form-control"
+                                    placeholder="Enter minimum purchase required" required>
+                            </div>
+                            <div class="form-text">Minimum amount of purchase to be done to allow the coupon discount.
+                            </div>
+                        </div>
+
+                        <div class="maximumDiscount p-2">
+                            <label for="maximumDiscount">Maximum Discount: </label>
+                            <div class="input-group">
+                                <input id="maximumDiscount" name="maximumDiscount" type="text" class="form-control"
+                                    placeholder="Maximum discount applicable" required>
+                            </div>
+                            <div class="form-text">Maximum amount of discount to be allowed while using the coupon.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/each}}
 
 
 </body>
@@ -174,6 +261,7 @@
     {{!-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
     {{!-- jquery form validation --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 
@@ -185,6 +273,9 @@
     {{!-- datatables.net --}}
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
+    {{!-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </Libraries>
 
@@ -193,7 +284,7 @@
     <script>
         $().ready(function () {
             // validate signup form on keyup and submit
-            $(".addCouponForm").validate();
+            $("#addCouponForm").validate();
         });
     </script>
 
@@ -217,37 +308,51 @@
     </script>
 
     <script>
-        async function clickFn() {
-            let formData = new FormData(this)
-            console.log(formData)
-            let response = await fetch('/admin/couponManagement/addCoupon', { method: 'POST', body: formData })
-            let data = await response.json()
+        async function addCoupon() {
+            try {
+                if ($("#addCouponForm").valid()) {
 
-            if (data.couponAdded) {
-                return Swal.fire({
-                    icon: "success",
-                    title: "Your new coupon has been added",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            } else {
-                return Swal.fire({
-                    icon: "error",
-                    title: "Failed to add",
-                    text: "Something went wrong!"
-                });
+                    let formData = {
+                        couponCode: couponCode.value,
+                        discountPercentage: discountPercentage.value,
+                        startDate: startDate.value,
+                        expiryDate: expiryDate.value,
+                        minimumPurchase: minimumPurchase.value,
+                        maximumDiscount: maximumDiscount.value
+                    }
+
+                    let response = await fetch('/admin/couponManagement/addCoupon', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    });
+                    let result = await response.json();
+
+                    if (result.couponAdded) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Your new coupon has been added",
+                            showConfirmButton: false,
+                            timer: 3500
+                        }).then(() => location.reload())
+                    } else if (result.couponCodeExists) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Coupon code already exists",
+                            text: "Failed to add"
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log(error);
             }
         }
 
-        let addCouponForm = document.getElementById('addCouponForm');
-        addCouponForm.addEventListener('submit', function(e){
+        addCouponForm.addEventListener('submit', function (e) {
             e.preventDefault()
-            clickFn.call(addCouponForm)
+            addCoupon.call()
         })
     </script>
-
-
-
 
 </allScripts>
 

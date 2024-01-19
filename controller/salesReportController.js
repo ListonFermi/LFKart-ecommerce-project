@@ -1,4 +1,5 @@
 const orderCollection = require("../models/orderModel");
+const formatDate= require('../helpers/formatDateHelper.js')
 
 const { ObjectId } = require('mongodb');
 
@@ -21,9 +22,4 @@ module.exports = {
   },
 };
 
-function formatDate(date) {
-  const dateObject = new Date(date);
-  const options = { day: "2-digit", month: "short", year: "numeric" };
-  return dateObject.toLocaleDateString("en-US", options);
-}
 
