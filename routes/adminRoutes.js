@@ -53,6 +53,8 @@ adminRouter.get('/orderManagement/orderStatus/:id', adminAuth, orderController.o
 //coupon management
 adminRouter.get('/couponManagement', adminAuth, couponController.couponManagement)
 adminRouter.post('/couponManagement/addCoupon', adminAuth, couponController.addCoupon)
+adminRouter.put('/couponManagement/editCoupon/:id', adminAuth, couponController.editCoupon)
+
 
 //sales report
 adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)

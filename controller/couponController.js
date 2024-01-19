@@ -34,5 +34,26 @@ module.exports={
         } catch (error) {
             console.error(error)
         }
+    },
+    editCoupon: async (req,res)=>{
+        try {
+            // let existingCoupon= await couponCollection.findOne({ couponCode : { $regex: new RegExp(req.body.couponCode, "i") } })
+            console.log(req.body);
+            // if(!existingCoupon || (existingCoupon._id==req.params.id) ){
+            //     await couponCollection.insertMany([{
+            //         couponCode: req.body.couponCode,
+            //         discountPercentage: req.body.discountPercentage,
+            //         startDate: new Date(req.body.startDate),
+            //         expiryDate: new Date(req.body.expiryDate),
+            //         minimumPurchase: req.body.minimumPurchase,
+            //         maximumDiscount: req.body.maximumDiscount
+            //     }])
+                res.json({ couponEdited : true})
+            // }else{
+            //     res.json({couponCodeExists: true})
+            // }           
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
