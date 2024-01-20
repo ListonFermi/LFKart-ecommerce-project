@@ -91,7 +91,7 @@ module.exports = {
       console.log(error);
     }
   },
-   uploadBannerImage: async (req, res) => {
+  uploadBannerImage: async (req, res) => {
     try {
       console.log('req.url'+req.url);
       await bannerCollection.insertMany({
@@ -101,8 +101,7 @@ module.exports = {
     } catch (error) {
       console.error(error)
     }
-   },
-
+  },
 
   //user management
   userManagement: async (req, res) => {

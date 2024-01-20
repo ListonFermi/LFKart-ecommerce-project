@@ -18,7 +18,6 @@ adminRouter.get('/dashboard', adminAuth, adminController.dashboard)
 adminRouter.get('/dashboardData', adminAuth, adminController.dashboardData )
 adminRouter.get('/dashboard/bannerImage/upload', adminAuth, upload.any(), adminController.uploadBannerImage )
 
-
 //user management
 adminRouter.get('/userManagement', adminAuth, adminController.userManagement)
 adminRouter.post('/userManagement/block/:id', adminAuth, adminController.blockUser )
@@ -54,7 +53,6 @@ adminRouter.get('/orderManagement/orderStatus/:id', adminAuth, orderController.o
 adminRouter.get('/couponManagement', adminAuth, couponController.couponManagement)
 adminRouter.post('/couponManagement/addCoupon', adminAuth, couponController.addCoupon)
 adminRouter.put('/couponManagement/editCoupon/:id', adminAuth, couponController.editCoupon)
-
 
 //sales report
 adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)

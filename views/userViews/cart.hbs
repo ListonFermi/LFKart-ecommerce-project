@@ -715,8 +715,7 @@
                   {{#each userCartData}}
                   <tr class="CartProduct" id="cartProduct{{@index}}">
                     <td class="CartProductThumb">
-                      <div><a href="product-details.html"><img
-                            src="images/productImages/{{this.productId.productImage1}}" alt="img"></a>
+                      <div><a href=""><img src="images/productImages/{{this.productId.productImage1}}" alt="img"></a>
                       </div>
                     </td>
                     <td>
@@ -732,7 +731,7 @@
                     <td>
                       <button type="button" class="btn btn-danger btn-sm"
                         onclick="cartDec('{{this._id}}','{{@index}}')">-</button>
-                      <span id="productQuantity{{@index}}"> &nbsp;  &nbsp;{{this.productQuantity}} &nbsp; &nbsp; </span>
+                      <span id="productQuantity{{@index}}"> &nbsp; &nbsp;{{this.productQuantity}} &nbsp; &nbsp; </span>
                       <button type="button" class="btn btn-primary btn-sm"
                         onclick="cartInc('{{this._id}}','{{@index}}')">+</button>
                     </td>
@@ -749,7 +748,7 @@
                 <div class="pull-left"><a href="index.html" class="btn btn-default"> <i class="fa fa-arrow-left"></i>
                     &nbsp; Continue shopping </a></div>
                 <div class="pull-right">
-                  <button type="submit" class="btn btn-default"><i class="fa fa-undo"></i> &nbsp; Update cart  </button>
+                  <button type="submit" class="btn btn-default"><i class="fa fa-undo"></i> &nbsp; Update cart </button>
                 </div>
               </div>
             </div>
@@ -767,7 +766,7 @@
             <div class="table-block" id="order-detail-content"><a class="btn btn-primary btn-lg btn-block "
                 title="checkout" href="/checkout" style="margin-bottom:20px"> Proceed to
                 checkout &nbsp; <i class="fa fa-arrow-right"></i> </a>
-            {{/if}}
+              {{/if}}
               <div class="w100 cartMiniTable">
                 <table id="cart-summary" class="std table">
                   <tbody>
@@ -785,13 +784,16 @@
                     </tr>
                     <tr>
                       <td>Grand Total</td>
-                      <td class="site-color" id="total-price">₹{{grandTotal}}</td>
+                      <td class="site-color" id="total-price">₹<span id="grandTotal">{{grandTotal}}</span></td>
                     </tr>
                     <tr>
                       <td colspan="2">
                         <div class="input-append couponForm">
-                          <input class="col-lg-8" id="appendedInputButton" type="text" placeholder="Coupon code">
-                          <button class="col-lg-4 btn btn-success" type="button">Apply!</button>
+                          <form id="couponApplyForm">
+                            <input class="col-lg-8" name="couponCode" id="appendedInputButton" type="text"
+                              placeholder="Coupon code">
+                            <button class="col-lg-4 btn btn-success" type="submit">Apply!</button>
+                          </form>
                         </div>
                       </td>
                     </tr>
@@ -932,13 +934,45 @@
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success"
-            });
+
+            }).then(() => location.reload());
           }
         });
       } catch (error) {
         console.error(error)
       }
     }
+  </script>
+  {{!-- apply coupon --}}
+  <script>
+    async function couponApply() {
+      let couponApplyFormElement = document.getElementById('couponApplyForm')
+      let formData = {
+        couponApplyForm: couponApplyFormElement.couponCode.value
+      }
+      let response = await fetch('/cart/applyCoupon', {
+        method: 'POST', headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
+
+      let result = await response.json()
+      console.log(formData)
+      console.log(result.couponApplied)
+
+      if (result.couponApplied) {
+        return await Swal.fire({
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }
+
+    couponApplyForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      couponApply()
+    })
   </script>
 
 </body>

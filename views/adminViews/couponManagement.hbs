@@ -24,6 +24,9 @@
     {{!-- jquery form validation --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 
+    {{!-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="container">
@@ -91,7 +94,7 @@
                         <div class="discountPercentageInput p-2">
                             <label for="expiryDate" class="mb-2">Discount Percentage: </label>
                             <div class="input-group">
-                                <input id="discountPercentage" name="discountPercentage" type="text"
+                                <input id="discountPercentage" name="discountPercentage" type="number" min="5" max="90"
                                     class="form-control" placeholder="Enter discount percentage" required>
                             </div>
                             <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
@@ -144,6 +147,7 @@
         </div>
     </div>
 
+    <!--Main Table-->
     <div class="container pt-3">
         <table id="example" class="display" style="width:100%">
             <thead>
@@ -180,9 +184,9 @@
         </table>
     </div>
 
-
     <!-- Edit Product Modal  -->
     {{#each couponData}}
+
     <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -195,58 +199,58 @@
                     <div class="modal-body">
 
                         <div class="couponCodeInput p-2">
-                            <label for="couponCodeEdit" class="mb-2">Coupon Code: </label>
+                            <label for="couponCodeEdit{{@index}}" class="mb-2">Coupon Code: </label>
                             <div class="input-group">
-                                <input id="couponCodeEdit" name="couponCode" title="Enter a valid coupon code"
-                                    type="text" class="form-control" value="{{this.couponCode}}" required minlength="5"
-                                    maxlength="16">
+                                <input id="couponCodeEdit{{@index}}" name="couponCode" type="text" class="form-control"
+                                    value="{{this.couponCode}}" required minlength="5" maxlength="16">
                             </div>
                             <div class="form-text">Add a relevant coupon code eg: NEWYEAR2024, PONGAL2024, VYZ548</div>
                         </div>
 
                         <div class="discountPercentageInput p-2">
-                            <label for="discountPercentageEdit" class="mb-2">Discount Percentage: </label>
+                            <label for="discountPercentageEdit{{@index}}" class="mb-2">Discount Percentage: </label>
                             <div class="input-group">
-                                <input id="discountPercentageEdit" name="discountPercentage" type="text"
+                                <input id="discountPercentageEdit{{@index}}" name="discountPercentage" type="text"
                                     class="form-control" value="{{this.discountPercentage}}" required>
                             </div>
                             <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
                         </div>
 
                         <div class="startDateInput p-2">
-                            <label for="startDateEdit">Coupon Start Date: </label>
+                            <label for="startDateEdit{{@index}}">Coupon Start Date: </label>
                             <div class="input-group">
-                                <input id="startDateEdit" name="startDate" id="startDate" type="date"
-                                    class="form-control" value="{{this.startDate}}" required>
+                                <input id="startDateEdit{{@index}}" name="startDate" id="startDate" type="date"
+                                    class="form-control" value="{{this.startDateFormatted}}" required>
                             </div>
                             <div class="form-text">Choose a start date for the discount to be considered.</div>
                         </div>
 
                         <div class="expiryDateInput p-2">
-                            <label for="expiryDateEdit">Coupon Expiry Date : </label>
+                            <label for="expiryDateEdit{{@index}}">Coupon Expiry Date : </label>
                             <div class="input-group">
-                                <input id="expiryDateEdit" name="expiryDate" type="date" class="form-control"
-                                    value="{{this.expiryDate}}" required>
+                                <input id="expiryDateEdit{{@index}}" name="expiryDate" type="date" class="form-control"
+                                    value="{{this.expiryDateFormatted}}" required>
                             </div>
                             <div class="form-text">Choose an exipry date for the discount to end.</div>
                         </div>
 
                         <div class="minimumPurchaseInput p-2">
-                            <label for="minimumPurchaseEdit">Minimum Purchase: </label>
+                            <label for="minimumPurchaseEdit{{@index}}">Minimum Purchase: </label>
                             <div class="input-group">
-                                <input id="minimumPurchaseEdit" name="minimumPurchase" type="text" class="form-control"
-                                    placeholder="Enter minimum purchase required" value="{{this.minimumPurchase}}"
-                                    required>
+                                <input id="minimumPurchaseEdit{{@index}}" name="minimumPurchase" type="text"
+                                    class="form-control" placeholder="Enter minimum purchase required"
+                                    value="{{this.minimumPurchase}}" required>
                             </div>
                             <div class="form-text">Minimum amount of purchase to be done to allow the coupon discount.
                             </div>
                         </div>
 
                         <div class="maximumDiscount p-2">
-                            <label for="maximumDiscountEdit">Maximum Discount: </label>
+                            <label for="maximumDiscountEdit{{@index}}">Maximum Discount: </label>
                             <div class="input-group">
-                                <input id="maximumDiscountEdit" name="maximumDiscount" type="text" class="form-control"
-                                    placeholder="Maximum discount applicable" value="{{this.maximumDiscount}}" required>
+                                <input id="maximumDiscountEdit{{@index}}" name="maximumDiscount" type="text"
+                                    class="form-control" placeholder="Maximum discount applicable"
+                                    value="{{this.maximumDiscount}}" required>
                             </div>
                             <div class="form-text">Maximum amount of discount to be allowed while using the coupon.
                             </div>
@@ -264,112 +268,50 @@
 
     <!-- Edit Product Script- form validation  -->
     <script>
-        
+        $().ready(function () {
             // validate signup form on keyup and submit
-            $("#editModal{{@index}}").validate(
-                {
-                submitHandler: async function (form,e) {
-                    try {
-                        e.preventDefault()
-
-                        let formData = {
-                            couponCode: form.couponCode.value,
-                            discountPercentage: discountPercentageEdit.value,
-                            startDate: startDateEdit.value,
-                            expiryDate: expiryDateEdit.value,
-                            minimumPurchase: minimumPurchaseEdit.value,
-                            maximumDiscount: maximumDiscountEdit.value
-                        }
-
-                        let response = await fetch('/admin/couponManagement/editCoupon/{{this._id}}', {
-                            method: 'PUT',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(formData)
-                        });
-                        let result = await response.json();
-
-                        if (result.couponEdited) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Your coupon has been updated",
-                                showConfirmButton: false,
-                                timer: 3500
-                            }).then(() => location.reload())
-                        } else if (result.couponCodeExists) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Coupon code already exists",
-                                text: "Failed to edit"
-                            });
-                        }
-
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-            }
-            );
-        
-    </script>
-
-    <!-- Edit Product Script- form validation  -->
-    {{!--
-    <script>
-        async function editCoupon() {
-            try {
-                if ($("#editModal{{@index}}").valid()) {
+            $("#editCouponForm{{@index}}").validate({
+                submitHandler: async function (form, event) {
+                    event.preventDefault()
 
                     let formData = {
-                        couponCode: couponCodeEdit.value,
-                        discountPercentage: discountPercentageEdit.value,
-                        startDate: startDateEdit.value,
-                        expiryDate: expiryDateEdit.value,
-                        minimumPurchase: minimumPurchaseEdit.value,
-                        maximumDiscount: maximumDiscountEdit.value
+                        couponCode: form.couponCodeEdit{{@index}}.value,
+                        discountPercentage: form.discountPercentageEdit{{@index}}.value,
+                        startDate: form.startDateEdit{{@index}}.value,
+                        expiryDate: form.expiryDateEdit{{@index}}.value,
+                        minimumPurchase: form.minimumPurchaseEdit{{@index}}.value,
+                        maximumDiscount: form.maximumDiscountEdit{{@index}}.value
                     }
 
                     let response = await fetch('/admin/couponManagement/editCoupon/{{this._id}}', {
-                        method: 'PUT',
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(formData)
-                    });
-                    let result = await response.json();
+                        method: 'PUT', headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData) }) 
+                    let result=await response.json()
 
-                    if (result.couponEdited) {
+                    if(result.couponEdited){
                         Swal.fire({
-                            icon: "success",
-                            title: "Your coupon has been updated",
-                            showConfirmButton: false,
-                            timer: 3500
-                        }).then(() => location.reload())
-                    } else if (result.couponCodeExists) {
-                        Swal.fire({
+                        icon: "success",
+                        title: "Your coupon has been updated",
+                        showConfirmButton: false,
+                        timer: 3500}).then(()=>location.reload() )
+                    }else if(result.couponCodeExists){
+                        await Swal.fire({
                             icon: "error",
                             title: "Coupon code already exists",
-                            text: "Failed to edit"
+                            text: "Coupon code must be unique"
                         });
                     }
                 }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        let editCouponFormElement = document.getElementById('editCouponForm{{@index}}')
-        editCouponFormElement.addEventListener('submit', function (e) {
-            e.preventDefault()
-            editCoupon()
+            })
         })
-    </script> --}}
+    </script>
 
     {{/each}}
-
 
 </body>
 
 {{!-- js libraries --}}
 <Libraries>
-    
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -377,9 +319,6 @@
 
     {{!-- datatables.net --}}
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-
-    {{!-- sweetalert2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </Libraries>
@@ -455,7 +394,7 @@
 
         addCouponForm.addEventListener('submit', function (e) {
             e.preventDefault()
-            addCoupon.call()
+            addCoupon()
         })
     </script>
 

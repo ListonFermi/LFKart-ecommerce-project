@@ -1,5 +1,6 @@
 const addressCollection = require("../models/addressModel.js");
 const cartCollection = require("../models/cartModel.js");
+const couponCollection = require("../models/couponModel.js");
 const orderCollection = require("../models/orderModel.js");
 const userCollection = require("../models/userModels.js");
 const razorpay = require("../services/razorpay.js");
@@ -153,7 +154,8 @@ module.exports = {
   orderPlaced: async (req, res) => {
     try {
       console.log(req.session.grandTotal);
-      if (req.body.razorpay_payment_id) { //razorpay payment
+      if (req.body.razorpay_payment_id) {
+        //razorpay payment
         await orderCollection.updateOne(
           { _id: req.session.currentOrder._id },
           {
@@ -177,7 +179,8 @@ module.exports = {
         } else {
           return res.json({ insufficientWalletBalance: true });
         }
-      } else { //incase of COD
+      } else {
+        //incase of COD
         await orderCollection.updateOne(
           { _id: req.session.currentOrder._id },
           {
@@ -207,5 +210,31 @@ module.exports = {
     //delete the cart- since the order is placed
     await cartCollection.deleteMany({ userId: req.session.currentUser._id });
     console.log("deleting finished");
+  },
+
+  //apply coupon
+  applyCoupon: async (req, res) => {
+    try {
+      console.log(req.body);
+      let existingCoupon= await couponCollection.findOne({ couponCode: req.body.couponApplyForm})
+      let cartData= await userCollection.find({ userId: req.session.currentUser._id })
+      console.log(existingCoupon);
+
+      let conditions={
+        minimumPurchase: existingCoupon.minimumPurchase < req.session.grandTotal,
+        expiryDate: new Date() < new Date(existingCoupon.expiryDate ),
+        maximumDiscount: existingCoupon.maximumDiscount > req.session.grandTotal
+      }
+
+      if(existingCoupon && conditions.minimumPurchase && conditions.maximumDiscountexpiryDate ){
+        req.session.grandTotal -= 
+        res.json({ couponApplied: true })
+      }{
+        res.json({ couponRejected : false })
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
   },
 };

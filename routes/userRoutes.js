@@ -32,6 +32,7 @@ userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) //cart 
 userRouter.delete('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart page
 userRouter.put('/cart/decQty/:id', blockedUserCheck, userAuth, cartController.decQty)
 userRouter.put('/cart/incQty/:id', blockedUserCheck, userAuth, cartController.incQty)
+userRouter.post('/cart/applyCoupon', blockedUserCheck, userAuth, cartController.applyCoupon)
 
 //account page
 userRouter.get('/account', blockedUserCheck, userAuth, accountController.accountPage)
@@ -50,7 +51,6 @@ userRouter.get('/account/deleteAddress/:id', blockedUserCheck, userAuth, account
 //account-change password
 userRouter.get('/account/changePassword', blockedUserCheck, userAuth, accountController.changePassword)
 userRouter.patch('/account/changePassword', blockedUserCheck, userAuth, accountController.changePasswordPatch)
-//account-wishlist
 
 //order routes-checkout
 userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutPage)
