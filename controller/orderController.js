@@ -59,8 +59,10 @@ module.exports={
         try {
             let orderData= await orderCollection.findOne( { _id: req.params.id } ).populate('userId')
             await userCollection.findByIdAndUpdate( { _id: orderData.userId._id  }, { wallet: orderData.grandTotalCost } )
-            orderData.orderStatus='Cancelled'
-            orderData.save()
+            await orderCollection.findOneAndUpdate(
+                { _id: req.params.id },
+                { $set: { orderStatus: 'Cancelled' } }
+            )
             res.redirect('/admin/orderManagement')
         } catch (error) {
             console.error(error)

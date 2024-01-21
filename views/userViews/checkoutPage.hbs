@@ -1024,63 +1024,52 @@
 
   <!-- apply coupon  -->
   <script>
-      // Get the couponApplyForm element and attach a submit event listener
-  const couponApplyFormElement = document.getElementById('couponApplyForm');
-  couponApplyFormElement.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    await couponApply();
-  });
-
-  // Async function to handle coupon application
-  async function couponApply() {
-
+    // Attach a submit event listener to the couponApplyForm element
     const couponApplyFormElement = document.getElementById('couponApplyForm');
-    // Prepare form data with the coupon code
-    const formData = {
-      couponCode: couponApplyFormElement.couponCode.value,
-    };
-
-    // Send a POST request to the server to apply the coupon
-    const response = await fetch('/checkout/applyCoupon', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+    couponApplyFormElement.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await couponApply();
     });
 
-    // Parse the JSON response from the server
-    const { couponApplied, couponDiscount, couponNotApplicable, couponDoesntExist } = await response.json();
+    // Async function to handle coupon application
+    async function couponApply() {
 
-    // Check different scenarios based on the response
-    if (couponApplied) {
-      // If the coupon is applied, update the UI and show a success message
-      const discount = await couponDiscount;
-      const grandTotal = ({{ grandTotal }} - discount);
+      // Prepare form data with the coupon code
+      const couponApplyForm = document.getElementById('couponApplyForm');
+      const formData = { couponCode: couponApplyForm.couponCode.value };
 
-      document.getElementById('totalDiscount').innerHTML = '₹' + discount;
-      document.getElementById('grandTotal').innerHTML = grandTotal;
+      // Send a POST request to the server to apply the coupon
+      const response = await fetch('/checkout/applyCoupon', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      await Swal.fire({
-        icon: "success",
-        title: "Coupon has been applied",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } else if (couponNotApplicable) {
-      // If the coupon is not applicable, show an error message
-      await Swal.fire({
-        icon: "error",
-        title: "Coupon not applicable",
-        text: "Sorry! Your coupon is not applicable currently",
-      });
-    } else if (couponDoesntExist) {
-      // If the coupon doesn't exist, show an error message
-      await Swal.fire({
-        icon: "error",
-        title: "Coupon doesn't exist",
-        text: "Sorry! Your coupon doesn't exist",
-      });
+      // Parse the JSON response from the server
+      const { couponApplied, discountAmount } = await response.json();
+
+      // Check two scenarios based on the response
+      if (couponApplied) {
+        // If the coupon is applied, update the UI and show a success message
+        const grandTotal = ({{ grandTotal }} - discountAmount);
+        document.getElementById('totalDiscount').innerHTML = '₹' + discountAmount;
+        document.getElementById('grandTotal').innerHTML = grandTotal;
+
+        await Swal.fire({
+          icon: "success",
+          title: "Coupon has been applied",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }  else {
+        // in else case, show an error message
+        await Swal.fire({
+          icon: "error",
+          title: "Coupon not applicable",
+          text: "Sorry! Your coupon is not applicable",
+        });
+      }
     }
-  }
   </script>
 
 

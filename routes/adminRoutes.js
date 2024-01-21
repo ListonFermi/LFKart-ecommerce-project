@@ -46,7 +46,6 @@ adminRouter.get('/orderManagement/status/shipped/:id', adminAuth, orderControlle
 adminRouter.get('/orderManagement/status/delivered/:id', adminAuth, orderController.changeStatusDelivered)
 adminRouter.get('/orderManagement/status/return/:id', adminAuth, orderController.changeStatusReturn)
 adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
-adminRouter.get('/orderManagement/status/cancelled/:id', adminAuth, orderController.changeStatusCancelled)
 adminRouter.get('/orderManagement/orderStatus/:id', adminAuth, orderController.orderStatusPage)
 
 //coupon management

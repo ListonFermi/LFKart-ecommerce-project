@@ -215,48 +215,53 @@ module.exports = {
   //apply coupon
   applyCoupon: async (req, res) => {
     try {
+      let { couponCode } = req.body;
+
       //Retrive the coupon document from the database if it exists
-      let existingCoupon = await couponCollection.findOne({
-        couponCode: req.body.couponCode,
-      });
-      
+      let couponData = await couponCollection.findOne({ couponCode });
 
-      if (existingCoupon) {
-        console.log('exisiting coupon id:');
-      console.log(existingCoupon._id);
-        // Check if the coupon meets the minimum purchase and expiry date requirements
-        let minimumPurchaseCheck =
-          existingCoupon.minimumPurchase < req.session.grandTotal;
-        let expiryDateCheck = new Date() < new Date(existingCoupon.expiryDate);
+      if (couponData) {
+        /*if coupon exists:
+        > check if it is applicable, i.e within minimum purchase limit & expiry date
+        >proceed... */
 
-        console.log(req.session.currentOrder);
-        console.log("existing");
+        let { grandTotal } = req.session;
+        let { minimumPurchase, expiryDate } = couponData;
+        let minimumPurchaseCheck = minimumPurchase < grandTotal;
+        let expiryDateCheck = new Date() < new Date(expiryDate);
 
         if (minimumPurchaseCheck && expiryDateCheck) {
-          
-          
-          console.log("session current order: ");
-          console.log(req.session.currentOrder);
-          // Apply the coupon by updating the grandTotalCost of the order document
-          req.session.currentOrder = await orderCollection.updateOne(
-            { _id: req.session.currentOrder._id },
+          /* if coupon exists check if it is applicable :
+          >calculate the discount amount
+          >update the database's order document
+          >update the grand total in the req.session for the payment page
+          */
+          let { discountPercentage, maximumDiscount } = couponData;
+          let discountAmount =
+            grandTotal * discountPercentage > maximumDiscount
+              ? maximumDiscount
+              : grandTotal * discountPercentage;
+
+          let { currentOrder } = req.session;
+          await orderCollection.findByIdAndUpdate(
+            { _id: currentOrder._id },
             {
-              couponApplied: ''+existingCoupon._id,
-              $inc: { grandTotalCost: -existingCoupon.maximumDiscount },
+              $set: { couponApplied: couponData._id },
+              $inc: { grandTotalCost: -discountAmount },
             }
           );
 
-          console.log(req.session.currentOrder);
+          req.session.grandTotal -= discountAmount;
 
           // Respond with a success status and indication that the coupon was applied
-          res.status(202).json({ couponApplied: true , couponDiscount : existingCoupon.maximumDiscount   });
+          res.status(202).json({ couponApplied: true, discountAmount });
         } else {
           // Respond with an error status if the coupon is not applicable
-          res.status(501).json({ couponNotApplicable: true });
+          res.status(501).json({ couponApplied: false });
         }
       } else {
         // Respond with an error status if the coupon does not exist
-        res.status(501).json({ couponDoesntExist: true });
+        res.status(501).json({ couponApplied: false });
       }
     } catch (error) {
       console.error(error);
