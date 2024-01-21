@@ -215,31 +215,48 @@ module.exports = {
   //apply coupon
   applyCoupon: async (req, res) => {
     try {
-      console.log(req.body);
+      //Retrive the coupon document from the database if it exists
       let existingCoupon = await couponCollection.findOne({
         couponCode: req.body.couponCode,
       });
-      req.session.grandTotal=1112
-      // let cartData= await userCollection.find({ userId: req.session.currentUser._id })
-      console.log(existingCoupon);
+      
 
       if (existingCoupon) {
-        let conditions = {
-          minimumPurchase: existingCoupon.minimumPurchase < req.session.grandTotal,
-          expiryDate: new Date() < new Date(existingCoupon.expiryDate),
-        };
-        console.log(conditions);
-        if (
-          conditions.minimumPurchase &&
-          conditions.expiryDate
-        ) {
-          res.json({ couponApplied: true });
-        } else {
+        console.log('exisiting coupon id:');
+      console.log(existingCoupon._id);
+        // Check if the coupon meets the minimum purchase and expiry date requirements
+        let minimumPurchaseCheck =
+          existingCoupon.minimumPurchase < req.session.grandTotal;
+        let expiryDateCheck = new Date() < new Date(existingCoupon.expiryDate);
 
-          res.status(500).json({ couponApplied: false });
+        console.log(req.session.currentOrder);
+        console.log("existing");
+
+        if (minimumPurchaseCheck && expiryDateCheck) {
+          
+          
+          console.log("session current order: ");
+          console.log(req.session.currentOrder);
+          // Apply the coupon by updating the grandTotalCost of the order document
+          req.session.currentOrder = await orderCollection.updateOne(
+            { _id: req.session.currentOrder._id },
+            {
+              couponApplied: ''+existingCoupon._id,
+              $inc: { grandTotalCost: -existingCoupon.maximumDiscount },
+            }
+          );
+
+          console.log(req.session.currentOrder);
+
+          // Respond with a success status and indication that the coupon was applied
+          res.status(202).json({ couponApplied: true , couponDiscount : existingCoupon.maximumDiscount   });
+        } else {
+          // Respond with an error status if the coupon is not applicable
+          res.status(501).json({ couponNotApplicable: true });
         }
       } else {
-        res.status(500).json({ couponApplied: false });
+        // Respond with an error status if the coupon does not exist
+        res.status(501).json({ couponDoesntExist: true });
       }
     } catch (error) {
       console.error(error);

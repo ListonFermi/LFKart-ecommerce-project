@@ -869,19 +869,19 @@
             <tbody>
               <tr>
                 <td>Total Price</td>
-                <td class="price">₹{{grandTotal}}</td>
+                <td class="price" id="totalPrice1">₹{{grandTotal}}</td>
               </tr>
               <tr style="">
                 <td>Shipping</td>
-                <td class="price"><span class="success">Free shipping!</span></td>
+                <td class="price">Free shipping!</td>
               </tr>
               <tr>
                 <td>Total Discount</td>
-                <td class="price" id="total-tax">₹0</td>
+                <td class="price" id="totalDiscount">₹0</td>
               </tr>
               <tr>
                 <td>Grand Total</td>
-                <td class=" site-color" id="total-price">₹{{grandTotal}}</td>
+                <td class="site-color" id="total-price">₹<span id="grandTotal">{{grandTotal}}</span></td>
               </tr>
               <tr>
                 <td colspan="2">
@@ -1022,38 +1022,67 @@
 
   </script>
 
-  {{!-- apply coupon --}}
+  <!-- apply coupon  -->
   <script>
-    async function couponApply() {
-      let couponApplyFormElement = document.getElementById('couponApplyForm')
-      let formData = {
-        couponApplyForm: couponApplyFormElement.couponCode.value
-      }
-      let response = await fetch('/checkout/applyCoupon', {
-        method: 'POST', headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      })
+      // Get the couponApplyForm element and attach a submit event listener
+  const couponApplyFormElement = document.getElementById('couponApplyForm');
+  couponApplyFormElement.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await couponApply();
+  });
 
-      let result = await response.json()
-      console.log(formData)
-      console.log(result.couponApplied)
+  // Async function to handle coupon application
+  async function couponApply() {
 
-      if (result.couponApplied) {
-        return await Swal.fire({
-          icon: "success",
-          title: "Your work has been saved",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
+    const couponApplyFormElement = document.getElementById('couponApplyForm');
+    // Prepare form data with the coupon code
+    const formData = {
+      couponCode: couponApplyFormElement.couponCode.value,
+    };
+
+    // Send a POST request to the server to apply the coupon
+    const response = await fetch('/checkout/applyCoupon', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    // Parse the JSON response from the server
+    const { couponApplied, couponDiscount, couponNotApplicable, couponDoesntExist } = await response.json();
+
+    // Check different scenarios based on the response
+    if (couponApplied) {
+      // If the coupon is applied, update the UI and show a success message
+      const discount = await couponDiscount;
+      const grandTotal = ({{ grandTotal }} - discount);
+
+      document.getElementById('totalDiscount').innerHTML = '₹' + discount;
+      document.getElementById('grandTotal').innerHTML = grandTotal;
+
+      await Swal.fire({
+        icon: "success",
+        title: "Coupon has been applied",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (couponNotApplicable) {
+      // If the coupon is not applicable, show an error message
+      await Swal.fire({
+        icon: "error",
+        title: "Coupon not applicable",
+        text: "Sorry! Your coupon is not applicable currently",
+      });
+    } else if (couponDoesntExist) {
+      // If the coupon doesn't exist, show an error message
+      await Swal.fire({
+        icon: "error",
+        title: "Coupon doesn't exist",
+        text: "Sorry! Your coupon doesn't exist",
+      });
     }
-
-    couponApplyForm.addEventListener('submit', (e) => {
-      e.preventDefault()
-      console.log('clicked')
-      couponApply()
-    })
+  }
   </script>
+
 
 
   <script>
