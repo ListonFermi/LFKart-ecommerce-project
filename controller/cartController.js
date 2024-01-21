@@ -216,23 +216,31 @@ module.exports = {
   applyCoupon: async (req, res) => {
     try {
       console.log(req.body);
-      let existingCoupon= await couponCollection.findOne({ couponCode: req.body.couponApplyForm})
-      let cartData= await userCollection.find({ userId: req.session.currentUser._id })
+      let existingCoupon = await couponCollection.findOne({
+        couponCode: req.body.couponCode,
+      });
+      req.session.grandTotal=1112
+      // let cartData= await userCollection.find({ userId: req.session.currentUser._id })
       console.log(existingCoupon);
 
-      let conditions={
-        minimumPurchase: existingCoupon.minimumPurchase < req.session.grandTotal,
-        expiryDate: new Date() < new Date(existingCoupon.expiryDate ),
-        maximumDiscount: existingCoupon.maximumDiscount > req.session.grandTotal
-      }
+      if (existingCoupon) {
+        let conditions = {
+          minimumPurchase: existingCoupon.minimumPurchase < req.session.grandTotal,
+          expiryDate: new Date() < new Date(existingCoupon.expiryDate),
+        };
+        console.log(conditions);
+        if (
+          conditions.minimumPurchase &&
+          conditions.expiryDate
+        ) {
+          res.json({ couponApplied: true });
+        } else {
 
-      if(existingCoupon && conditions.minimumPurchase && conditions.maximumDiscountexpiryDate ){
-        req.session.grandTotal -= 
-        res.json({ couponApplied: true })
-      }{
-        res.json({ couponRejected : false })
+          res.status(500).json({ couponApplied: false });
+        }
+      } else {
+        res.status(500).json({ couponApplied: false });
       }
-
     } catch (error) {
       console.error(error);
     }

@@ -32,7 +32,6 @@ userRouter.get('/cart', blockedUserCheck, userAuth, cartController.cart) //cart 
 userRouter.delete('/cart/delete/:id', blockedUserCheck, cartController.deleteFromCart) //delete from cart page
 userRouter.put('/cart/decQty/:id', blockedUserCheck, userAuth, cartController.decQty)
 userRouter.put('/cart/incQty/:id', blockedUserCheck, userAuth, cartController.incQty)
-userRouter.post('/cart/applyCoupon', blockedUserCheck, userAuth, cartController.applyCoupon)
 
 //account page
 userRouter.get('/account', blockedUserCheck, userAuth, accountController.accountPage)
@@ -57,6 +56,7 @@ userRouter.get('/checkout', blockedUserCheck, userAuth, cartController.checkoutP
 userRouter.all('/checkout/orderPlaced', blockedUserCheck, userAuth, cartController.orderPlaced)
 userRouter.all('/checkout/orderPlacedEnd', blockedUserCheck, userAuth, cartController.orderPlacedEnd)
 userRouter.post('/checkout/razorpay/create/orderId', blockedUserCheck, userAuth, cartController.razorpayCreateOrderId)
+userRouter.post('/checkout/applyCoupon', blockedUserCheck, userAuth, cartController.applyCoupon)
 
 //shop page
 userRouter.get('/shop', blockedUserCheck, shopPageController.shopPage)

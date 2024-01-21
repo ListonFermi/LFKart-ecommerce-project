@@ -786,17 +786,6 @@
                       <td>Grand Total</td>
                       <td class="site-color" id="total-price">₹<span id="grandTotal">{{grandTotal}}</span></td>
                     </tr>
-                    <tr>
-                      <td colspan="2">
-                        <div class="input-append couponForm">
-                          <form id="couponApplyForm">
-                            <input class="col-lg-8" name="couponCode" id="appendedInputButton" type="text"
-                              placeholder="Coupon code">
-                            <button class="col-lg-4 btn btn-success" type="submit">Apply!</button>
-                          </form>
-                        </div>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -942,37 +931,6 @@
         console.error(error)
       }
     }
-  </script>
-  {{!-- apply coupon --}}
-  <script>
-    async function couponApply() {
-      let couponApplyFormElement = document.getElementById('couponApplyForm')
-      let formData = {
-        couponApplyForm: couponApplyFormElement.couponCode.value
-      }
-      let response = await fetch('/cart/applyCoupon', {
-        method: 'POST', headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      })
-
-      let result = await response.json()
-      console.log(formData)
-      console.log(result.couponApplied)
-
-      if (result.couponApplied) {
-        return await Swal.fire({
-          icon: "success",
-          title: "Your work has been saved",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    }
-
-    couponApplyForm.addEventListener('submit', (e) => {
-      e.preventDefault()
-      couponApply()
-    })
   </script>
 
 </body>

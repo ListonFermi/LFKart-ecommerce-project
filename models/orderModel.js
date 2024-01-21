@@ -9,7 +9,8 @@ const orderSchema= new mongoose.Schema({
     addressChosen : { type: mongoose.Types.ObjectId, required: true, ref: 'addresses'},
     cartData: { type: Array},
     grandTotalCost: { type: Number},
-    paymentId: {type: String,}
+    paymentId: {type: String,},
+    couponApplied : { type:  mongoose.Types.ObjectId, default: null, ref: 'coupons'}
 })
 
 const orderCollection= mongoose.model( 'orders', orderSchema )
