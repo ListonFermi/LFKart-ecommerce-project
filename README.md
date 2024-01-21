@@ -11,4 +11,6 @@ Functional Requirements - step by step:
 5. Charts in adminDashboard- learned how to use chartJs- a javascript library
 6. Added coupon management for admin- add, edit coupon and made it effective on checkout&payments in userside
 7. Implement image cropping
-    a. 
+    a. create a page for banner management
+    b. Upload an image and show it in a div- to crop
+    c. Upload the cropped image while clicking crop

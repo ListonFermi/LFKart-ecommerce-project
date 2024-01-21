@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const userCollection = require("../models/userModels.js");
 const bannerCollection= require("../models/bannerModel")
 const dashboardHelper = require("../helpers/dashboardHelper.js");
-const { CLOSING } = require("ws");
 
 module.exports = {
   //login and logout
@@ -134,4 +133,13 @@ module.exports = {
       console.error(error);
     }
   },
+
+  //banner management
+  bannerManagement: async (req, res) => {
+    try {
+      res.render('adminViews/bannerManagement')
+    } catch (error) {
+      console.error(error)
+    }
+  }
 };

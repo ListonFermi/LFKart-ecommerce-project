@@ -23,6 +23,9 @@ adminRouter.get('/userManagement', adminAuth, adminController.userManagement)
 adminRouter.post('/userManagement/block/:id', adminAuth, adminController.blockUser )
 adminRouter.post('/userManagement/unBlock/:id', adminAuth, adminController.unBlockUser)
 
+//banner management
+adminRouter.get('/bannerManagement', adminAuth, adminController.bannerManagement)
+
 //category management
 adminRouter.get('/categoryManagement', adminAuth, categoryController.categoryManagement)
 adminRouter.post('/categoryManagement/add', adminAuth, categoryController.addCategory)
