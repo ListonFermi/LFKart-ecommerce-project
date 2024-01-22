@@ -25,6 +25,9 @@ adminRouter.post('/userManagement/unBlock/:id', adminAuth, adminController.unBlo
 
 //banner management
 adminRouter.get('/bannerManagement', adminAuth, adminController.bannerManagement)
+adminRouter.post('/bannerManagement/upload', adminAuth, upload.single('bannerImage'), adminController.uploadBanner)
+adminRouter.delete('/bannerManagement/delete/:id', adminAuth, upload.single('bannerImage'), adminController.deleteBanner)
+
 
 //category management
 adminRouter.get('/categoryManagement', adminAuth, categoryController.categoryManagement)

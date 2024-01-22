@@ -5,6 +5,7 @@ const transporter = require("../services/sendOTP.js");
 const categoryCollection = require("../models/categoryModel.js");
 const productCollection = require("../models/productModels.js");
 const cartCollection = require("../models/cartModel.js");
+const bannerCollection = require("../models/bannerModel.js");
 
 module.exports = {
   //signup-login
@@ -13,10 +14,13 @@ module.exports = {
       console.log(req.session.currentUser);
       const categoryData = await categoryCollection.find({ isListed: true });
       const productData = await productCollection.find({ isListed: true });
+      const bannerData= await bannerCollection.find()
+
       res.render("userViews/landingPage", {
         currentUser: req.session.currentUser,
         categoryData,
         productData,
+        bannerData
       });
     } catch (error) {
       console.error(error);

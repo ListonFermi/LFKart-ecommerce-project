@@ -61,18 +61,63 @@
         {{!-- Banner Image --}}
         <div class="container-fluid">
             <p class="h3">Upload LFKart Banner Image</p>
-            <div class="col-6">
-                <div class="input-group mb-3">
-                    <img id="previewBannerImg" src="" style="width: auto; height: 250px;">
-                    <input name="bannerImage" type="file" class="form-control" onchange="displayImage(event)">
-                    <button id="cropBtn" type="button" style="display: none" class="btn btn-info">Crop</label>
+            <div class="row">
+                <div class="col-12">
+                    <div class="input-group mb-3">
+                        <img id="previewBannerImg" src="" style="width: auto; height: 500px;">
+                        <input name="bannerImage" type="file" class="form-control" onchange="displayImage(event)">
+                        <button id="cropBtn" type="button" style="display: none" class="btn btn-info">Crop& Upload</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
-                <form id="bannerImgForm" enctype="multipart/form-data">
-                    <img id="previewBannerImg" src="" style="width: auto; height: 250px;">
-                </form>
+            {{#each bannerData}}
+            <div class="card text-center" id="card{{@index}}">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <img src="/images/productImages/{{this.image}}" alt="">
+                    <button class="btn btn-danger" id="deleteBtn{{@index}}">Delete</button>
+                </div>
+                <div class="card-footer text-muted">
+
+                </div>
             </div>
+
+            <script>
+
+                deleteBtn{{@index}}.addEventListener('click', async (e) => {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            fetch('/admin/bannerManagement/delete/{{this._id }}',
+                             { method: 'DELETE', "Content-Type": "application/json" } )
+                                .then(data => data.json() )
+                                .then( data=>{
+                                    if(data.success){
+                                        
+                                        card{{@index}}.style.display='none'
+
+                                        Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your file has been deleted.",
+                                        icon: "success"
+                                        });
+                                    }
+                            })
+                        }
+                    });
+                })
+            </script>
+
+            {{/each}}
         </div>
     </div>
 
@@ -93,33 +138,37 @@
                 });
 
                 cropBtn.style.display = 'block'
+
+                cropBtn.addEventListener('click', async (e) => {
+                    e.preventDefault()
+                    let croppedImage = cropper.getCroppedCanvas().toDataURL('image/png')
+
+                    var imgUrl = await fetch(croppedImage)
+                    var blob = await imgUrl.blob()
+
+                    var formData = new FormData();
+                    formData.append('bannerImage', blob, 'image.png');
+                    console.log(formData)
+                    var response = await fetch('/admin/bannerManagement/upload', { method: 'POST', body: formData })
+                    var result = await response.json()
+                    if (result.success) {
+                        return await Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
             }
-
-            cropBtn.addEventListener('click', async (e) => {
-                e.preventDefault()
-                let croppedImage = cropper.getCroppedCanvas().toDataURL('image/png')
-            })
-
         </script>
 
-        <script>
-
-            /*function displayImage() {
-                const reader = new FileReader()
-                reader.onload = () => {
-                    previewBannerImg.src = reader.result
-                }
-                const file = document.querySelector("#bannerImage").files[0];
-                if (file) {
-                    previewBannerImg.style.display = 'block'
-                    reader.readAsDataURL(file)
-                }
-            }*/
-
-        </script>
 
     </allScripts>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </html>

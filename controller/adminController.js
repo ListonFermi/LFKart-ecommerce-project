@@ -137,9 +137,24 @@ module.exports = {
   //banner management
   bannerManagement: async (req, res) => {
     try {
-      res.render('adminViews/bannerManagement')
+      let bannerData= await bannerCollection.find()
+      res.render('adminViews/bannerManagement', { bannerData })
     } catch (error) {
       console.error(error)
     }
+  },
+  uploadBanner: async (req, res) => {
+    try {
+      console.log(req.file);
+      await bannerCollection.insertMany([ { image: req.file.filename }])
+      res.json({ success: true })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  deleteBanner: async (req, res) => {
+    console.log(req.params);
+    await bannerCollection.findOneAndDelete({ _id: req.params.id })
+    res.json({success: true})
   }
 };

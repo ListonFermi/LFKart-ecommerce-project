@@ -1,9 +1,9 @@
 const mongoose= require('mongoose')
 
 const bannerSchema= new mongoose.Schema({
-    images:  { type: String, required: true   }    
+    image:  { type: String, required: true   }    
 }, { timestamps: true })
 
-const bannerCollection= mongoose.model('bannerImages', bannerSchema)
+const bannerCollection= mongoose.model('banners', bannerSchema)
 
 module.exports= bannerCollection
