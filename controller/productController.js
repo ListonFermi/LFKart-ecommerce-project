@@ -33,7 +33,7 @@ module.exports = {
             productImage2: req.files[1].filename,
             productImage3: req.files[2].filename,
             productPrice: req.body.productPrice,
-            productStock: req.body.productStock,
+            productStock: req.body.productStock
           },
         ]);
         res.redirect("/admin/productManagement");

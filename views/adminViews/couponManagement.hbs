@@ -217,7 +217,7 @@
                         </div>
 
                         <div class="startDateInput p-2">
-                            <label for="startDateEdit{{@index}}">Coupon Start Date: </label>
+                            <label for="startDateEdit{{@index}}">Coupon Start Date:</label>
                             <div class="input-group">
                                 <input id="startDateEdit{{@index}}" name="startDate" id="startDate" type="date"
                                     class="form-control" value="{{this.startDateFormatted}}" required>
@@ -326,6 +326,28 @@
 <allScripts>
 
     <script>
+        var today = new Date().toISOString().split('T')[0];
+    
+        document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('startDate').setAttribute('min', today);
+        });
+
+        var startDateInput = document.getElementById('startDate');
+        var endDateInput = document.getElementById('endDate');
+        var expiryDateInput = document.getElementById('expiryDate');
+
+        startDateInput.addEventListener('change', function () {
+        var startDate = startDateInput.value;
+        expiryDateInput.setAttribute('min', startDate);
+        });
+
+        endDateInput.addEventListener('change', function () {
+        var endDate = endDateInput.value;
+        expiryDateInput.setAttribute('max', endDate);
+        });
+    </script>
+
+    <script>
         $().ready(function () {
             // validate signup form on keyup and submit
             $("#addCouponForm").validate();
@@ -345,11 +367,6 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $("#startDate").datepicker({ minDate: -2 });
-        });
-    </script>
 
     <script>
         async function addCoupon() {
@@ -370,6 +387,7 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(formData)
                     });
+                    
                     let result = await response.json();
 
                     if (result.couponAdded) {

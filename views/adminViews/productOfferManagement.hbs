@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- jquery- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    {{!-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    {{!-- jquery form validation --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    {{!-- jquery UI --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    {{!-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="/extras/jquery.ui.datepicker.validation.min.js"></script>
+
+</head>
+
+<body class="container">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-info bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/userManagement">Users</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link active" aria-current="page" href="/admin/bannerManagement">Banner</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/couponManagement">Coupons</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link active" aria-current="page" href="/admin/productOfferManagement">Product
+                            Offers</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/salesReport">Sales Report</a>
+                    </li>
+                </ul>
+                <form action="logout" method="post" class="d-flex">
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add Product Offer Button (Triggers modal) -->
+    <div class="pt-3">
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addProductOfferModal">
+            Add New Product Offer
+        </button>
+    </div>
+
+    <!--Add Product Offer Modal -->
+    <div class="modal fade" id="addProductOfferModal" tabindex="-1" aria-labelledby="addProductOfferModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductOfferModalLabel">Add New Product Offer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addProductOfferForm" role="form">
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <label class="container">
+                                <label for="productName" class="mb-2">Product Name: </label>
+                                <select name="productName" id="productName" class="form-select"
+                                    aria-label="Default select example">
+                                    {{#each productData}}
+                                    <option>
+                                        <div>{{this.productName}}</div>
+                                        <div><img src="/images/about/1.jpg" alt="ddd"></div>
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="offerPercentageInput p-2">
+                            <label for="productOfferPercentage" class="mb-2">Product Offer Percentage: </label>
+                            <div class="input-group">
+                                <input id="productOfferPercentage" name="productOfferPercentage" class="form-control"
+                                    placeholder="Enter the offer percentage">
+                            </div>
+                            <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
+                        </div>
+
+                        <div class="startDateInput p-2">
+                            <label for="startDate">Offer Start Date: </label>
+                            <div class="input-group">
+                                <input id="startDate" name="startDate" type="date" class="form-control">
+                            </div>
+                            <div class="form-text">Choose a start date for the offer to be considered.</div>
+                        </div>
+
+                        <div class="endDateInput p-2">
+                            <label for="endDate">Offer Expiry Date : </label>
+                            <div class="input-group">
+                                <input id="endDate" name="endDate" type="date" class="form-control">
+                            </div>
+                            <div class="form-text">Choose an exipry date for offer to end.</div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="addCouponBtn" type="submit" class="btn btn-info">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--Main Table-->
+    <div class="container pt-3">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <td>S No</td>
+                    <td>Product Name</td>
+                    <td>Offer Percentage</td>
+                    <td>Start Date</td>
+                    <td>End Date</td>
+                    <td>Current Status</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each productOfferData}}
+                <tr>
+                    <td>{{sum @index 1}}</td>
+                    <td>{{this.productName}}</td>
+                    <td>{{this.productOfferPercentage}}%</td>
+                    <td>{{this.startDateFormatted}}</td>
+                    <td>{{this.endDateFormatted}}</td>
+                    {{#if this.currentStatus}}
+                    <td><button class="btn btn-success">Active</button></td>
+                    {{else}}
+                    <td><button class="btn btn-danger">Inactive</button></td>
+                    {{/if}}
+                    <td>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#editModal{{@index}}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Edit Product Offer Modal  -->
+    {{#each productOfferData}}
+    <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Edit Coupon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editProductOfferForm{{@index}}" role="form">
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <label class="container">
+                                <label for="productName" class="mb-2">Product Name:</label>
+                                <select name="productName" id="productName{{@index}}" class="form-select"
+                                    aria-label="Default select example">
+                                    {{#each ../productData}}
+                                    {{#if (equal this.productName ../this.productName) }}
+                                    <option selected>
+                                        <div>{{this.productName}}</div>
+                                    </option>
+                                    {{else}}
+                                    <option>
+                                        <div>{{this.productName}}</div>
+                                    </option>
+                                    {{/if}}
+                                    {{/each}}
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="offerPercentageInput p-2">
+                            <label for="productOfferPercentage" class="mb-2">Product Offer Percentage: </label>
+                            <div class="input-group">
+                                <input id="productOfferPercentage{{@index}}" name="productOfferPercentage"
+                                    class="form-control" placeholder="Enter the offer percentage"
+                                    value="{{this.productOfferPercentage}}">
+                            </div>
+                            <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
+                        </div>
+
+                        <div class="startDateInput p-2">
+                            <label for="startDate">Offer Start Date: </label>
+                            <div class="input-group">
+                                <input id="startDate{{@index}}" name="startDate" type="date" class="form-control"
+                                    value="{{this.startDateFormatted}}">
+                            </div>
+                            <div class="form-text">Choose a start date for the offer to be considered.</div>
+                        </div>
+
+                        <div class="endDateInput p-2">
+                            <label for="endDate">Offer Expiry Date : </label>
+                            <div class="input-group">
+                                <input id="endDate{{@index}}" name="endDate" type="date" class="form-control"
+                                    value="{{this.endDateFormatted}}">
+                            </div>
+                            <div class="form-text">Choose an exipry date for offer to end.</div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="editOfferBtn" type="submit" class="btn btn-info">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Script- form validation  -->
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let startDateElement = document.getElementById('startDate{{@index}}');
+            let endDateElement = document.getElementById('endDate{{@index}}');
+            startDateElement.setAttribute('min', today);
+            endDateElement.setAttribute('min', today);
+
+           startDateElement.addEventListener('change', function () {
+                let startDateValue = startDateElement.value;
+                endDateElement.setAttribute('min', startDateValue);
+            });
+
+            endDateElement.addEventListener('change', function () {
+                let endDateValue = endDateElement.value;
+                startDateElement.setAttribute('max', endDateValue);
+            });
+        });
+    </script>
+
+
+    <script>
+        $().ready(function () {
+            // validate signup form on keyup and submit
+            $("#editProductOfferForm{{@index}}").validate({
+                rules: {
+                    productName: "required",
+                    productOfferPercentage: {
+                        required: true,
+                        min: 5,
+                        max: 90
+                    },
+                    startDate: "required",
+                    endDate: "required"
+                },
+
+                submitHandler: async function (form, event) {
+                    event.preventDefault()
+
+                    let formData = {
+                        productName: form.productName{{@index}}.value,
+                        productOfferPercentage: form.productOfferPercentage{{@index}}.value,
+                        startDate: form.startDate{{@index}}.value,
+                        endDate: form.endDate{{@index}}.value
+                    }
+
+                    let response = await fetch('/admin/productOfferManagement/editOffer/{{this._id}}', {
+                        method: 'PUT', headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    })
+
+                    let result = await response.json()
+
+                    if (result.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Your Product Offer has been updated",
+                            showConfirmButton: false,
+                            timer: 3500
+                        }).then(() => location.reload())
+                    } else {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Failed to update the product offer",
+                            text: "Please try again"
+                        });
+                    }
+                }
+            })
+        }) 
+    </script>
+    {{/each}}
+
+</body>
+
+{{!-- js libraries --}}
+<Libraries>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    {{!-- datatables.net --}}
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</Libraries>
+
+<allScripts>
+
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var startDateInput = document.getElementById('startDate');
+            var endDateInput = document.getElementById('endDate');
+
+            startDateInput.setAttribute('min', today);
+            endDateInput.setAttribute('min', today);
+
+            startDateInput.addEventListener('change', function () {
+                var startDate = startDateInput.value;
+                endDateInput.setAttribute('min', startDate);
+            });
+
+            endDateInput.addEventListener('change', function () {
+                var endDate = endDateInput.value;
+                startDateInput.setAttribute('max', endDate);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#addProductOfferForm").validate({
+                rules: {
+                    productName: "required",
+                    productOfferPercentage: {
+                        required: true,
+                        min: 5,
+                        max: 90
+                    },
+                    startDate: {
+                        required: true,
+                    },
+                    endDate: {
+                        required: true,
+                    }
+                },
+                submitHandler: async function (form, event) {
+                    event.preventDefault()
+
+                    let formData = {
+                        productName: form.productName.value,
+                        productOfferPercentage: form.productOfferPercentage.value,
+                        startDate: form.startDate.value,
+                        endDate: form.endDate.value
+                    }
+
+                    let response = await fetch('/admin/productOfferManagement/addOffer', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    })
+
+                    let result = await response.json()
+
+                    if (result.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "New product offer succesfully added",
+                            showConfirmButton: false,
+                            timer: 3000
+                        }).then(() => location.reload())
+                    } else {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Product Offer Already Exists for This Product",
+                            text: "Please try editing the offer of this particular product",
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .error {
+            color: red;
+            background-color: rgb(250, 250, 0);
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
+
+
+
+</allScripts>
+
+</html>

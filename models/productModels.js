@@ -26,6 +26,11 @@ const productSchema= new mongoose.Schema({
         type: Number,
         required: true
     },
+    productOffer: {
+        type: Number,
+        required: false,
+        default: 0
+    },
     isListed: {
         type: Boolean,
         default: true

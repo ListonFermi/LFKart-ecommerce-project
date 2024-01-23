@@ -18,7 +18,7 @@ module.exports = {
   addCoupon: async (req, res) => {
     try {
       let existingCoupon = await couponCollection.findOne({
-        couponCode: req.body.couponCode,
+        couponCode:{ $regex: new RegExp(req.body.couponCode, "i") }
       });
       if (!existingCoupon) {
         await couponCollection.insertMany([

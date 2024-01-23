@@ -314,8 +314,8 @@
 
 
                 <li class="dropdown hasUserMenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi, {{currentUser.username}} <b
-                      class="caret"></b></a>
+                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi,
+                    {{currentUser.username}} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="/account"> <i class="fa fa-user"></i> Account</a></li>
                     <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li>
@@ -326,7 +326,10 @@
                         My wishlists
                       </a></li>
                     <li class="divider"></li>
-                    <li><form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log Out</button></form></li>
+                    <li>
+                      <form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log
+                          Out</button></form>
+                    </li>
                   </ul>
                 </li>
 
@@ -887,6 +890,11 @@
             <div class="image">
               <a href="/productDetails/{{this._id}}"><img src="images/productImages/{{this.productImage1}}" alt="img"
                   class="img-responsive" /></a>
+              {{#if this.productOffer}}
+              <div class="promotion">
+                <span class="discount">{{this.productOffer}}% OFF</span>
+              </div>
+              {{/if}}
             </div>
             <div class="description">
               <h4>
@@ -894,6 +902,7 @@
               </h4>
             </div>
             <div class="price"><span>₹{{this.productPrice}}</span></div>
+
             {{!-- <div class="action-control">
               <a onclick="addToCart()" class="btn btn-primary">
                 <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i>
