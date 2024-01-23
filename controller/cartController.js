@@ -238,9 +238,9 @@ module.exports = {
           */
           let { discountPercentage, maximumDiscount } = couponData;
           let discountAmount =
-            grandTotal * discountPercentage > maximumDiscount
+            grandTotal * discountPercentage/100 > maximumDiscount
               ? maximumDiscount
-              : grandTotal * discountPercentage;
+              : grandTotal * discountPercentage/100;
 
           let { currentOrder } = req.session;
           await orderCollection.findByIdAndUpdate(
