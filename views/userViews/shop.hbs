@@ -871,8 +871,8 @@
                             <div class="price"><span>₹{{this.productPrice}}</span></div>
                             <div class="action-control">
                                 <a href="/productDetails/{{this._id}}" class="btn btn-primary">
-                                    <span class="add2cart"><i class="glyphicon glyphicon-shopping-cart"> </i> Add to
-                                        cart
+                                    <span class="add2cart">
+                                        <i class="glyphicon glyphicon-shopping-cart"> </i> Add to cart
                                     </span>
                                 </a>
                             </div>
@@ -888,11 +888,11 @@
                 <div class="w100 categoryFooter">
                     <div class="pagination pull-left no-margin-top">
                         <ul class="pagination no-margin-top">
-                            {{!-- <li><a href="#">«</a></li> --}}
+                            <li><a href="#">«</a></li>
                             {{#each pagination}}
                             <li class="active"><a href="/shop?{{sum @index 1}}">{{sum @index 1}}</a></li>
                             {{/each}}
-                            {{!-- <li><a href="#">»</a></li> --}}
+                            <li><a href="#">»</a></li>
                         </ul>
                     </div>
                     <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">

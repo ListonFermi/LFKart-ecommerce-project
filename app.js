@@ -21,11 +21,10 @@ app.use((req, res, next) => {
   next();
 });
 
-//hbs helpers
+hbs.registerPartials(__dirname + '/views/partials', function (err) { console.log(err);});
 hbs.registerHelper("product", (val1, val2) => val1 * val2);
 hbs.registerHelper("sum", (val1, val2) => val1 + val2);
 hbs.registerHelper("equal", (val1, val2) => val1 == val2);
-hbs.registerHelper("includes", (val1, val2) => val1.includes(val2));
 
 //setting view engine and giving the path of static pages
 app.set("view engine", "hbs");

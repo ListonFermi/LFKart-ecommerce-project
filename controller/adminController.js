@@ -117,7 +117,7 @@ module.exports = {
         { _id: req.params.id },
         { $set: { isBlocked: true } }
       );
-      res.redirect("/admin/userManagement");
+      res.json({success: true})
     } catch (error) {
       console.error(error);
     }
@@ -128,7 +128,7 @@ module.exports = {
         { _id: req.params.id },
         { $set: { isBlocked: false } }
       );
-      res.redirect("/admin/userManagement");
+      res.json({success: true})
     } catch (error) {
       console.error(error);
     }

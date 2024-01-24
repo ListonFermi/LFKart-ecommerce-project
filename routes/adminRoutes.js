@@ -21,8 +21,8 @@ adminRouter.get('/dashboard/bannerImage/upload', adminAuth, upload.any(), adminC
 
 //user management
 adminRouter.get('/userManagement', adminAuth, adminController.userManagement)
-adminRouter.post('/userManagement/block/:id', adminAuth, adminController.blockUser )
-adminRouter.post('/userManagement/unBlock/:id', adminAuth, adminController.unBlockUser)
+adminRouter.patch('/userManagement/block/:id', adminAuth, adminController.blockUser )
+adminRouter.patch('/userManagement/unBlock/:id', adminAuth, adminController.unBlockUser)
 
 //banner management
 adminRouter.get('/bannerManagement', adminAuth, adminController.bannerManagement)

@@ -746,15 +746,43 @@
                 <!--/row end-->
 
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-5"></div>
+
         </div>
         <!--/row-->
 
         <div style="clear:both"></div>
+
+        <div class="gap"></div>
+
+        <div class="col-lg-3 col-md-3 col-sm-5">
+            <h1>Referral code:</h1>
+            <input type="text" value="{{userData.referralCode}}" id="copyText" disabled>
+            <button id="copyReferralCode">Copy</button>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-5">
+            <h6>Refer your friends! Get Rs.500 added to your wallet for each new user</h6>
+        </div>
+
     </div>
     <!-- /wrapper -->
     <div class="gap"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        let copyReferralCode = document.getElementById('copyReferralCode')
+        let copyText= document.getElementById('copyText')
+        copyReferralCode.addEventListener('click', () => {
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); //For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            Swal.fire("Copied your referral code");
+        })
+    </script>
 
 
     <!-- Le javascript

@@ -6,6 +6,7 @@ module.exports = {
   shopPage: async (req, res) => {
     try {
       let categoryData = await categoryCollection.find({isListed: true});
+      
       let productData =
         req.session?.shopProductData || (await productCollection.find());
       res.render("userViews/shop", { categoryData, productData });

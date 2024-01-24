@@ -732,7 +732,15 @@
               </div>
               {{/if}}
               
+              <div class="form-group">
+                <label>Do you have an referral code from your acquaintances ?</label>
+                <input minlength="5" name="referralCode"  id="referralCode" type="text"
+                  class="form-control" placeholder="Enter the referral code?" >
+              </div>
+
               <button type="submit" class="btn btn-primary"><i class="fa fa-user"></i> Create an account </button>
+
+
             </form>
           </div>
           <div class="col-xs-12 col-sm-6">
@@ -843,7 +851,6 @@
             passwordStrengthStatus.className = 'strong-password';
             passwordStrengthStatus.innerHTML = "Strong";
             passwordStrengthStatus.style.color = "green";
-
         } else {
             passwordStrengthStatus.className = 'medium-password';
             passwordStrengthStatus.innerHTML = "Medium (should include alphabets, numbers and special characters.)";

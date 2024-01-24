@@ -1,50 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-</head>
-
-<body class="container">
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-info bg-primary">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item fw-bold">
-                        <a class="nav-link active" aria-current="page" href="/admin/userManagement">User Management</a>
-                    </li>
-                    <li class="nav-item fw-bold">
-                        <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
-                    </li>
-                    <li class="nav-item fw-bold">
-                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
-                    </li>
-                    <li class="nav-item fw-bold">
-                        <a class="nav-link" aria-current="page" href="/admin/orders">Orders</a>
-                    </li>
-                    <li class="nav-item fw-bold">
-                        <a class="nav-link" aria-current="page" href="/admin/SalesReport">Sales Report</a>
-                    </li>
-                </ul>
-                <form action="logout" method="post" class="d-flex">
-                    <button class="btn btn-danger" type="submit">Logout</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
+{{> adminHeader}}
     <!-- User Management Table -->
     <div class="container pt-3">
         <table id="example" class="display" style="width:100%">
@@ -64,16 +18,67 @@
                     <td>{{this.phonenumber}}</td>
                     {{#if this.isBlocked}}
                     <td>
-                        <form action="/admin/userManagement/unBlock/{{this._id}}" method="POST">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to unblock {{this.username}}?')">Unblock</button>
-                        </form>
+                        <button id="unblockBtn{{@index}}" class="btn btn-danger">Unblock</button>
                     </td>
+                    <script>
+                        let unblockBtn{{@index}} = document.getElementById('unblockBtn{{@index}}')
+
+                        unblockBtn{{@index}}.addEventListener('click', async () => {
+
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "Do you want to unblock {{this.username}} ?",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Yes, unblock!"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    fetch('/admin/userManagement/unBlock/{{this._id}}', { method: 'PATCH' }).then()
+
+                                    Swal.fire({
+                                        title: "Unblocked!",
+                                        text: "{{this.username}} has been unblocked.",
+                                        icon: "success"
+                                    }).then(()=>location.reload())
+                                }
+                            });
+                        })
+                    </script>
                     {{else}}
                     <td>
-                        <form action="/admin/userManagement/block/{{this._id}}" method="POST">
-                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to block {{this.username}}?')">Block</button>
-                        </form>
+                        <button id="blockBtn{{@index}}" class="btn btn-success">Block</button>
                     </td>
+                    <script>
+                        let blockBtn{{@index}} = document.getElementById('blockBtn{{@index}}')
+
+                        blockBtn{{@index}}.addEventListener('click', async () => {
+
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "Do you want to block {{this.username}} ?",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Yes, block!"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    fetch('/admin/userManagement/block/{{this._id}}', { method: 'PATCH' }).then()
+
+                                    Swal.fire({
+                                        title: "Blocked!",
+                                        text: "{{this.username}} has been blocked.",
+                                        icon: "success"
+                                    }).then(()=>location.reload())
+                                }
+                            });
+                        })
+                    </script>
+
                     {{/if}}
                 </tr>
                 {{/each}}
@@ -89,15 +94,9 @@
         </table>
     </div>
 
-</body>
+
 
 <allScripts>
-
-    {{!-- datatables.net --}}
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-
     {{!-- Table details --}}
     <script>
         $(document).ready(function () {
@@ -107,4 +106,4 @@
 
 </allScripts>
 
-</html>
+{{> adminFooter}}

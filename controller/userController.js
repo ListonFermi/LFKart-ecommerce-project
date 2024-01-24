@@ -7,6 +7,7 @@ const productCollection = require("../models/productModels.js");
 const cartCollection = require("../models/cartModel.js");
 const bannerCollection = require("../models/bannerModel.js");
 const applyProductOffers = require("../helpers/applyProductOffers.js").applyProductOffer;
+const applyReferralOffer= require('../helpers/applyReferralOffer.js')
 
 module.exports = {
   //signup-login
@@ -48,11 +49,11 @@ module.exports = {
   },
   userDetailsInModel: async (req, res, next) => {
     try {
-      let email = req.body.email;
-      let phonenumber = req.body.phonenumber;
+      let {email , phonenumber}= req.body;
       let exisitingUser = await userCollection.findOne({
         $or: [{ email }, { phonenumber }],
       });
+      let referralCode= Math.floor(1000 + Math.random() * 9000);
       if (!exisitingUser) {
         let encryptedPassword = bcrypt.hashSync(req.body.password, 10);
         req.session.tempUserData = {
@@ -60,7 +61,9 @@ module.exports = {
           email: req.body.email,
           phonenumber: req.body.phonenumber,
           password: encryptedPassword,
+          referralCode
         };
+        req.session.tempUserReferralCode= req.body?.referralCode
         next();
       } else {
         res.render("userViews/signupLoginPage", { emailPhoneExists: true });
@@ -93,6 +96,11 @@ module.exports = {
       });
       res.cookie("userToken", userToken, { httpOnly: true });
       req.session.currentUser = await userCollection.findOne({ email: req.session.tempUserData.email});
+
+      //adding money to the reffered user's wallet if referral code exists
+      let tempUserReferralCode=  req.session?.tempUserReferralCode
+      await applyReferralOffer(tempUserReferralCode)
+
       res.redirect("/");
     } catch (error) {
       console.error(error);
