@@ -857,6 +857,11 @@
                                 <a href="/productDetails/{{this._id}}"><img
                                         src="images/productImages/{{this.productImage1}}" alt="img"
                                         class="img-responsive" /></a>
+                                {{#if this.productOfferId}}
+                                <div class="promotion">
+                                    <span class="discount">{{this.productOfferPercentage}}% OFF</span>
+                                </div>
+                                {{/if}}
                             </div>
                             <div class="description">
                                 <h4>
@@ -893,7 +898,7 @@
                     <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
                         <p>Showing 1–450 of 12 results</p>
                     </div>
-                </div> 
+                </div>
                 <!--/.categoryFooter-->
             </div>
             <!--/right column end-->
@@ -941,7 +946,7 @@
         async function sortDropdownFn() {
             try {
                 console.log(sortDropdown.value)
-                if(sortDropdown.value=='default'){
+                if (sortDropdown.value == 'default') {
                     return window.location.href = '/shop'
                 }
                 const response = await fetch('/shop/sort/' + sortDropdown.value, { method: 'GET' })
@@ -949,7 +954,7 @@
                 let sortDropdownElement = document.getElementById(`${sortDropdown.value}`)
                 sortDropdownElement.setAttribute('selected', true)
                 if (data.success) {
-                    localStorage.setItem('selectedDropdownOption', sortDropdown.value  )
+                    localStorage.setItem('selectedDropdownOption', sortDropdown.value)
                     window.location.href = '/shop'
                 }
             } catch (error) {
@@ -959,10 +964,10 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            const selectedDropdownOption= localStorage.getItem('selectedDropdownOption')
-            if(selectedDropdownOption){
-                document.getElementById('sortDropdown').value= selectedDropdownOption
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectedDropdownOption = localStorage.getItem('selectedDropdownOption')
+            if (selectedDropdownOption) {
+                document.getElementById('sortDropdown').value = selectedDropdownOption
             }
         })
     </script>

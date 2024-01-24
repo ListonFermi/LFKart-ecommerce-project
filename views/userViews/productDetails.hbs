@@ -719,14 +719,22 @@
       <!-- right column -->
 
       <!-- productFilter -->
+
       <div class="col-lg-6 col-md-6 col-sm-5">
         <h1 class="product-title"> {{currentProduct.productName}}</h1>
 
+
         <div class="product-price">
           <span class="price-sales"> ₹{{currentProduct.productPrice}}</span>
-          <span class="price-standard">₹{{sum currentProduct.productPrice 500}}</span>
+          {{#if currentProduct.productOfferId}}
+          <span class="price-standard">₹{{currentProduct.priceBeforeOffer}}</span>
+          {{/if}}
         </div>
-
+        {{#if currentProduct.productOfferId}}
+        <div class="promotion">
+          <span class="discount">{{currentProduct.productOfferPercentage}}% OFF</span>
+        </div>
+        {{/if}}
         <!-- productFilter -->
 
         <div class="cart-actions">
@@ -919,10 +927,10 @@
       });
     }
   </script>
-  
+
   <script>
-    const wishlistElement= document.getElementById('wishlist')
-    
+    const wishlistElement = document.getElementById('wishlist')
+
   </script>
 
 

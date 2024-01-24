@@ -17,12 +17,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     {{!-- jquery form validation --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-    {{!-- jquery UI --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     {{!-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="/extras/jquery.ui.datepicker.validation.min.js"></script>
 
 </head>
 
@@ -196,7 +192,10 @@
                                 <label for="productName" class="mb-2">Product Name:</label>
                                 <select name="productName" id="productName{{@index}}" class="form-select"
                                     aria-label="Default select example">
+                                    {{!-- iterating all the names of the products available in LFKart  --}}
                                     {{#each ../productData}}
+
+                                    {{!-- to have the default option in the option tag --}}
                                     {{#if (equal this.productName ../this.productName) }}
                                     <option selected>
                                         <div>{{this.productName}}</div>
