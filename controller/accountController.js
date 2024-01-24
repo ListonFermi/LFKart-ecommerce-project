@@ -2,13 +2,20 @@ const addressCollection = require("../models/addressModel");
 const orderCollection = require("../models/orderModel");
 const bcrypt = require("bcrypt");
 const userCollection = require("../models/userModels");
+const formatDate = require("../helpers/formatDateHelper.js");
+const { generateInvoice } = require("../helpers/generatePDF.js");
 
 module.exports = {
   //account
   accountPage: async (req, res) => {
     try {
-      let userData= await userCollection.findOne({ _id: req.session.currentUser._id})
-      res.render("userViews/account", { currentUser: req.session.currentUser, userData });
+      let userData = await userCollection.findOne({
+        _id: req.session.currentUser._id,
+      });
+      res.render("userViews/account", {
+        currentUser: req.session.currentUser,
+        userData,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -19,6 +26,13 @@ module.exports = {
       let orderData = await orderCollection.find({
         userId: req.session.currentUser._id,
       });
+
+      //sending the formatted date to the page
+      orderData = orderData.map((v) => {
+        v.orderDateFormatted = formatDate(v.orderDate);
+        return v;
+      });
+
       res.render("userViews/orderList", { orderData });
     } catch (error) {
       console.error(error);
@@ -38,18 +52,38 @@ module.exports = {
 
   cancelOrder: async (req, res) => {
     try {
-      const orderData= await orderCollection.findOne( { _id: req.params.id } )
-      
+      const orderData = await orderCollection.findOne({ _id: req.params.id });
+
       await orderCollection.findByIdAndUpdate(
         { _id: req.params.id },
         { $set: { orderStatus: "Cancelled" } }
-      )
-      
-      console.log(await userCollection.findByIdAndUpdate(
-        { _id: req.session.currentUser._id },
-        { $inc: { wallet: orderData.grandTotalCost  } } 
-      ));
+      );
+
+      console.log(
+        await userCollection.findByIdAndUpdate(
+          { _id: req.session.currentUser._id },
+          { $inc: { wallet: orderData.grandTotalCost } }
+        )
+      );
       res.json({ success: true });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  downloadInvoice: async (req, res) => {
+    try {
+      let orderData = await orderCollection.findOne({ _id: req.params.id }).populate('addressChosen');
+
+      const stream = res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment;filename=invoice.pdf",
+      });
+
+      generateInvoice(
+        (chunk) => stream.write(chunk),
+        () => stream.end(),
+        orderData
+      );
     } catch (error) {
       console.error(error);
     }
@@ -169,5 +203,5 @@ module.exports = {
     } catch (error) {
       console.error(error);
     }
-  }
+  },
 };

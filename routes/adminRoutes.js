@@ -67,5 +67,7 @@ adminRouter.put('/productOfferManagement/editOffer/:id', adminAuth, offerControl
 
 //sales report
 adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)
+adminRouter.get('/salesReport/download/xlsx', adminAuth, salesReportController.salesReportDownload)
+
 
 module.exports= adminRouter

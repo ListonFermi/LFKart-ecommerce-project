@@ -721,7 +721,7 @@
     <!-- /.Fixed navbar  -->
 
     <!-- main-container -->
-    <div class="container main-container headerOffset">65
+    <div class="container main-container headerOffset">
         <div class="row">
             <div class="breadcrumbDiv col-lg-12">
                 <ul class="breadcrumb">
@@ -746,7 +746,8 @@
                     <div class="statusContent">
                         <div class="col-sm-12">
                             <div class="statusTop">
-                                <p><strong>Status:</strong></p><p>{{orderData.orderStatus}}</p>
+                                <p><strong>Status:</strong></p>
+                                <p>{{orderData.orderStatus}}</p>
 
                                 <p><strong>Order Date:</strong> {{orderData.orderDate}}</p>
 
@@ -754,11 +755,19 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div id="cancelledBtn" style="display: none;" class="text-bg-danger p-3">This order has been cancelled</div>
+                            <div id="cancelledBtn" style="display: none;" class="text-bg-danger p-3">This order has been
+                                cancelled</div>
                         </div>
+
+                        <div class="col-sm-12">
+                            <div id="cancelBtn" class="btn btn-info"><a href="/account/orderList/orderStatus/downloadInvoice/{{orderData._id}}">Download Invoice</a></div>
+                        </div>
+
+                        <div class="gap"></div>
+
                         {{#if isCancelled}}
                         <div class="col-sm-12">
-                            <button class="btn btn-danger btn-lg btn-block">This order has been cancelled</button> 
+                            <button class="btn btn-danger btn-lg btn-block">This order has been cancelled</button>
                         </div>
                         {{else}}
                         <div class="col-sm-12">
@@ -810,73 +819,112 @@
                                         <p><strong>Card Number: </strong> 00335 251 124</p> --}}
                                     </div>
                                 </div>
+
                             </div>
+
                         </div>
+                    </div>
 
-                        <div class="col-sm-12 clearfix">
-                            <div class="order-box">
-                                <div class="order-box-header">Order Items</div>
+                    <div class="col-sm-12 clearfix">
+                        <div class="order-box">
+                            <div class="order-box-header">Order Items</div>
 
-                                <div class="order-box-content">
-                                    <div class="table-responsive">
-                                        <table class="order-details-cart">
-                                            <tbody>
-                                                {{#each orderData.cartData}}
-                                                <tr class="cartProduct">
-                                                    <td class="cartProductThumb" style="width: 20%">
-                                                        <div>
-                                                            <a href="/productDetails/{{this.productId._id}}">
-                                                                <img alt="img"
-                                                                    src="/images/productImages/{{this.productId.productImage1}}" />
+                            <div class="order-box-content">
+                                <div class="table-responsive">
+                                    <table class="order-details-cart">
+                                        <tbody>
+                                            {{#each orderData.cartData}}
+                                            <tr class="cartProduct">
+                                                <td class="cartProductThumb" style="width: 20%">
+                                                    <div>
+                                                        <a href="/productDetails/{{this.productId._id}}">
+                                                            <img alt="img"
+                                                                src="/images/productImages/{{this.productId.productImage1}}" />
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 40%">
+                                                    <div class="miniCartDescription">
+                                                        <h4>
+                                                            <a href="product-details.html">
+                                                                {{this.productId.productName}}
                                                             </a>
-                                                        </div>
-                                                    </td>
-                                                    <td style="width: 40%">
-                                                        <div class="miniCartDescription">
-                                                            <h4>
-                                                                <a href="product-details.html">
-                                                                    {{this.productId.productName}}
-                                                                </a>
-                                                            </h4>
-                                                            <div class="price"><span> {{this.productId.productName}}
-                                                                </span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="" style="width: 10%"><a> X{{this.productQuantity}} </a>
-                                                    </td>
-                                                    <td class="" style="width: 15%">
-                                                        <span> ₹{{this.totalCostPerProduct}} </span>
-                                                    </td>
-                                                </tr>
-                                                {{/each}}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                        </h4>
+                                                        <div class="price"><span> {{this.productId.productName}}
+                                                            </span></div>
+                                                    </div>
+                                                </td>
+                                                <td class="" style="width: 10%"><a> X{{this.productQuantity}} </a>
+                                                </td>
+                                                <td class="" style="width: 15%">
+                                                    <span> ₹{{this.totalCostPerProduct}} </span>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                            <tr class="cartTotalTr blank">
+                                                <td class="" style="width:20%">
+                                                    <div></div>
+                                                </td>
+                                                <td style="width:40%"></td>
+                                                <td class="" style="width:20%"></td>
+                                                <td class="" style="width:15%"><span> </span></td>
+
+                                            </tr>
+
+                                            
+                                            <tr class="cartTotalTr">
+                                                <td class="" style="width:20%">
+                                                    <div></div>
+                                                </td>
+                                                <td colspan="2" style="width:40%">Total ( excl. offers&coupons)</td>
+                                                <td class="" style="width:15%"><span> ₹{{orderData.grandTotalCost}}</span></td>
+
+                                            </tr>
+                                            <tr class="cartTotalTr">
+                                                <td class="" style="width:20%">
+                                                    <div></div>
+                                                </td>
+                                                <td colspan="2" style="width:40%">Shipping</td>
+                                                <td class="" style="width:15%"><span> Free </span></td>
+
+                                            </tr>
+                                            <tr class="cartTotalTr">
+                                                <td class="" style="width:20%">
+                                                    <div></div>
+                                                </td>
+                                                <td style="width:40%"></td>
+                                                <td class="" style="width:20%">GrandTotal</td>
+                                                <td class="" style="width:15%"><span class="price">₹{{orderData.grandTotalCost}} </span></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-12 clearfix">
-                        <ul class="pager">
-                            <li class="previous pull-right">
-                                <a href="index.html">
-                                    <i class="fa fa-home"></i> Go to Shop
-                                </a>
-                            </li>
-                            <li class="next pull-left">
-                                <a href="account.html"> ← Back to My Account</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-                <!--/row end-->
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-5"></div>
-        </div>
-        <!--/row-->
 
-        <div style="clear: both"></div>
+                <div class="col-lg-12 clearfix">
+                    <ul class="pager">
+                        <li class="previous pull-right">
+                            <a href="index.html">
+                                <i class="fa fa-home"></i> Go to Shop
+                            </a>
+                        </li>
+                        <li class="next pull-left">
+                            <a href="account.html"> ← Back to My Account</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--/row end-->
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-5"></div>
+    </div>
+    <!--/row-->
+
+    <div style="clear: both"></div>
     </div>
     <!-- /main-container -->
 
@@ -884,11 +932,11 @@
 ================================================== -->
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery/jquery-2.1.3.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery/jquery-2.1.3.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- include footable plugin -->
-    <script src="assets/js/footable.js" type="text/javascript"></script>
-    <script src="assets/js/footable.sortable.js" type="text/javascript"></script>
+    <script src="/assets/js/footable.js" type="text/javascript"></script>
+    <script src="/assets/js/footable.sortable.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $(".footable").footable();
@@ -896,33 +944,33 @@
     </script>
 
     <!-- include  parallax plugin -->
-    <script type="text/javascript" src="assets/js/jquery.parallax-1.1.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.parallax-1.1.js"></script>
 
     <!-- optionally include helper plugins -->
-    <script type="text/javascript" src="assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
 
     <!-- include mCustomScrollbar plugin //Custom Scrollbar  -->
 
-    <script type="text/javascript" src="assets/js/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.mCustomScrollbar.js"></script>
 
     <!-- include icheck plugin // customized checkboxes and radio buttons   -->
-    <script type="text/javascript" src="assets/plugins/icheck-1.x/icheck.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/icheck-1.x/icheck.min.js"></script>
 
     <!-- include grid.js // for equal Div height  -->
-    <script src="assets/plugins/jquery-match-height-master/dist/jquery.matchHeight-min.js"></script>
-    <script src="assets/js/grids.js"></script>
+    <script src="/assets/plugins/jquery-match-height-master/dist/jquery.matchHeight-min.js"></script>
+    <script src="/assets/js/grids.js"></script>
 
     <!-- include carousel slider plugin  -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
 
     <!-- jQuery select2 // custom select   -->
     <script src="../../../../cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
     <!-- include touchspin.js // touch friendly input spinner component   -->
-    <script src="assets/js/bootstrap.touchspin.js"></script>
+    <script src="/assets/js/bootstrap.touchspin.js"></script>
 
     <!-- include custom script for site  -->
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -935,12 +983,12 @@
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "Yes, Cancel the order"
             }).then((result) => {
                 if (result.isConfirmed) {
                     fetch('/account/orderList/orderStatus/cancelOrder/' + orderId, { method: 'PUT' }).then(d => console.log(d))
                     let cancelBtnElement = document.getElementById('cancelBtn')
-                    let cancelledBtnElement = document.getElementById('cancelledBtn')
+                    let cancelledBtnElement = document.getElementById('597a5bdf082df5a383c94b')
 
                     cancelBtnElement.style.display = 'none'
                     cancelledBtnElement.style.display = 'block'

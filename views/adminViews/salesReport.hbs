@@ -47,11 +47,14 @@
         </div>
     </nav>
 
+    <div class="container p-3">
+        <a href="/admin/salesReport/download/xlsx" class="btn btn-info">Download(xlsx)</a>
+    </div>
+
     <div class="container pt-3">
         <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col" class="border-dark">S No</th>
                     <th scope="col" class="border-dark">Order id</th>
                     <th scope="col" class="border-dark">Username</th>
                     <th scope="col" class="border-dark">Date</th>
@@ -66,7 +69,6 @@
                 {{#each salesData}}
                 <tr>
                     <td>{{sum @index 1}}</td>
-                    <td>{{this._id}}</td>
                     <td>{{this.userId.username}}</td>
                     <td>{{this.orderDateFormatted}}</td>
                     <td>
