@@ -75,7 +75,7 @@ module.exports = {
   sendOTP: async (req, res) => {
     try {
       req.session.emailOfNewUser = req.body.email || req.session.emailOfNewUser;
-      const otp = Math.trunc(Math.random() * 10000);
+      const otp = Math.floor(1000 + Math.random() * 9000);
       req.session.otp = otp;
       await transporter.sendMail({
         from: `${process.env.GMAIL_ID}`,
@@ -178,7 +178,7 @@ module.exports = {
   },
   sendForgotOTP: async (req, res) => {
     try {
-      const otp = Math.trunc(Math.random() * 10000);
+      const otp = Math.floor(1000 + Math.random() * 9000);
       req.session.otp = otp;
       req.session.otpTime = new Date();
       await transporter.sendMail({
@@ -196,7 +196,7 @@ module.exports = {
   },
   forgotPasswordPage3: async (req, res) => {
     try {
-      res.render("userViews/forgotPasswordPage3");
+      res.render("userViews/forgotPasswordPage3",);
     } catch (error) {
       console.error(error)
     } 

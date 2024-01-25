@@ -131,6 +131,7 @@ module.exports = {
       });
 
       res.render("userViews/checkoutPage", {
+        currentUser: req.session.currentUser,
         grandTotal: req.session.grandTotal,
         addressData,
       });

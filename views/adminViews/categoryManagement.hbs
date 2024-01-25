@@ -1,196 +1,272 @@
-{{> adminHeader}}
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Add Category Modal Button trigger modal -->
-<div class="pt-3">
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add new Category
-    </button>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{!-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- bootstap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!--Add Category Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <!-- jquery- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- jquery- datatables -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    {{!-- jquery form validation --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    {{!-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg bg-info bg-primary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/userManagement">Users</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/bannerManagement">Banner</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/couponManagement">Coupons</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/productOfferManagement">Product
+                                Offers</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/salesReport">Sales Report</a>
+                        </li>
+                    </ul>
+                    <form action="/logout" method="post" class="d-flex">
+                        <button class="btn btn-danger" type="submit">Logout</button>
+                    </form>
+                </div>
             </div>
-            <form action="/admin/categoryManagement/add" method="POST">
-                <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <input name="categoryName" type="text" class="form-control" placeholder="Category Name"
-                            required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input name="categoryDescription" type="text" class="form-control pb-5"
-                            placeholder="Description" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Save changes</button>
-                </div>
-            </form>
+        </nav>
+
+        <!-- Add Category Modal Button trigger modal -->
+        <div class="pt-3">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add new Category
+            </button>
         </div>
-    </div>
-</div>
 
-<!-- category already exists- alert box div -->
-<div class="p-3"></div>
-{{#if categoryExists}}
-<div class="alert alert-danger" role="alert">
-    Category <strong>{{categoryExists.categoryName}}</strong> Already Exists
-</div>
-{{/if}}
+        <!--Add Category Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/categoryManagement/add" method="POST">
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <input name="categoryName" type="text" class="form-control" placeholder="Category Name"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input name="categoryDescription" type="text" class="form-control pb-5"
+                                    placeholder="Description" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<div class="container pt-3">
-    <table id="example" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Category Name</th>
-                <th>Description</th>
-                <th>List/Unlist</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each categoryData}}
-            <tr>
-                <td>{{this.categoryName}}</td>
-                <td>{{this.categoryDescription}}</td>
-                {{#if this.isListed}}
-                <td>
-                    <button id="unlistBtn{{@index}}" class="btn btn-success">Unlist</button>
-                </td>
+        <!-- category already exists- alert box div -->
+        <div class="p-3"></div>
+        {{#if categoryExists}}
+        <div class="alert alert-danger" role="alert">
+            Category <strong>{{categoryExists.categoryName}}</strong> Already Exists
+        </div>
+        {{/if}}
 
-                <script>
-                    let unlistBtn{{@index}}= document.getElementById('unlistBtn{{@index}}')
-                        unlistBtn{{@index}}.addEventListener('click', (e) => {
-                        e.preventDefault()
-                        
-                        Swal.fire({
-                            title: "Are you sure?",
-                            text: "You want to unlist {{this.categoryName}} ?!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
-                            confirmButtonText: "Yes, unlist it!"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
+        <div class="container pt-3">
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>List/Unlist</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each categoryData}}
+                    <tr>
+                        <td>{{this.categoryName}}</td>
+                        <td>{{this.categoryDescription}}</td>
+                        {{#if this.isListed}}
+                        <td>
+                            <button id="unlistBtn{{@index}}" class="btn btn-success">Unlist</button>
+                        </td>
 
-                                fetch('/admin/categoryManagement/unlist/{{this._id}}', { method: 'PATCH' }).then()
+                        <script>
+                            let unlistBtn{{@index}}= document.getElementById('unlistBtn{{@index}}')
+                        unlistBtn{ { @index } }.addEventListener('click', (e) => {
+                                e.preventDefault()
 
                                 Swal.fire({
-                                    title: "Unlisted!",
-                                    text: "{{this.categoryName}} has been unlisted.",
-                                    icon: "success"
-                                }).then(() => location.reload())
-                            }
-                        });
-                    })
+                                    title: "Are you sure?",
+                                    text: "You want to unlist {{this.categoryName}} ?!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes, unlist it!"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+
+                                        fetch('/admin/categoryManagement/unlist/{{this._id}}', { method: 'PATCH' }).then()
+
+                                        Swal.fire({
+                                            title: "Unlisted!",
+                                            text: "{{this.categoryName}} has been unlisted.",
+                                            icon: "success"
+                                        }).then(() => location.reload())
+                                    }
+                                });
+                            })
 
 
-                </script>
+                        </script>
 
 
-                {{else}}
-                <td>
+                        {{else}}
+                        <td>
 
-                    <button id="listBtn{{@index}}" class="btn btn-danger">List</button>
+                            <button id="listBtn{{@index}}" class="btn btn-danger">List</button>
 
-                </td>
+                        </td>
 
-                <script>
-                    let listBtn{{@index}}= document.getElementById('listBtn{{@index}}')
-                        listBtn{{@index}}.addEventListener('click', (e) => {
-                        e.preventDefault()
-                        Swal.fire({
-                            title: "Are you sure?",
-                            text: "You want to list {{this.categoryName}} ?!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
-                            confirmButtonText: "Yes, list it!"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-
-                                fetch('/admin/categoryManagement/list/{{this._id}}', { method: 'PATCH' }).then()
-
+                        <script>
+                            let listBtn{{@index}}= document.getElementById('listBtn{{@index}}')
+                        listBtn{ { @index } }.addEventListener('click', (e) => {
+                                e.preventDefault()
                                 Swal.fire({
-                                    title: "Listed!",
-                                    text: "{{this.categoryName}} has been listed.",
-                                    icon: "success"
-                                }).then(() => location.reload())
-                            }
-                        });
-                    })
+                                    title: "Are you sure?",
+                                    text: "You want to list {{this.categoryName}} ?!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes, list it!"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+
+                                        fetch('/admin/categoryManagement/list/{{this._id}}', { method: 'PATCH' }).then()
+
+                                        Swal.fire({
+                                            title: "Listed!",
+                                            text: "{{this.categoryName}} has been listed.",
+                                            icon: "success"
+                                        }).then(() => location.reload())
+                                    }
+                                });
+                            })
 
 
-                </script>
+                        </script>
 
 
 
-                {{/if}}
-                <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                        data-bs-target="#editModal{{@index}}">
-                        <i class="fas fa-edit"></i>
-                    </button>
+                        {{/if}}
+                        <td>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                data-bs-target="#editModal{{@index}}">
+                                <i class="fas fa-edit"></i>
+                            </button>
 
-                    {{!-- <button type="button"
-                        onclick="return confirm('Are you sure you want to delete {{this.categoryName}} category?')"
-                        class="btn btn-info"><a href="/admin/categoryManagement/delete/{{this._id}}">
-                            <i class="fa fa-trash" aria-hidden="true"></i></a>
-                    </button> --}}
+                            {{!-- <button type="button"
+                                onclick="return confirm('Are you sure you want to delete {{this.categoryName}} category?')"
+                                class="btn btn-info"><a href="/admin/categoryManagement/delete/{{this._id}}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </button> --}}
 
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</div>
-
-<!-- Edit Modal  -->
-{{#each categoryData}}
-<div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/admin/categoryManagement/edit/{{this._id}}" method="POST">
-                <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <input name="categoryName" type="text" class="form-control" value="{{this.categoryName}}"
-                            required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input name="categoryDescription" type="text" class="form-control pb-5"
-                            value="{{this.categoryDescription}}" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Save changes</button>
-                </div>
-            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
-    </div>
-</div>
-{{/each}}
 
-<allScripts>
+        <!-- Edit Modal  -->
+        {{#each categoryData}}
+        <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/categoryManagement/edit/{{this._id}}" method="POST">
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <input name="categoryName" type="text" class="form-control"
+                                    value="{{this.categoryName}}" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input name="categoryDescription" type="text" class="form-control pb-5"
+                                    value="{{this.categoryDescription}}" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
 
-    {{!-- Table details --}}
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>
+        <allScripts>
 
-</allScripts>
+            {{!-- Table details --}}
+            <script>
+                $(document).ready(function () {
+                    $('#example').DataTable();
+                });
+            </script>
 
-{{> adminFooter}}
+        </allScripts>
+
+        {{> adminFooter}}

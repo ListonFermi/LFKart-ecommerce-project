@@ -7,7 +7,7 @@ module.exports = {
     try {
       let categoryData = await categoryCollection.find({isListed: true});
 
-      let productsInOnePage = 9
+      let productsInOnePage = 3
       let pageNo = req.query.pageNo ||  1
       let skip= (pageNo-1) * productsInOnePage 
       let limit= productsInOnePage
@@ -20,7 +20,7 @@ module.exports = {
       console.log(totalPages);
       let totalPagesArray = new Array(totalPages).fill(null)
 
-      res.render("userViews/shop", { categoryData, productData, totalPagesArray });
+      res.render("userViews/shop", {  currentUser: req.session.currentUser, categoryData, productData, totalPagesArray });
       req.session.shopProductData = null;
     } catch (error) {
       console.error(error);

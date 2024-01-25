@@ -1,253 +1,336 @@
-{{> adminHeader}}
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- Add Product Button trigger modal -->
-    <div class="pt-3">
-        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add New Product
-        </button>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{!-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- bootstap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Add Product Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <!-- jquery- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- jquery- datatables -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    {{!-- jquery form validation --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    {{!-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg bg-info bg-primary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/userManagement">Users</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/bannerManagement">Banner</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Categories</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/productManagement">Products</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/orderManagement">Orders</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/couponManagement">Coupons</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/productOfferManagement">Product
+                                Offers</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" aria-current="page" href="/admin/salesReport">Sales Report</a>
+                        </li>
+                    </ul>
+                    <form action="/logout" method="post" class="d-flex">
+                        <button class="btn btn-danger" type="submit">Logout</button>
+                    </form>
                 </div>
-                <form action="/admin/productManagement/add" method="POST" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <input name="productName" id="productName" type="name" class="form-control"
-                                placeholder="Product Name" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <label class="container">
-                                <span>Select Parent Category</span>
-                                <select name="parentCategory" class="form-select" aria-label="Default select example">
-                                    {{#each categoryList}}
-                                    <option>{{this.categoryName}}</option>
-                                    {{/each}}
-                                </select>
-                            </label>
-                        </div>
-                        <div class="input-group mb-3">
-                            <img id="preview1" src="" style="width: 100px; height: 100px; display:none" alt="Img">
-                            <div class="input-group mb-3">
-                                <input id="productImage1" name="productImage1" type="file" class="form-control"
-                                    placeholder="Product Image1" onchange="displayImage1()" required>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <img id="preview2" src="" style="width: 100px; height: 100px; display:none" alt="Img">
-                            <div class="input-group mb-3">
-                                <input id="productImage2" name="productImage2" type="file" class="form-control"
-                                    placeholder="Product Image2" onchange="displayImage2()" required>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <img id="preview3" src="" style="width: 100px; height: 100px; display:none" alt="Img">
-                            <div class="input-group mb-3">
-                                <input id="productImage3" name="productImage3" type="file" class="form-control"
-                                    placeholder="Product Image3" onchange="displayImage3()" required>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="productPrice" type="tel" class="form-control" placeholder="Product Price"
-                                required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="productStock" type="tel" class="form-control" placeholder="Product Stock"
-                                required>
-                        </div>
+            </div>
+        </nav>
+
+        <!-- Add Product Button trigger modal -->
+        <div class="pt-3">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add New Product
+            </button>
+        </div>
+
+        <!-- Add Product Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info">Save changes</button>
-                    </div>
-                </form>
+                    <form action="/admin/productManagement/add" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <input name="productName" id="productName" type="name" class="form-control"
+                                    placeholder="Product Name" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="container">
+                                    <span>Select Parent Category</span>
+                                    <select name="parentCategory" class="form-select"
+                                        aria-label="Default select example">
+                                        {{#each categoryList}}
+                                        <option>{{this.categoryName}}</option>
+                                        {{/each}}
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="input-group mb-3">
+                                <img id="preview1" src="" style="width: 100px; height: 100px; display:none" alt="Img">
+                                <div class="input-group mb-3">
+                                    <input id="productImage1" name="productImage1" type="file" class="form-control"
+                                        placeholder="Product Image1" onchange="displayImage1()" required>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <img id="preview2" src="" style="width: 100px; height: 100px; display:none" alt="Img">
+                                <div class="input-group mb-3">
+                                    <input id="productImage2" name="productImage2" type="file" class="form-control"
+                                        placeholder="Product Image2" onchange="displayImage2()" required>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <img id="preview3" src="" style="width: 100px; height: 100px; display:none" alt="Img">
+                                <div class="input-group mb-3">
+                                    <input id="productImage3" name="productImage3" type="file" class="form-control"
+                                        placeholder="Product Image3" onchange="displayImage3()" required>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input name="productPrice" type="tel" class="form-control" placeholder="Product Price"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input name="productStock" type="tel" class="form-control" placeholder="Product Stock"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Product already exists- alert box div -->
-    {{#if productExists}}
-    <div class="container pt-3 alert alert-danger pt-3" role="alert">
-        The product name {{productExists.productName}} already exists
-    </div>
-    {{/if}}
+        <!-- Product already exists- alert box div -->
+        {{#if productExists}}
+        <div class="container pt-3 alert alert-danger pt-3" role="alert">
+            The product name {{productExists.productName}} already exists
+        </div>
+        {{/if}}
 
-    <!-- Product Management table -->
-    <div class="container pt-3">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Parent Category</th>
-                    <th>Product Image1</th>
-                    <th>Product Image2</th>
-                    <th>Product Image3</th>
-                    <th>Price in INR</th>
-                    <th>In stock</th>
-                    <th>List/Unlist</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each productData}}
-                <tr>
-                    <td>{{this.productName}}</td>
-                    <td>{{this.parentCategory}}</td>
-                    <td><img src="/images/productImages/{{this.productImage1}}" style="width: 100px; height: 100px"></td>
-                    <td><img src="/images/productImages/{{this.productImage2}}" style="width: 100px; height: 100px"></td>
-                    <td><img src="/images/productImages/{{this.productImage3}}" style="width: 100px; height: 100px"></td>
-                    <td>₹{{this.productPrice}}</td>
-                    <td>{{this.productStock}}</td>
+        <!-- Product Management table -->
+        <div class="container pt-3">
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Parent Category</th>
+                        <th>Product Image1</th>
+                        <th>Product Image2</th>
+                        <th>Product Image3</th>
+                        <th>Price in INR</th>
+                        <th>In stock</th>
+                        <th>List/Unlist</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each productData}}
+                    <tr>
+                        <td>{{this.productName}}</td>
+                        <td>{{this.parentCategory}}</td>
+                        <td><img src="/images/productImages/{{this.productImage1}}" style="width: 100px; height: 100px">
+                        </td>
+                        <td><img src="/images/productImages/{{this.productImage2}}" style="width: 100px; height: 100px">
+                        </td>
+                        <td><img src="/images/productImages/{{this.productImage3}}" style="width: 100px; height: 100px">
+                        </td>
+                        <td>₹{{this.productPrice}}</td>
+                        <td>{{this.productStock}}</td>
 
-                    {{#if this.isListed}}
-                    <td>
-                        <form action="/admin/productManagement/unList/{{this._id}}" method="POST">
-                            <button type="submit" class="btn btn-success">Unlist</button>
-                        </form>
-                    </td>
-                    {{else}}
-                    <td>
-                        <form action="/admin/productManagement/list/{{this._id}}" method="POST">
-                            <button type="submit" class="btn btn-danger">List</button>
-                        </form>
-                    </td>
-                    {{/if}}
-                    <td>
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#editModal{{@index}}">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                        {{#if this.isListed}}
+                        <td>
+                            <form action="/admin/productManagement/unList/{{this._id}}" method="POST">
+                                <button type="submit" class="btn btn-success">Unlist</button>
+                            </form>
+                        </td>
+                        {{else}}
+                        <td>
+                            <form action="/admin/productManagement/list/{{this._id}}" method="POST">
+                                <button type="submit" class="btn btn-danger">List</button>
+                            </form>
+                        </td>
+                        {{/if}}
+                        <td>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                data-bs-target="#editModal{{@index}}">
+                                <i class="fas fa-edit"></i>
+                            </button>
 
-                        </button>
-                        <button type="button" class="btn btn-info"
-                            onclick="return confirm('Are you sure you want to delete {{this.categoryName}} product?')">
-                            <a href="/admin/productManagement/delete/{{this._id}}"><i class="fa fa-trash"
-                                    aria-hidden="true"></i></a>
-                        </button>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
+                            </button>
+                            <button type="button" class="btn btn-info"
+                                onclick="return confirm('Are you sure you want to delete {{this.categoryName}} product?')">
+                                <a href="/admin/productManagement/delete/{{this._id}}"><i class="fa fa-trash"
+                                        aria-hidden="true"></i></a>
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Edit Product Modal  -->
-    {{#each productData}}
-    <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Edit Product Modal  -->
+        {{#each productData}}
+        <div class="modal fade" id="editModal{{@index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/productManagement/edit/{{this._id}}" method="POST"
+                        enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <input name="productName" type="text" class="form-control" value="{{this.productName}}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="container">
+                                    <span>Select Parent Category</span>
+                                    <select name="parentCategory" class="form-select"
+                                        aria-label="Default select example">
+                                        {{#each ../categoryList}}
+                                        <option> {{this.categoryName}} </option>
+                                        {{/each}}
+                                    </select>
+
+                                </label>
+                            </div>
+                            <div class="input-group mb-3">
+                                <img src="/images/productImages/{{this.productImage1}}" alt=""
+                                    style="width: 100px; height: 100px">
+                                <div class="input-group mb-3">
+                                    <input name="productImage1" type="file" class="form-control"
+                                        value="{{this.productImage1}}">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <img src="/images/productImages/{{this.productImage2}}" alt=""
+                                    style="width: 100px; height: 100px">
+                                <div class="input-group mb-3">
+                                    <input name="productImage2" type="file" class="form-control">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <img src="/images/productImages/{{this.productImage3}}" alt=""
+                                    style="width: 100px; height: 100px">
+                                <div class="input-group mb-3">
+                                    <input name="productImage3" type="file" class="form-control">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input name="productPrice" type="text" class="form-control"
+                                    value="{{this.productPrice}}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input name="productStock" type="text" class="form-control"
+                                    value="{{this.productStock}}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Save changes</button>
+                        </div>
+                    </form>
                 </div>
-                <form action="/admin/productManagement/edit/{{this._id}}" method="POST" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <input name="productName" type="text" class="form-control" value="{{this.productName}}">
-                        </div>
-                        <div class="input-group mb-3">
-                            <label class="container">
-                                <span>Select Parent Category</span>
-                                <select name="parentCategory" class="form-select" aria-label="Default select example">
-                                    {{#each ../categoryList}}
-                                    <option> {{this.categoryName}} </option>
-                                    {{/each}}
-                                </select>
-
-                            </label>
-                        </div>
-                        <div class="input-group mb-3">
-                            <img src="/images/productImages/{{this.productImage1}}" alt=""
-                                style="width: 100px; height: 100px">
-                            <div class="input-group mb-3">
-                                <input name="productImage1" type="file" class="form-control"
-                                    value="{{this.productImage1}}">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <img src="/images/productImages/{{this.productImage2}}" alt=""
-                                style="width: 100px; height: 100px">
-                            <div class="input-group mb-3">
-                                <input name="productImage2" type="file" class="form-control">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <img src="/images/productImages/{{this.productImage3}}" alt=""
-                                style="width: 100px; height: 100px">
-                            <div class="input-group mb-3">
-                                <input name="productImage3" type="file" class="form-control">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="productPrice" type="text" class="form-control" value="{{this.productPrice}}">
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="productStock" type="text" class="form-control"
-                                value="{{this.productStock}}">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info">Save changes</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-    {{/each}}
+        {{/each}}
 
 
 
-<allScripts>
+        <allScripts>
 
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>
+            <script>
+                $(document).ready(function () {
+                    $('#example').DataTable();
+                });
+            </script>
 
-    {{!-- onchange image display --}}
-    <script>
-        function displayImage1() {
-            const reader = new FileReader()
-            reader.onload = () => {
-                preview1.src = reader.result
-            }
-            const file = document.querySelector("#productImage1").files[0];
-            if (file) {
-                preview1.style.display = 'block'
-                reader.readAsDataURL(file)
-            }
-        }
-        function displayImage2() {
-            const reader = new FileReader()
-            reader.onload = () => {
-                preview2.src = reader.result
-            }
-            const file = document.querySelector("#productImage2").files[0];
-            if (file) {
-                preview2.style.display = 'block'
-                reader.readAsDataURL(file)
-            }
-        }
-        function displayImage3() {
-            const reader = new FileReader()
-            reader.onload = () => {
-                preview3.src = reader.result
-            }
-            const file = document.querySelector("#productImage3").files[0];
-            if (file) {
-                preview3.style.display = 'block'
-                reader.readAsDataURL(file)
-            }
-        }
-    </script>
+            {{!-- onchange image display --}}
+            <script>
+                function displayImage1() {
+                    const reader = new FileReader()
+                    reader.onload = () => {
+                        preview1.src = reader.result
+                    }
+                    const file = document.querySelector("#productImage1").files[0];
+                    if (file) {
+                        preview1.style.display = 'block'
+                        reader.readAsDataURL(file)
+                    }
+                }
+                function displayImage2() {
+                    const reader = new FileReader()
+                    reader.onload = () => {
+                        preview2.src = reader.result
+                    }
+                    const file = document.querySelector("#productImage2").files[0];
+                    if (file) {
+                        preview2.style.display = 'block'
+                        reader.readAsDataURL(file)
+                    }
+                }
+                function displayImage3() {
+                    const reader = new FileReader()
+                    reader.onload = () => {
+                        preview3.src = reader.result
+                    }
+                    const file = document.querySelector("#productImage3").files[0];
+                    if (file) {
+                        preview3.style.display = 'block'
+                        reader.readAsDataURL(file)
+                    }
+                }
+            </script>
 
-</allScripts>
+        </allScripts>
 
-{{> adminFooter}}
+        {{> adminFooter}}

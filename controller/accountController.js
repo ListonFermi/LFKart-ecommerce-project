@@ -33,7 +33,7 @@ module.exports = {
         return v;
       });
 
-      res.render("userViews/orderList", { orderData });
+      res.render("userViews/orderList", { currentUser: req.session.currentUser , orderData });
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +44,7 @@ module.exports = {
         .findOne({ _id: req.params.id })
         .populate("addressChosen");
       let isCancelled = orderData.orderStatus == "Cancelled";
-      res.render("userViews/orderStatus", { orderData, isCancelled });
+      res.render("userViews/orderStatus", { currentUser: req.session.currentUser , orderData, isCancelled });
     } catch (error) {
       console.error(error);
     }

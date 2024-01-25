@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" />
-  <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.html" />
-  <link rel="shortcut icon" href="assets/ico/favicon.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.html" />
+  <link rel="shortcut icon" href="/assets/ico/favicon.png" />
   <title>TSHOP - Bootstrap E-Commerce Parallax Theme</title>
   <!-- Bootstrap core CSS -->
-  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+  <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
   <!-- Custom styles for this template -->
-  <link href="assets/css/style.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
 
   <script>
     paceOptions = { elements: true, };
   </script>
-  <script src="assets/js/pace.min.js"></script>
+  <script src="/assets/js/pace.min.js"></script>
 
   <!-- add theme styles for this template -->
-  <link id="pagestyle" rel="stylesheet" type="text/css" href="assets/css/skin-1.css" />
-  <link rel="stylesheet" type="text/css" href="assets/css/gray-look.css" />
+  <link id="pagestyle" rel="stylesheet" type="text/css" href="/assets/css/skin-1.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/gray-look.css" />
 
   {{!-- sweet alert script --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -318,13 +318,13 @@
                     {{currentUser.username}} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="/account"> <i class="fa fa-user"></i> Account</a></li>
-                    <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li>
-                    <li><a href="my-address.html"><i class="fa fa-map-marker"></i> Addresses</a></li>
-                    <li><a href="order-list.html"><i class="fa  fa-calendar"></i> Orders</a></li>
-                    <li><a href="wishlist.html" title="My wishlists">
-                        <i class="fa fa-heart"></i>
+                    {{!-- <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li> --}}
+                    <li><a href="/account/myAddress"><i class="fa fa-map-marker"></i> Addresses</a></li>
+                    <li><a href="/account/orderList"><i class="fa  fa-calendar"></i> Orders</a></li>
+                    {{!-- <li><a href="wishlist.html" title="My wishlists"> --}}
+                        {{!-- <i class="fa fa-heart"></i>
                         My wishlists
-                      </a></li>
+                      </a></li> --}}
                     <li class="divider"></li>
                     <li>
                       <form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log
@@ -368,12 +368,12 @@
           <span class="icon-bar"> </span>
           <span class="icon-bar"> </span>
         </button>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
+        {{!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
           <i class="fa fa-shopping-cart colorWhite"> </i>
-          <span class="cartRespons colorWhite"> Cart (₹210.00) </span>
-        </button>
-        <a class="navbar-brand" href="index.html">
-          <img src="images/logo.png" alt="LF-Kart" style="width: 115px; height: 50px" />
+           <span class="cartRespons colorWhite"> Cart (₹210.00) </span>
+        </button> --}}
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.png" alt="LF-Kart" style="width: 115px; height: 50px" />
         </a>
 
         <!-- this part for mobile -->
@@ -391,13 +391,13 @@
       <div class="navbar-cart collapse">
         <div class="cartMenu col-lg-4 col-xs-12 col-md-4">
           <div class="w100 miniCartTable scroll-pane">
-            <table>
+            {{!-- <table>
               <tbody>
                 <tr class="miniCartProduct">
                   <td style="width: 20%" class="miniCartProductThumb">
                     <div>
-                      <a href="product-details.html">
-                        <img src="images/product/3.jpg" alt="img" />
+                      <a href="/product-details.html">
+                        <img src="/images/product/3.jpg" alt="img" />
                       </a>
                     </div>
                   </td>
@@ -425,7 +425,7 @@
                   <td style="width: 20%" class="miniCartProductThumb">
                     <div>
                       <a href="product-details.html">
-                        <img src="images/product/2.jpg" alt="img" />
+                        <img src="/images/product/2.jpg" alt="img" />
                       </a>
                     </div>
                   </td>
@@ -562,12 +562,12 @@
                   <td style="width: 5%" class="delete"><a> x </a></td>
                 </tr>
               </tbody>
-            </table>
+            </table> --}}
           </div>
           <!--/.miniCartTable-->
 
           <div class="miniCartFooter miniCartFooterInMobile text-right">
-            <h3 class="text-right subtotal">Subtotal: ₹210</h3>
+            {{!-- <h3 class="text-right subtotal">Subtotal: ₹210</h3> --}}
             <a class="btn btn-sm btn-danger" href="cart.html">
               <i class="fa fa-shopping-cart"> </i>
               VIEW CART
@@ -588,13 +588,13 @@
           <div class="dropdown cartMenu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-shopping-cart"> </i>
-              <span class="cartRespons"> Cart (₹210.00) </span>
+              {{!-- <span class="cartRespons"> Cart (₹210.00) </span> --}}
               <b class="caret"> </b>
             </a>
 
             <div class="dropdown-menu col-lg-4 col-xs-12 col-md-4">
               <div class="w100 miniCartTable scroll-pane">
-                <table>
+                {{!-- <table>
                   <tbody>
                     <tr class="miniCartProduct">
                       <td style="width: 20%" class="miniCartProductThumb">
@@ -761,12 +761,12 @@
                       <td style="width: 5%" class="delete"><a> x </a></td>
                     </tr>
                   </tbody>
-                </table>
+                </table> --}}
               </div>
               <!--/.miniCartTable-->
 
               <div class="miniCartFooter text-right">
-                <h3 class="text-right subtotal">Subtotal: ₹210</h3>
+                {{!-- <h3 class="text-right subtotal">Subtotal: ₹210</h3> --}}
                 <a class="btn btn-sm btn-danger" href="/cart">
                   <i class="fa fa-shopping-cart"> </i>
                   VIEW CART
