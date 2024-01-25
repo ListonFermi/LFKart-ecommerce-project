@@ -7,6 +7,11 @@ const { ObjectId } = require("mongodb");
 module.exports = {
   salesReport: async (req, res) => {
     try {
+      if (req.session?.admin?.salesData) {
+        let { salesData, dateValues } = req.session.admin;
+        return res.render("adminViews/salesReport", { salesData, dateValues });
+      }
+
       let salesData = await orderCollection.find().populate("userId");
 
       salesData = salesData.map((v) => {
@@ -14,10 +19,9 @@ module.exports = {
         return v;
       });
 
-      res.render("adminViews/salesReport", { salesData });
+      res.render("adminViews/salesReport", { salesData, dateValues: null });
     } catch (error) {
-      console.error("Error fetching sales data:", error);
-      res.status(500).send("Internal Server Error");
+      console.error(error);
     }
   },
   salesReportDownload: async (req, res) => {
@@ -35,7 +39,16 @@ module.exports = {
         { header: "Status", key: "status", width: 20 },
       ];
 
-      let salesData = await orderCollection.find().populate("userId");
+      let salesData = req.session?.admin?.dateValues
+        ? await orderCollection
+            .find({
+              orderDate: {
+                $gte: new Date(req.session.admin.dateValues.startDate),
+                $lte: new Date(req.session.admin.dateValues.endDate),
+              },
+            })
+            .populate("userId")
+        : await orderCollection.find().populate("userId");
 
       salesData = salesData.map((v) => {
         v.orderDateFormatted = formatDate(v.orderDate);
@@ -67,6 +80,30 @@ module.exports = {
       workBook.xlsx.write(res);
     } catch (error) {
       console.log(error);
+    }
+  },
+  salesReportFilter: async (req, res) => {
+    try {
+      let { startDate, endDate } = req.body;
+      let salesDataFiltered = await orderCollection
+        .find({
+          orderDate: { $gte: new Date(startDate), $lte: new Date(endDate) },
+        })
+        .populate("userId");
+
+      salesData = salesDataFiltered.map((v) => {
+        v.orderDateFormatted = formatDate(v.orderDate);
+        return v;
+      });
+
+      req.session.admin = {};
+      req.session.admin.dateValues = req.body;
+      req.session.admin.salesData = JSON.parse(JSON.stringify(salesData));
+      // console.log(typeof(req.session.admin.salesData));
+
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error(error);
     }
   },
 };

@@ -1,72 +1,127 @@
 {{> adminHeader}}
 
-    <div class="container p-3">
-        <a href="/admin/salesReport/download/xlsx" class="btn btn-info">Download(xlsx)</a>
+<div class="container p-3">
+    <div class="row">
+        <div class="col-2">
+            <a href="/admin/salesReport/download/xlsx" class="btn btn-info">Download(xlsx)</a>
+        </div>
+        {{#if dateValues}}
+        <div class="col-2">
+            <label for="startDate">From: </label>
+            <input id="startDate" type="date" value="{{dateValues.startDate}}">
+        </div>
+        <div class="col-2">
+            <label for="startDate">To: </label>
+            <input id="endDate" type="date" value="{{dateValues.endDate}}">
+        </div>
+        {{else}}
+        <div class="col-2">
+            <label for="startDate">From: </label>
+            <input id="startDate" type="date">
+        </div>
+        <div class="col-2">
+            <label for="startDate">To: </label>
+            <input id="endDate" type="date">
+        </div>
+        {{/if}}
+        <div class="col-2">
+            <button id="filterBtn" class="btn btn-info p-1">Filter</button>
+        </div>
     </div>
+</div>
 
-    <div class="container pt-3">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th scope="col" class="border-dark">Order id</th>
-                    <th scope="col" class="border-dark">Username</th>
-                    <th scope="col" class="border-dark">Date</th>
-                    <th scope="col" class="border-dark">Products</th>
-                    <th scope="col" class="border-dark">No of items</th>
-                    <th scope="col" class="border-dark">TotalCost</th>
-                    <th scope="col" class="border-dark">Payment Method</th>
-                    <th scope="col" class="border-dark">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each salesData}}
-                <tr>
-                    <td>{{sum @index 1}}</td>
-                    <td>{{this.userId.username}}</td>
-                    <td>{{this.orderDateFormatted}}</td>
-                    <td>
-                        <ul>
-                            {{#each this.cartData}}
-                            <li>{{this.productId.productName}}</li>
-                            {{/each}}
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            {{#each this.cartData}}
-                            <li>{{this.productQuantity}}</li>
-                            {{/each}}
-                        </ul>
+<div class="container pt-3">
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col" class="border-dark">Order id</th>
+                <th scope="col" class="border-dark">Username</th>
+                <th scope="col" class="border-dark">Date</th>
+                <th scope="col" class="border-dark">Products</th>
+                <th scope="col" class="border-dark">No of items</th>
+                <th scope="col" class="border-dark">TotalCost</th>
+                <th scope="col" class="border-dark">Payment Method</th>
+                <th scope="col" class="border-dark">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each salesData}}
+            <tr>
+                <td>{{sum @index 1}}</td>
+                <td>{{this.userId.username}}</td>
+                <td>{{this.orderDateFormatted}}</td>
+                <td>
+                    <ul>
+                        {{#each this.cartData}}
+                        <li>{{this.productId.productName}}</li>
+                        {{/each}}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {{#each this.cartData}}
+                        <li>{{this.productQuantity}}</li>
+                        {{/each}}
+                    </ul>
 
-                    </td>
-                    <td>₹{{this.grandTotalCost}}</td>
-                    <td>{{this.paymentType}}</td>
-                    <td>{{this.orderStatus}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
+                </td>
+                <td>₹{{this.grandTotalCost}}</td>
+                <td>{{this.paymentType}}</td>
+                <td>{{this.orderStatus}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
 
 <allScripts>
-    {{!-- jquery --}}
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-
-    {{!-- datatables.net --}}
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-
     {{!-- Table details --}}
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
         });
+    </script>
+
+    <script>
+        let startDate= document.getElementById('startDate')
+        let endDate= document.getElementById('endDate')
+
+        startDate.addEventListener('change', function () {
+        let startDateValue = startDate.value;
+        endDate.setAttribute('min', startDateValue);
+        });
+
+        endDate.addEventListener('change', function () {
+        let endDateValue = endDate.value;
+        startDate.setAttribute('max', endDateValue);
+        });
+
+    </script>
+
+
+    <script>
+        let filterBtn = document.getElementById('filterBtn')
+        filterBtn.addEventListener('click', async (e) => {
+            e.preventDefault()
+            let startDate = document.getElementById('startDate').value
+            let endDate = document.getElementById('endDate').value
+            let formData = { startDate, endDate }
+            console.log(formData)
+
+            let response = await fetch('/admin/salesReport/filter',
+                {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                })
+            let result = await response.json()
+
+            if (result.success) {
+                console.log('hello')
+               location.reload()
+            }
+        })
     </script>
 
 </allScripts>

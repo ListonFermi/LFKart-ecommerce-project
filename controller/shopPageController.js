@@ -6,10 +6,21 @@ module.exports = {
   shopPage: async (req, res) => {
     try {
       let categoryData = await categoryCollection.find({isListed: true});
+
+      let productsInOnePage = 9
+      let pageNo = req.query.pageNo ||  1
+      let skip= (pageNo-1) * productsInOnePage 
+      let limit= productsInOnePage
+      let productDataWithPagination= await productCollection.find({ isListed: true }).skip(skip).limit(limit)
       
       let productData =
-        req.session?.shopProductData || (await productCollection.find());
-      res.render("userViews/shop", { categoryData, productData });
+        req.session?.shopProductData || productDataWithPagination;
+
+      let totalPages=  Math.ceil(  await productCollection.countDocuments() / productsInOnePage )
+      console.log(totalPages);
+      let totalPagesArray = new Array(totalPages).fill(null)
+
+      res.render("userViews/shop", { categoryData, productData, totalPagesArray });
       req.session.shopProductData = null;
     } catch (error) {
       console.error(error);

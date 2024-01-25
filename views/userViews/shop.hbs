@@ -889,15 +889,15 @@
                     <div class="pagination pull-left no-margin-top">
                         <ul class="pagination no-margin-top">
                             <li><a href="#">«</a></li>
-                            {{#each pagination}}
-                            <li class="active"><a href="/shop?{{sum @index 1}}">{{sum @index 1}}</a></li>
+                            {{#each totalPagesArray}}
+                            <li class=""><a href="/shop?pageNo={{sum @index 1}}">{{sum @index 1}}</a></li>
                             {{/each}}
                             <li><a href="#">»</a></li>
                         </ul>
                     </div>
-                    <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
-                        <p>Showing 1–450 of 12 results</p>
-                    </div>
+                    {{!-- <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
+                        <p>Showing 1–{{}}of 12 results</p>
+                    </div> --}}
                 </div>
                 <!--/.categoryFooter-->
             </div>

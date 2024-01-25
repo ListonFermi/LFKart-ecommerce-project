@@ -1,0 +1,812 @@
+<html lang="en">
+<!-- Mirrored from templatecycle.com/tshop/v6/gray/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 06:48:03 GMT -->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.html" />
+  <link rel="shortcut icon" href="assets/ico/favicon.png" />
+  <title>TSHOP - Bootstrap E-Commerce Parallax Theme</title>
+  <!-- Bootstrap core CSS -->
+  <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/style.css" rel="stylesheet" />
+
+  <script>
+    paceOptions = { elements: true, };
+  </script>
+  <script src="assets/js/pace.min.js"></script>
+
+  <!-- add theme styles for this template -->
+  <link id="pagestyle" rel="stylesheet" type="text/css" href="assets/css/skin-1.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/gray-look.css" />
+
+  {{!-- sweet alert script --}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+  <script type="text/javascript">
+    function swapStyleSheet(sheet) {
+      document.getElementById("pagestyle").setAttribute("href", sheet);
+    }
+  </script>
+  <style>
+    .themeControll {
+      background: #2d3e50;
+      height: auto;
+      width: 100px;
+      position: fixed;
+      left: 0;
+      padding: 20px;
+      top: 20%;
+      z-index: 999999;
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -o-transform: translateX(0);
+      -ms-transform: translateX(0);
+      transform:
+        translateX(0);
+      opacity: 1;
+      -ms-filter: none;
+      filter: none;
+      -webkit-transition: opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -moz-transition: opacity 0.5s linear,
+        -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition:
+        opacity 0.5s linear, -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -ms-transition: opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56,
+          0.48, 0, 0.99);
+      transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+    }
+
+    .themeControll.active {
+      display:
+        block;
+      -webkit-transform: translateX(-100px);
+      -moz-transform:
+        translateX(-100px);
+      -o-transform: translateX(-100px);
+      -ms-transform:
+        translateX(-1020px);
+      transform: translateX(-100px);
+      -webkit-transition:
+        opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0,
+          0.99);
+      -moz-transition: opacity 0.5s linear, -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition: opacity 0.5s linear,
+        -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -ms-transition:
+        opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48,
+          0, 0.99);
+    }
+
+    .themeControll a {
+      border-radius: 3px;
+      clear: both;
+      display:
+        block;
+      height: 25px;
+      margin-bottom: 4px;
+      width: 50px;
+    }
+
+    .tbtn {
+      background: #2d3e50;
+      color: #ffffff !important;
+      font-size: 30px;
+      height:
+        auto;
+      padding: 10px;
+      position: absolute;
+      right: -40px;
+      top: 0;
+      width:
+        40px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 780px) {
+      .themeControll {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="themeControll">
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      Choose your colour
+    </h3>
+    <a onclick="swapStyleSheet('assets/css/skin-1.css')" style="background: #4ec67f; border-top: 12px solid #27ae60">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-8.css')" style="background: #3bca95; border-top: 12px solid #34bc8a">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-2.css')" style="background: #1abc9c; border-top: 12px solid #16a085">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-3.css')" style="background: #3498db; border-top: 12px solid #2980b9">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-4.css')" style="background: #9b59b6; border-top: 12px solid #9149af">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-5.css')" style="background: #e74c3c; border-top: 12px solid #c0392b">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-7.css')" style="background: #95a5a6; border-top: 12px solid #7f8c8d">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-9.css')" style="background: #f7b529; border-top: 12px solid #e78e00">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-10.css')" style="background: #f17370; border-top: 12px solid #f26663">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-11.css')" style="background: #273646; border-top: 12px solid #2ecc71">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-6.css')" style="background: #34495e; border-top: 12px solid #283949">
+    </a>
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      <br />
+      <a style="color: #fff" href="https://templatecycle.com/tshop/v6/index.html"><i
+          class="fa fa-angle-double-left"></i>
+        Theme Chooser
+      </a>
+    </h3>
+    <p class="tbtn"><i class="fa fa-angle-double-left"></i></p>
+  </div>
+
+  <script type="text/javascript">
+    function swapStyleSheet(sheet) {
+      document.getElementById("pagestyle").setAttribute("href", sheet);
+    }
+  </script>
+  <style>
+    .themeControll {
+      background: #2d3e50;
+      height: auto;
+      width: 100px;
+      position: fixed;
+      left: 0;
+      padding: 20px;
+      top: 20%;
+      z-index: 999999;
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -o-transform: translateX(0);
+      -ms-transform: translateX(0);
+      transform:
+        translateX(0);
+      opacity: 1;
+      -ms-filter: none;
+      filter: none;
+      -webkit-transition: opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -moz-transition: opacity 0.5s linear,
+        -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition:
+        opacity 0.5s linear, -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -ms-transition: opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56,
+          0.48, 0, 0.99);
+      transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+    }
+
+    .themeControll.active {
+      display:
+        block;
+      -webkit-transform: translateX(-100px);
+      -moz-transform:
+        translateX(-100px);
+      -o-transform: translateX(-100px);
+      -ms-transform:
+        translateX(-1020px);
+      transform: translateX(-100px);
+      -webkit-transition:
+        opacity 0.5s linear, -webkit-transform 0.7s cubic-bezier(0.56, 0.48, 0,
+          0.99);
+      -moz-transition: opacity 0.5s linear, -moz-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -o-transition: opacity 0.5s linear,
+        -o-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      -ms-transition:
+        opacity 0.5s linear, -ms-transform 0.7s cubic-bezier(0.56, 0.48, 0, 0.99);
+      transition: opacity 0.5s linear, transform 0.7s cubic-bezier(0.56, 0.48,
+          0, 0.99);
+    }
+
+    .themeControll a {
+      border-radius: 3px;
+      clear: both;
+      display:
+        block;
+      height: 25px;
+      margin-bottom: 4px;
+      width: 50px;
+    }
+
+    .tbtn {
+      background: #2d3e50;
+      color: #ffffff !important;
+      font-size: 30px;
+      height:
+        auto;
+      padding: 10px;
+      position: absolute;
+      right: -40px;
+      top: 0;
+      width:
+        40px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 780px) {
+      .themeControll {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="themeControll">
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      Choose your colour
+    </h3>
+    <a onclick="swapStyleSheet('assets/css/skin-1.css')" style="background: #4ec67f; border-top: 12px solid #27ae60">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-8.css')" style="background: #3bca95; border-top: 12px solid #34bc8a">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-2.css')" style="background: #1abc9c; border-top: 12px solid #16a085">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-3.css')" style="background: #3498db; border-top: 12px solid #2980b9">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-4.css')" style="background: #9b59b6; border-top: 12px solid #9149af">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-5.css')" style="background: #e74c3c; border-top: 12px solid #c0392b">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-7.css')" style="background: #95a5a6; border-top: 12px solid #7f8c8d">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-9.css')" style="background: #f7b529; border-top: 12px solid #e78e00">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-10.css')" style="background: #f17370; border-top: 12px solid #f26663">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-11.css')" style="background: #273646; border-top: 12px solid #2ecc71">
+    </a>
+    <a onclick="swapStyleSheet('assets/css/skin-6.css')" style="background: #34495e; border-top: 12px solid #283949">
+    </a>
+    <h3 style="width: 60px; font-size: 10px; line-height: 12px" class="uppercase color-white text-center">
+      <br />
+      <a style="color: #fff" href="https://templatecycle.com/tshop/v6/index.html"><i
+          class="fa fa-angle-double-left"></i>
+        Theme Chooser
+      </a>
+    </h3>
+    <p class="tbtn"><i class="fa fa-angle-double-left"></i></p>
+  </div>
+
+  <!-- Fixed navbar start -->
+  <div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
+    <div class="navbar-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6" style="visibility: hidden">
+            <div class="pull-left">
+              <ul class="userMenu">
+                <li>
+                  <a href="#">
+                    <span class="hidden-xs">HELP</span><i class="glyphicon glyphicon-info-sign hide visible-xs"></i>
+                  </a>
+                </li>
+                <li class="phone-number">
+                  <a href="callto:+12025550151">
+                    <span>
+                      <i class="glyphicon glyphicon-phone-alt"></i></span>
+                    <span class="hidden-xs" style="margin-left: 5px">
+                      +1-202-555-0151
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {{#if currentUser}}
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li><a href="/account"><span class="hidden-xs"> My Account</span> <i
+                      class="glyphicon glyphicon-user hide visible-xs "></i></a></li>
+
+
+                <li class="dropdown hasUserMenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Hi,
+                    {{currentUser.username}} <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/account"> <i class="fa fa-user"></i> Account</a></li>
+                    <li><a href="account.html"><i class="fa fa fa-cog"></i> Profile</a></li>
+                    <li><a href="my-address.html"><i class="fa fa-map-marker"></i> Addresses</a></li>
+                    <li><a href="order-list.html"><i class="fa  fa-calendar"></i> Orders</a></li>
+                    <li><a href="wishlist.html" title="My wishlists">
+                        <i class="fa fa-heart"></i>
+                        My wishlists
+                      </a></li>
+                    <li class="divider"></li>
+                    <li>
+                      <form action="/logout" method="POST"><i class="fa  fa-sign-out"></i><button type="submit">Log
+                          Out</button></form>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          {{else}}
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li>
+                  <a href="/signupLoginPage">
+                    <span class="hidden-xs">Sign In</span>
+                    <i class="glyphicon glyphicon-log-in hide visible-xs"></i>
+                  </a>
+                </li>
+                <li class="hidden-xs">
+                  <a href="/signupLoginPage" data-toggle="modal">
+                    Create Account
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <!--/.navbar-top-->
+
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only"> Toggle navigation </span>
+          <span class="icon-bar"> </span>
+          <span class="icon-bar"> </span>
+          <span class="icon-bar"> </span>
+        </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
+          <i class="fa fa-shopping-cart colorWhite"> </i>
+          <span class="cartRespons colorWhite"> Cart (₹210.00) </span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo.png" alt="LF-Kart" style="width: 115px; height: 50px" />
+        </a>
+
+        <!-- this part for mobile -->
+        <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
+          <div class="input-group">
+            <button class="btn btn-nobg getFullSearch" type="button">
+              <i class="fa fa-search"> </i>
+            </button>
+          </div>
+          <!-- /input-group -->
+        </div>
+      </div>
+
+      <!-- this part is duplicate from cartMenu  keep it for mobile -->
+      <div class="navbar-cart collapse">
+        <div class="cartMenu col-lg-4 col-xs-12 col-md-4">
+          <div class="w100 miniCartTable scroll-pane">
+            <table>
+              <tbody>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/3.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/2.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/5.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/3.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/3.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+                <tr class="miniCartProduct">
+                  <td style="width: 20%" class="miniCartProductThumb">
+                    <div>
+                      <a href="product-details.html">
+                        <img src="images/product/4.jpg" alt="img" />
+                      </a>
+                    </div>
+                  </td>
+                  <td style="width: 40%">
+                    <div class="miniCartDescription">
+                      <h4>
+                        <a href="product-details.html">
+                          TSHOP T shirt Black
+                        </a>
+                      </h4>
+                      <span class="size"> 12 x 1.5 L </span>
+
+                      <div class="price"><span> ₹8.80 </span></div>
+                    </div>
+                  </td>
+                  <td style="width: 10%" class="miniCartQuantity">
+                    <a> X 1 </a>
+                  </td>
+                  <td style="width: 15%" class="miniCartSubtotal">
+                    <span> ₹8.80 </span>
+                  </td>
+                  <td style="width: 5%" class="delete"><a> x </a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--/.miniCartTable-->
+
+          <div class="miniCartFooter miniCartFooterInMobile text-right">
+            <h3 class="text-right subtotal">Subtotal: ₹210</h3>
+            <a class="btn btn-sm btn-danger" href="cart.html">
+              <i class="fa fa-shopping-cart"> </i>
+              VIEW CART
+            </a>
+            <a href="checkout-0.html" class="btn btn-sm btn-primary">
+              CHECKOUT
+            </a>
+          </div>
+          <!--/.miniCartFooter-->
+        </div>
+        <!--/.cartMenu-->
+      </div>
+      <!--/.navbar-cart-->
+
+      <div class="navbar-collapse collapse">
+        <!--- will be hidden for mobile version -->
+        <div class="nav navbar-nav navbar-right hidden-xs">
+          <div class="dropdown cartMenu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-shopping-cart"> </i>
+              <span class="cartRespons"> Cart (₹210.00) </span>
+              <b class="caret"> </b>
+            </a>
+
+            <div class="dropdown-menu col-lg-4 col-xs-12 col-md-4">
+              <div class="w100 miniCartTable scroll-pane">
+                <table>
+                  <tbody>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/3.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              TSHOP Tshirt DO9
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹22 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹33 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/2.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              TShir TSHOP 09
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹15 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹120 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/5.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html"> Tshir 2014 </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹30 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹80 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/3.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              TSHOP T shirt DO20
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹15 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹55 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/product/4.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html"> T shirt Black </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹44 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹40 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                    <tr class="miniCartProduct">
+                      <td style="width: 20%" class="miniCartProductThumb">
+                        <div>
+                          <a href="product-details.html">
+                            <img src="images/site/winter.jpg" alt="img" />
+                          </a>
+                        </div>
+                      </td>
+                      <td style="width: 40%">
+                        <div class="miniCartDescription">
+                          <h4>
+                            <a href="product-details.html">
+                              G Star T shirt
+                            </a>
+                          </h4>
+                          <span class="size"> 12 x 1.5 L </span>
+
+                          <div class="price"><span> ₹80 </span></div>
+                        </div>
+                      </td>
+                      <td style="width: 10%" class="miniCartQuantity">
+                        <a> X 1 </a>
+                      </td>
+                      <td style="width: 15%" class="miniCartSubtotal">
+                        <span> ₹8.80 </span>
+                      </td>
+                      <td style="width: 5%" class="delete"><a> x </a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--/.miniCartTable-->
+
+              <div class="miniCartFooter text-right">
+                <h3 class="text-right subtotal">Subtotal: ₹210</h3>
+                <a class="btn btn-sm btn-danger" href="/cart">
+                  <i class="fa fa-shopping-cart"> </i>
+                  VIEW CART
+                </a><a class="btn btn-sm btn-primary"> CHECKOUT </a>
+              </div>
+              <!--/.miniCartFooter-->
+            </div>
+            <!--/.dropdown-menu-->
+          </div>
+          <!--/.cartMenu-->
+
+          <div class="search-box">
+            <div class="input-group">
+              <button class="btn btn-nobg getFullSearch" type="button">
+                <i class="fa fa-search"> </i>
+              </button>
+            </div>
+            <!-- /input-group -->
+          </div>
+          <!--/.search-box -->
+        </div>
+        <!--/.navbar-nav hidden-xs-->
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container -->
+
+    <div class="search-full text-right">
+      <a class="pull-right search-close">
+        <i class="fa fa-times-circle"> </i>
+      </a>
+
+      <div class="searchInputBox pull-right">
+        <input type="search" data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search"
+          class="search-input" />
+        <button class="btn-nobg search-btn" type="submit">
+          <i class="fa fa-search"> </i>
+        </button>
+      </div>
+    </div>
+    <!--/.search-full-->
+  </div>
+  <!-- /.Fixed navbar  -->

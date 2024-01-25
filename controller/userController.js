@@ -99,7 +99,9 @@ module.exports = {
 
       //adding money to the reffered user's wallet if referral code exists
       let tempUserReferralCode=  req.session?.tempUserReferralCode
-      await applyReferralOffer(tempUserReferralCode)
+      if(tempUserReferralCode){
+        await applyReferralOffer(tempUserReferralCode)
+      }
 
       res.redirect("/");
     } catch (error) {

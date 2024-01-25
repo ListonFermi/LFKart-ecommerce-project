@@ -47,27 +47,8 @@
         </div>
     </div>
 
-    {{!-- Banner Image --}}
-    <div class="container-fluid">
-        <p class="h1">Upload LFKart Banner Image</p>
-
-        <div class="input-group mb-3">
-            <img id="previewBannerImg" src="" style="width: 100%; height: auto; display:none;">
-            <div class="input-group mb-3">
-                <form id="bannerImgForm" enctype="multipart/form-data">
-                    <input id="bannerImage" name="productImage1" type="file" class="form-control"
-                        placeholder="Product Image1" onchange="displayImage()">
-                    <button id="uploadBtn" type="button" class="btn btn-info">Upload</label>
-                </form>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 <allScripts>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         const uploadBtnElement = document.getElementById('uploadBtn')

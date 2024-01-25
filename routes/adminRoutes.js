@@ -34,8 +34,8 @@ adminRouter.delete('/bannerManagement/delete/:id', adminAuth, upload.single('ban
 adminRouter.get('/categoryManagement', adminAuth, categoryController.categoryManagement)
 adminRouter.post('/categoryManagement/add', adminAuth, categoryController.addCategory)
 adminRouter.post('/categoryManagement/edit/:id', adminAuth, categoryController.editCategory)
-adminRouter.post('/categoryManagement/unList/:id', adminAuth, categoryController.unlistCategory)
-adminRouter.post('/categoryManagement/list/:id', adminAuth, categoryController.listCategory)
+adminRouter.patch('/categoryManagement/unList/:id', adminAuth, categoryController.unlistCategory)
+adminRouter.patch('/categoryManagement/list/:id', adminAuth, categoryController.listCategory)
 adminRouter.get('/categoryManagement/delete/:id', adminAuth, categoryController.deleteCategory)
 
 //product management
@@ -68,6 +68,6 @@ adminRouter.put('/productOfferManagement/editOffer/:id', adminAuth, offerControl
 //sales report
 adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)
 adminRouter.get('/salesReport/download/xlsx', adminAuth, salesReportController.salesReportDownload)
-
+adminRouter.post('/salesReport/filter', adminAuth, salesReportController.salesReportFilter)
 
 module.exports= adminRouter

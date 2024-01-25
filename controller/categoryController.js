@@ -42,7 +42,7 @@ module.exports = {
         { _id: req.params.id },
         { $set: { isListed: false } }
       );
-      res.redirect("/admin/categoryManagement");
+      res.status(200).json({success: true})
     } catch (error) {
       console.error(error);
     }
@@ -53,7 +53,7 @@ module.exports = {
         { _id: req.params.id },
         { $set: { isListed: true } }
       );
-      res.redirect("/admin/categoryManagement");
+      res.status(200).json({success: true})
     } catch (error) {
       console.error(error);
     }
