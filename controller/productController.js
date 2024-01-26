@@ -1,5 +1,7 @@
+const path  = require("node:path");
 const categoryCollection = require("../models/categoryModel");
 const productCollection = require("../models/productModels");
+const sharpImage= require('../services/sharp.js')
 
 module.exports = {
   productManagement: async (req, res) => {
@@ -25,6 +27,9 @@ module.exports = {
         productName: { $regex: new RegExp(req.body.productName, "i") },
       });
       if (!existingProduct) {
+        console.log(req.files[0].filename);
+      console.log(path.join(__dirname,'../'));
+       await sharpImage.cropImage(path.join(__dirname,'../public/images/productImages',req.files[0].filename))
         await productCollection.insertMany([
           {
             productName: req.body.productName,

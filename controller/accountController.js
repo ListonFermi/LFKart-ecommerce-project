@@ -3,7 +3,7 @@ const orderCollection = require("../models/orderModel");
 const bcrypt = require("bcrypt");
 const userCollection = require("../models/userModels");
 const formatDate = require("../helpers/formatDateHelper.js");
-const { generateInvoice } = require("../helpers/generatePDF.js");
+const { generateInvoice } = require("../services/generatePDF.js");
 
 module.exports = {
   //account
