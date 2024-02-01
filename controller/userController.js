@@ -38,6 +38,7 @@ module.exports = {
           invalidCredentials: req.session.invalidCredentials,
           passwordResetSucess: req.session.passwordResetSucess,
         });
+        req.session.tempUserReferralCode= req.query?.referralCode
         req.session.passwordResetSucess = null;
         req.session.invalidCredentials = null;
       } else {
@@ -63,7 +64,6 @@ module.exports = {
           password: encryptedPassword,
           referralCode
         };
-        req.session.tempUserReferralCode= req.body?.referralCode
         next();
       } else {
         res.render("userViews/signupLoginPage", { emailPhoneExists: true });

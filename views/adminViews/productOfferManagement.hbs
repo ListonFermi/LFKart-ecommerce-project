@@ -7,6 +7,13 @@
         </button>
     </div>
 
+    <!-- Add Category Offer Button (Triggers modal) -->
+    <div class="pt-3">
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addCategoryOfferModal">
+            Add Category Offer
+        </button>
+    </div>
+
     <!--Add Product Offer Modal -->
     <div class="modal fade" id="addProductOfferModal" tabindex="-1" aria-labelledby="addProductOfferModalLabel"
         aria-hidden="true">
@@ -55,6 +62,64 @@
                             <label for="endDate">Offer Expiry Date : </label>
                             <div class="input-group">
                                 <input id="endDate" name="endDate" type="date" class="form-control">
+                            </div>
+                            <div class="form-text">Choose an exipry date for offer to end.</div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="addCouponBtn" type="submit" class="btn btn-info">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--Category Offer Modal -->
+    <div class="modal fade" id="addCategoryOfferModal" tabindex="-1" aria-labelledby="addCategoryOfferModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryOfferModalLabel">Add Category Offer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addCategoryOfferForm" role="form">
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <label class="container">
+                                <label for="categoryName" class="mb-2">Category Name: </label>
+                                <select name="categoryName" id="categoryName" class="form-select">
+                                    {{#each categoryData}}
+                                    <option>{{this.categoryName}}</option>
+                                    {{/each}}
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="offerPercentageInput p-2">
+                            <label for="categoryOfferPercentage" class="mb-2">Category Offer Percentage: </label>
+                            <div class="input-group">
+                                <input id="categoryOfferPercentage" name="categoryOfferPercentage" class="form-control"
+                                    placeholder="Enter the offer percentage">
+                            </div>
+                            <div class="form-text">Choose a percentage to be discounted. Between 5% and 90%.</div>
+                        </div>
+
+                        <div class="startDateInput p-2">
+                            <label for="categoryOfferStartDate">Offer Start Date: </label>
+                            <div class="input-group">
+                                <input id="categoryOfferStartDate" name="categoryOfferStartDate" type="date" class="form-control">
+                            </div>
+                            <div class="form-text">Choose a start date for the offer to be considered.</div>
+                        </div>
+
+                        <div class="endDateInput p-2">
+                            <label for="categoryOfferEndDate">Offer Expiry Date : </label>
+                            <div class="input-group">
+                                <input id="categoryOfferEndDate" name="categoryOfferEndDate" type="date" class="form-control">
                             </div>
                             <div class="form-text">Choose an exipry date for offer to end.</div>
                         </div>
@@ -320,6 +385,63 @@
                         Swal.fire({
                             icon: "success",
                             title: "New product offer succesfully added",
+                            showConfirmButton: false,
+                            timer: 3000
+                        }).then(() => location.reload())
+                    } else {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Product Offer Already Exists for This Product",
+                            text: "Please try editing the offer of this particular product",
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        
+        $(document).ready(function () {
+            $("#addCategoryOfferForm").validate({
+                rules: {
+                    categoryName: "required",
+                    categoryOfferPercentage: {
+                        required: true,
+                        min: 5,
+                        max: 90
+                    },
+                    categoryOfferStartDate: {
+                        required: true,
+                    },
+                    categoryOfferEndDate: {
+                        required: true,
+                    }
+                },
+                submitHandler: async function (form, event) {
+                    event.preventDefault()
+
+                    let productsUnderSelectedCategory =  {{productData}}.filter( v=> v.productName == form.categoryName  )
+                    
+                    let formData = {
+                        productName: form.productName.value,
+                        productOfferPercentage: form.productOfferPercentage.value,
+                        startDate: form.startDate.value,
+                        endDate: form.endDate.value
+                    }
+
+                    let response = await fetch('/admin/productOfferManagement/addOffer', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    })
+
+                    let result = await response.json()
+
+                    if (result.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Category offer succesfully added",
                             showConfirmButton: false,
                             timer: 3000
                         }).then(() => location.reload())

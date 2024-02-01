@@ -5,6 +5,9 @@
         <div class="col-2">
             <a href="/admin/salesReport/download/xlsx" class="btn btn-info">Download(xlsx)</a>
         </div>
+        <div class="col-2">
+            <div class="btn btn-info" id="downloadPDF">Download (PDF)</div>
+        </div>
         {{#if dateValues}}
         <div class="col-2">
             <label for="startDate">From: </label>
@@ -31,7 +34,7 @@
 </div>
 
 <div class="container pt-3">
-    <table id="example" class="display" style="width:100%">
+    <table id="salesReportTable" class="display" style="width:100%">
         <thead>
             <tr>
                 <th scope="col" class="border-dark">Order id</th>
@@ -63,7 +66,6 @@
                         <li>{{this.productQuantity}}</li>
                         {{/each}}
                     </ul>
-
                 </td>
                 <td>₹{{this.grandTotalCost}}</td>
                 <td>{{this.paymentType}}</td>
@@ -79,22 +81,23 @@
     {{!-- Table details --}}
     <script>
         $(document).ready(function () {
-            $('#example').DataTable();
+            $('#salesReportTable').DataTable();
         });
     </script>
 
+
     <script>
-        let startDate= document.getElementById('startDate')
-        let endDate= document.getElementById('endDate')
+        let startDate = document.getElementById('startDate')
+        let endDate = document.getElementById('endDate')
 
         startDate.addEventListener('change', function () {
-        let startDateValue = startDate.value;
-        endDate.setAttribute('min', startDateValue);
+            let startDateValue = startDate.value;
+            endDate.setAttribute('min', startDateValue);
         });
 
         endDate.addEventListener('change', function () {
-        let endDateValue = endDate.value;
-        startDate.setAttribute('max', endDateValue);
+            let endDateValue = endDate.value;
+            startDate.setAttribute('max', endDateValue);
         });
 
     </script>
@@ -119,9 +122,14 @@
 
             if (result.success) {
                 console.log('hello')
-               location.reload()
+                location.reload()
             }
         })
+    </script>
+
+    <script>
+        let downloadPDF = document.getElementById('downloadPDF')
+        downloadPDF.addEventListener('click', () =>  window.print() )
     </script>
 
 </allScripts>

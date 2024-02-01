@@ -84,6 +84,11 @@
                 <span class="discount">{{this.productOfferPercentage}}% OFF</span>
               </div>
               {{/if}}
+               {{#if (equal this.productStock 0)}}
+              <div class="promotion">
+                <span class="discount">OUT OF STOCK!</span>
+              </div>
+              {{/if}}
             </div>
             <div class="description">
               <h4>

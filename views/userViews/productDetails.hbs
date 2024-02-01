@@ -739,18 +739,19 @@
 
         <div class="cart-actions">
           <div class="addto row">
+            {{#if (equal (arrayLength productQtyLimit) 0 )}}
+            {{else}}
             <form action="/addToCart/{{currentProduct._id}}" method="POST">
               <div class="col-lg-4 col-sm-4 col-xs-4">
                 <div class="filterBox">
                   <label for="qty">Quantity</label>
                   <select id="qty" class="form-control" name="productQuantity">
-                    {{#if productQtyLimit}}
-                    {{#each productQtyLimit}}
-                    <option value=1>{{this}}</option>
-                    {{/each}}
-                    {{else}}
                     <span class="text-danger">Out of stock!</span>
-                    {{/if}}
+                    
+                    {{#each productQtyLimit}}
+                    <option value={{sum @index 1}}>{{this}}</option>
+                    {{/each}}
+                    
                   </select>
                 </div>
               </div>
@@ -761,17 +762,19 @@
                 </button>
               </div>
             </form>
+            {{/if}}
             {{!-- <div id="wishlist" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
               <a class="link-wishlist wishlist btn-block ">Add to Wishlist</a>
             </div> --}}
           </div>
           <div style="clear:both"></div>
-          <h3 class="incaps"><i class="fa fa fa-check-circle-o color-in"></i> In stock</h3>
-
-          <h3 style="display:none" class="incaps"><i class="fa fa-minus-circle color-out"></i> Out of stock
+          {{#if (equal (arrayLength productQtyLimit) 0 )}}
+          <h3 class="incaps"><i class="fa fa-minus-circle color-out"></i> Out of stock
           </h3>
-
+          {{else}}
+          <h3 class="incaps"><i class="fa fa fa-check-circle-o color-in"></i> In stock</h3>
           <h3 class="incaps"><i class="glyphicon glyphicon-lock"></i> Secure online ordering</h3>
+          {{/if}}
         </div>
 
       </div>
@@ -919,22 +922,13 @@
   <script>
     addedToCartSwal = () => {
       Swal.fire({
-        position: "top-end",
         icon: "success",
-        title: "Your work has been saved",
+        title: "Successfully added to cart",
         showConfirmButton: false,
         timer: 750
       });
     }
   </script>
-
-  <script>
-    const wishlistElement = document.getElementById('wishlist')
-
-  </script>
-
-
-
 
 </body>
 

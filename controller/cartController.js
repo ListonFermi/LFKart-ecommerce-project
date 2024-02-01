@@ -38,6 +38,7 @@ module.exports = {
   //product page - add to cart option
   addToCart: async (req, res) => {
     try {
+      console.log(req.body);
       let existingProduct = await cartCollection.findOne({
         userId: req.session.currentUser._id,
         productId: req.params.id,
@@ -45,17 +46,16 @@ module.exports = {
       if (existingProduct)
         await cartCollection.updateOne(
           { _id: existingProduct._id },
-          { $inc: { productQuantity: 1 } }
+          { $inc: { productQuantity: req.body.productQuantity } }
         );
       else
         await cartCollection.insertMany([
           {
             userId: req.session.currentUser._id,
             productId: req.params.id,
-            productQuantity: req.body.productQuantity,
+            productQuantity: req.body.productQuantity
           },
         ]);
-      console.log(req.body);
       res.redirect("back");
     } catch (error) {
       console.log(error);
@@ -171,17 +171,18 @@ module.exports = {
         const userData = await userCollection.findOne({
           _id: req.session.currentUser._id,
         });
-        console.log("userData" + userData);
         if (userData.wallet >= req.session.grandTotal) {
           userData.wallet -= req.session.grandTotal;
           await userData.save();
-          console.log("userData" + userData);
           res.json({ success: true });
         } else {
           return res.json({ insufficientWalletBalance: true });
         }
       } else {
         //incase of COD
+        console.log(
+          await orderCollection.findOne({ _id: req.session.currentOrder._id })
+        );
         await orderCollection.updateOne(
           { _id: req.session.currentOrder._id },
           {
@@ -201,6 +202,13 @@ module.exports = {
     let cartData = await cartCollection
       .find({ userId: req.session.currentUser._id })
       .populate("productId");
+
+    //reducing from stock qty
+    cartData.map(async (v) => {
+      v.productId.productStock -= v.productQuantity;
+      await v.productId.save();
+      return v;
+    });
 
     console.log("rendering next");
     res.render("userViews/orderPlacedPage", {
@@ -239,9 +247,9 @@ module.exports = {
           */
           let { discountPercentage, maximumDiscount } = couponData;
           let discountAmount =
-            grandTotal * discountPercentage/100 > maximumDiscount
+            (grandTotal * discountPercentage) / 100 > maximumDiscount
               ? maximumDiscount
-              : grandTotal * discountPercentage/100;
+              : (grandTotal * discountPercentage) / 100;
 
           let { currentOrder } = req.session;
           await orderCollection.findByIdAndUpdate(
