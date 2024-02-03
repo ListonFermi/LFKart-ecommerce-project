@@ -16,15 +16,19 @@ module.exports = {
       const categoryData = await categoryCollection.find({ isListed: true });
       const productData = await productCollection.find({ isListed: true });
       const bannerData= await bannerCollection.find()
+      const cartData= await cartCollection.find({ userId: req.session?.currentUser?._id }).populate('productId')
 
-      console.log(await applyProductOffers('landingPage'));
-      
+      console.log('cartData:');
+      console.log(cartData);
+
+      await applyProductOffers('landingPage')
       
       res.render("userViews/landingPage", {
         currentUser: req.session.currentUser,
         categoryData,
         productData,
-        bannerData
+        bannerData,
+        cartData
       });
     } catch (error) {
       console.error(error);

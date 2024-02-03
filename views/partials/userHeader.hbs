@@ -368,10 +368,12 @@
           <span class="icon-bar"> </span>
           <span class="icon-bar"> </span>
         </button>
-        {{!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
+        {{#if currentUser}}
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
           <i class="fa fa-shopping-cart colorWhite"> </i>
-           <span class="cartRespons colorWhite"> Cart (₹210.00) </span>
-        </button> --}}
+           <span class="cartRespons colorWhite"> Cart </span>
+        </button>
+        {{/if}}
         <a class="navbar-brand" href="/">
           <img src="/images/logo.png" alt="LF-Kart" style="width: 115px; height: 50px" />
         </a>
@@ -388,181 +390,40 @@
       </div>
 
       <!-- this part is duplicate from cartMenu  keep it for mobile -->
+      {{#if currentUser}}
       <div class="navbar-cart collapse">
         <div class="cartMenu col-lg-4 col-xs-12 col-md-4">
           <div class="w100 miniCartTable scroll-pane">
-            {{!-- <table>
+            <table>
               <tbody>
+                {{#each cartData}}
                 <tr class="miniCartProduct">
                   <td style="width: 20%" class="miniCartProductThumb">
                     <div>
                       <a href="/product-details.html">
-                        <img src="/images/product/3.jpg" alt="img" />
+                        <img src="images/productImages/{{this.productId.productImage1}}" alt="img" />
                       </a>
                     </div>
                   </td>
                   <td style="width: 40%">
                     <div class="miniCartDescription">
                       <h4>
-                        <a href="product-details.html">
-                          TSHOP T shirt Black
-                        </a>
+                        <a href="product-details.html">{{this.productId.productName}}</a>
                       </h4>
-                      <span class="size"> 12 x 1.5 L </span>
-
-                      <div class="price"><span> ₹8.80 </span></div>
+                      <div class="price"><span> ₹{{this.productId.productPrice}} </span></div>
                     </div>
                   </td>
                   <td style="width: 10%" class="miniCartQuantity">
-                    <a> X 1 </a>
+                    <a> X {{this.productId.productQuantity}} </a>
                   </td>
                   <td style="width: 15%" class="miniCartSubtotal">
-                    <span> ₹8.80 </span>
+                    <span> ₹{{this.productId.totalCostPerProduct}} </span>
                   </td>
                   <td style="width: 5%" class="delete"><a> x </a></td>
                 </tr>
-                <tr class="miniCartProduct">
-                  <td style="width: 20%" class="miniCartProductThumb">
-                    <div>
-                      <a href="product-details.html">
-                        <img src="/images/product/2.jpg" alt="img" />
-                      </a>
-                    </div>
-                  </td>
-                  <td style="width: 40%">
-                    <div class="miniCartDescription">
-                      <h4>
-                        <a href="product-details.html">
-                          TSHOP T shirt Black
-                        </a>
-                      </h4>
-                      <span class="size"> 12 x 1.5 L </span>
-
-                      <div class="price"><span> ₹8.80 </span></div>
-                    </div>
-                  </td>
-                  <td style="width: 10%" class="miniCartQuantity">
-                    <a> X 1 </a>
-                  </td>
-                  <td style="width: 15%" class="miniCartSubtotal">
-                    <span> ₹8.80 </span>
-                  </td>
-                  <td style="width: 5%" class="delete"><a> x </a></td>
-                </tr>
-                <tr class="miniCartProduct">
-                  <td style="width: 20%" class="miniCartProductThumb">
-                    <div>
-                      <a href="product-details.html">
-                        <img src="images/product/5.jpg" alt="img" />
-                      </a>
-                    </div>
-                  </td>
-                  <td style="width: 40%">
-                    <div class="miniCartDescription">
-                      <h4>
-                        <a href="product-details.html">
-                          TSHOP T shirt Black
-                        </a>
-                      </h4>
-                      <span class="size"> 12 x 1.5 L </span>
-
-                      <div class="price"><span> ₹8.80 </span></div>
-                    </div>
-                  </td>
-                  <td style="width: 10%" class="miniCartQuantity">
-                    <a> X 1 </a>
-                  </td>
-                  <td style="width: 15%" class="miniCartSubtotal">
-                    <span> ₹8.80 </span>
-                  </td>
-                  <td style="width: 5%" class="delete"><a> x </a></td>
-                </tr>
-                <tr class="miniCartProduct">
-                  <td style="width: 20%" class="miniCartProductThumb">
-                    <div>
-                      <a href="product-details.html">
-                        <img src="images/product/3.jpg" alt="img" />
-                      </a>
-                    </div>
-                  </td>
-                  <td style="width: 40%">
-                    <div class="miniCartDescription">
-                      <h4>
-                        <a href="product-details.html">
-                          TSHOP T shirt Black
-                        </a>
-                      </h4>
-                      <span class="size"> 12 x 1.5 L </span>
-
-                      <div class="price"><span> ₹8.80 </span></div>
-                    </div>
-                  </td>
-                  <td style="width: 10%" class="miniCartQuantity">
-                    <a> X 1 </a>
-                  </td>
-                  <td style="width: 15%" class="miniCartSubtotal">
-                    <span> ₹8.80 </span>
-                  </td>
-                  <td style="width: 5%" class="delete"><a> x </a></td>
-                </tr>
-                <tr class="miniCartProduct">
-                  <td style="width: 20%" class="miniCartProductThumb">
-                    <div>
-                      <a href="product-details.html">
-                        <img src="images/product/3.jpg" alt="img" />
-                      </a>
-                    </div>
-                  </td>
-                  <td style="width: 40%">
-                    <div class="miniCartDescription">
-                      <h4>
-                        <a href="product-details.html">
-                          TSHOP T shirt Black
-                        </a>
-                      </h4>
-                      <span class="size"> 12 x 1.5 L </span>
-
-                      <div class="price"><span> ₹8.80 </span></div>
-                    </div>
-                  </td>
-                  <td style="width: 10%" class="miniCartQuantity">
-                    <a> X 1 </a>
-                  </td>
-                  <td style="width: 15%" class="miniCartSubtotal">
-                    <span> ₹8.80 </span>
-                  </td>
-                  <td style="width: 5%" class="delete"><a> x </a></td>
-                </tr>
-                <tr class="miniCartProduct">
-                  <td style="width: 20%" class="miniCartProductThumb">
-                    <div>
-                      <a href="product-details.html">
-                        <img src="images/product/4.jpg" alt="img" />
-                      </a>
-                    </div>
-                  </td>
-                  <td style="width: 40%">
-                    <div class="miniCartDescription">
-                      <h4>
-                        <a href="product-details.html">
-                          TSHOP T shirt Black
-                        </a>
-                      </h4>
-                      <span class="size"> 12 x 1.5 L </span>
-
-                      <div class="price"><span> ₹8.80 </span></div>
-                    </div>
-                  </td>
-                  <td style="width: 10%" class="miniCartQuantity">
-                    <a> X 1 </a>
-                  </td>
-                  <td style="width: 15%" class="miniCartSubtotal">
-                    <span> ₹8.80 </span>
-                  </td>
-                  <td style="width: 5%" class="delete"><a> x </a></td>
-                </tr>
+                {{/each}}
               </tbody>
-            </table> --}}
+            </table>
           </div>
           <!--/.miniCartTable-->
 
@@ -572,7 +433,7 @@
               <i class="fa fa-shopping-cart"> </i>
               VIEW CART
             </a>
-            <a href="checkout-0.html" class="btn btn-sm btn-primary">
+            <a href="/checkout" class="btn btn-sm btn-primary">
               CHECKOUT
             </a>
           </div>
@@ -580,27 +441,30 @@
         </div>
         <!--/.cartMenu-->
       </div>
+      {{/if}}
       <!--/.navbar-cart-->
 
+      {{#if currentUser}}
       <div class="navbar-collapse collapse">
         <!--- will be hidden for mobile version -->
         <div class="nav navbar-nav navbar-right hidden-xs">
           <div class="dropdown cartMenu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-shopping-cart"> </i>
-              {{!-- <span class="cartRespons"> Cart (₹210.00) </span> --}}
+              <span class="cartRespons"> Cart</span>
               <b class="caret"> </b>
             </a>
 
             <div class="dropdown-menu col-lg-4 col-xs-12 col-md-4">
               <div class="w100 miniCartTable scroll-pane">
-                {{!-- <table>
+                <table>
                   <tbody>
+                    {{#each cartData}}
                     <tr class="miniCartProduct">
                       <td style="width: 20%" class="miniCartProductThumb">
                         <div>
                           <a href="product-details.html">
-                            <img src="images/product/3.jpg" alt="img" />
+                            <img src="images/productImages/{{this.productId.productImage1}}" alt="img" />
                           </a>
                         </div>
                       </td>
@@ -608,160 +472,23 @@
                         <div class="miniCartDescription">
                           <h4>
                             <a href="product-details.html">
-                              TSHOP Tshirt DO9
+                              {{this.productId.productName}}
                             </a>
                           </h4>
-                          <span class="size"> 12 x 1.5 L </span>
-
-                          <div class="price"><span> ₹22 </span></div>
+                          <div class="price"><span> ₹{{this.productId.productPrice}} </span></div>
                         </div>
                       </td>
                       <td style="width: 10%" class="miniCartQuantity">
-                        <a> X 1 </a>
+                        <a> X {{this.productQuantity}} </a>
                       </td>
                       <td style="width: 15%" class="miniCartSubtotal">
-                        <span> ₹33 </span>
+                        <span> ₹{{this.totalCostPerProduct}} </span>
                       </td>
                       <td style="width: 5%" class="delete"><a> x </a></td>
                     </tr>
-                    <tr class="miniCartProduct">
-                      <td style="width: 20%" class="miniCartProductThumb">
-                        <div>
-                          <a href="product-details.html">
-                            <img src="images/product/2.jpg" alt="img" />
-                          </a>
-                        </div>
-                      </td>
-                      <td style="width: 40%">
-                        <div class="miniCartDescription">
-                          <h4>
-                            <a href="product-details.html">
-                              TShir TSHOP 09
-                            </a>
-                          </h4>
-                          <span class="size"> 12 x 1.5 L </span>
-
-                          <div class="price"><span> ₹15 </span></div>
-                        </div>
-                      </td>
-                      <td style="width: 10%" class="miniCartQuantity">
-                        <a> X 1 </a>
-                      </td>
-                      <td style="width: 15%" class="miniCartSubtotal">
-                        <span> ₹120 </span>
-                      </td>
-                      <td style="width: 5%" class="delete"><a> x </a></td>
-                    </tr>
-                    <tr class="miniCartProduct">
-                      <td style="width: 20%" class="miniCartProductThumb">
-                        <div>
-                          <a href="product-details.html">
-                            <img src="images/product/5.jpg" alt="img" />
-                          </a>
-                        </div>
-                      </td>
-                      <td style="width: 40%">
-                        <div class="miniCartDescription">
-                          <h4>
-                            <a href="product-details.html"> Tshir 2014 </a>
-                          </h4>
-                          <span class="size"> 12 x 1.5 L </span>
-
-                          <div class="price"><span> ₹30 </span></div>
-                        </div>
-                      </td>
-                      <td style="width: 10%" class="miniCartQuantity">
-                        <a> X 1 </a>
-                      </td>
-                      <td style="width: 15%" class="miniCartSubtotal">
-                        <span> ₹80 </span>
-                      </td>
-                      <td style="width: 5%" class="delete"><a> x </a></td>
-                    </tr>
-                    <tr class="miniCartProduct">
-                      <td style="width: 20%" class="miniCartProductThumb">
-                        <div>
-                          <a href="product-details.html">
-                            <img src="images/product/3.jpg" alt="img" />
-                          </a>
-                        </div>
-                      </td>
-                      <td style="width: 40%">
-                        <div class="miniCartDescription">
-                          <h4>
-                            <a href="product-details.html">
-                              TSHOP T shirt DO20
-                            </a>
-                          </h4>
-                          <span class="size"> 12 x 1.5 L </span>
-
-                          <div class="price"><span> ₹15 </span></div>
-                        </div>
-                      </td>
-                      <td style="width: 10%" class="miniCartQuantity">
-                        <a> X 1 </a>
-                      </td>
-                      <td style="width: 15%" class="miniCartSubtotal">
-                        <span> ₹55 </span>
-                      </td>
-                      <td style="width: 5%" class="delete"><a> x </a></td>
-                    </tr>
-                    <tr class="miniCartProduct">
-                      <td style="width: 20%" class="miniCartProductThumb">
-                        <div>
-                          <a href="product-details.html">
-                            <img src="images/product/4.jpg" alt="img" />
-                          </a>
-                        </div>
-                      </td>
-                      <td style="width: 40%">
-                        <div class="miniCartDescription">
-                          <h4>
-                            <a href="product-details.html"> T shirt Black </a>
-                          </h4>
-                          <span class="size"> 12 x 1.5 L </span>
-
-                          <div class="price"><span> ₹44 </span></div>
-                        </div>
-                      </td>
-                      <td style="width: 10%" class="miniCartQuantity">
-                        <a> X 1 </a>
-                      </td>
-                      <td style="width: 15%" class="miniCartSubtotal">
-                        <span> ₹40 </span>
-                      </td>
-                      <td style="width: 5%" class="delete"><a> x </a></td>
-                    </tr>
-                    <tr class="miniCartProduct">
-                      <td style="width: 20%" class="miniCartProductThumb">
-                        <div>
-                          <a href="product-details.html">
-                            <img src="images/site/winter.jpg" alt="img" />
-                          </a>
-                        </div>
-                      </td>
-                      <td style="width: 40%">
-                        <div class="miniCartDescription">
-                          <h4>
-                            <a href="product-details.html">
-                              G Star T shirt
-                            </a>
-                          </h4>
-                          <span class="size"> 12 x 1.5 L </span>
-
-                          <div class="price"><span> ₹80 </span></div>
-                        </div>
-                      </td>
-                      <td style="width: 10%" class="miniCartQuantity">
-                        <a> X 1 </a>
-                      </td>
-                      <td style="width: 15%" class="miniCartSubtotal">
-                        <span> ₹8.80 </span>
-                      </td>
-                      <td style="width: 5%" class="delete"><a> x </a></td>
-                    </tr>
+                    {{/each}}
                   </tbody>
-                </table> --}}
+                </table>
               </div>
               <!--/.miniCartTable-->
 
@@ -770,7 +497,7 @@
                 <a class="btn btn-sm btn-danger" href="/cart">
                   <i class="fa fa-shopping-cart"> </i>
                   VIEW CART
-                </a><a class="btn btn-sm btn-primary"> CHECKOUT </a>
+                </a><a class="btn btn-sm btn-primary" href="/checkout"> CHECKOUT </a>
               </div>
               <!--/.miniCartFooter-->
             </div>
@@ -790,6 +517,7 @@
         </div>
         <!--/.navbar-nav hidden-xs-->
       </div>
+      {{/if}}
       <!--/.nav-collapse -->
     </div>
     <!--/.container -->

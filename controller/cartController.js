@@ -53,7 +53,7 @@ module.exports = {
           {
             userId: req.session.currentUser._id,
             productId: req.params.id,
-            productQuantity: req.body.productQuantity
+            productQuantity: req.body.productQuantity,
           },
         ]);
       res.redirect("back");
@@ -120,21 +120,26 @@ module.exports = {
         userId: req.session.currentUser._id,
       });
 
-      //creating an order in database with default address, before cod or razor pay is chosen
-      req.session.currentOrder = await orderCollection.create({
-        userId: req.session.currentUser._id,
-        orderNumber: (await orderCollection.countDocuments()) + 1,
-        orderDate: new Date(),
-        addressChosen: JSON.parse(JSON.stringify(addressData[0])), //default address
-        cartData: await grandTotal(req),
-        grandTotalCost: req.session.grandTotal,
-      });
+      if (addressData.length>0) {
+        //creating an order in database with default address, before cod or razor pay is chosen
+        req.session.currentOrder = await orderCollection.create({
+          userId: req.session.currentUser._id,
+          orderNumber: (await orderCollection.countDocuments()) + 1,
+          orderDate: new Date(),
+          addressChosen: JSON.parse(JSON.stringify(addressData[0])), //default address
+          cartData: await grandTotal(req),
+          grandTotalCost: req.session.grandTotal,
+        });
 
-      res.render("userViews/checkoutPage", {
-        currentUser: req.session.currentUser,
-        grandTotal: req.session.grandTotal,
-        addressData,
-      });
+        res.render("userViews/checkoutPage", {
+          currentUser: req.session.currentUser,
+          grandTotal: req.session.grandTotal,
+          addressData,
+        });
+      }else{
+        req.session.addressPageFrom = 'cart'
+        res.redirect('/account/addAddress')
+      }
     } catch (error) {
       console.error(error);
     }

@@ -123,7 +123,13 @@ module.exports = {
         phone: req.body.phone,
       };
       await addressCollection.insertMany([address]);
-      res.redirect("..");
+
+      if(req.session.addressPageFrom == 'cart'){
+        req.session.addressPageFrom =null
+        return res.redirect('/cart')
+      }
+      
+      return res.redirect("/account");
     } catch (error) {
       console.error(error);
     }

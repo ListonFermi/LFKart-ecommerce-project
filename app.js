@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-hbs.registerPartials(__dirname + '/views/partials', function (err) { console.log(err);});
+hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper("product", (val1, val2) => val1 * val2);
 hbs.registerHelper("sum", (val1, val2) => val1 + val2);
 hbs.registerHelper("equal", (val1, val2) => val1 == val2);
@@ -50,7 +50,7 @@ app.use(userRoutes);
 app.use("/admin", adminRoutes);
 
 //listening to the port
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`Server running in port: https://localhost:${PORT}`)
 );
