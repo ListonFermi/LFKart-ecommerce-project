@@ -38,7 +38,6 @@ module.exports = {
   //product page - add to cart option
   addToCart: async (req, res) => {
     try {
-      console.log(req.body);
       let existingProduct = await cartCollection.findOne({
         userId: req.session.currentUser._id,
         productId: req.params.id,
@@ -56,7 +55,7 @@ module.exports = {
             productQuantity: req.body.productQuantity,
           },
         ]);
-      res.redirect("back");
+      res.status(200).json({ success: true });
     } catch (error) {
       console.log(error);
     }
@@ -64,10 +63,10 @@ module.exports = {
   //cart page - show cart page
   cart: async (req, res) => {
     try {
-      let userCartData = await grandTotal(req);
+      let cartData = await grandTotal(req);
       res.render("userViews/cart", {
         currentUser: req.session.currentUser,
-        userCartData,
+        cartData,
         grandTotal: req.session.grandTotal,
       });
     } catch (error) {
@@ -120,7 +119,7 @@ module.exports = {
         userId: req.session.currentUser._id,
       });
 
-      if (addressData.length>0) {
+      if (addressData.length > 0) {
         //creating an order in database with default address, before cod or razor pay is chosen
         req.session.currentOrder = await orderCollection.create({
           userId: req.session.currentUser._id,
@@ -136,9 +135,9 @@ module.exports = {
           grandTotal: req.session.grandTotal,
           addressData,
         });
-      }else{
-        req.session.addressPageFrom = 'cart'
-        res.redirect('/account/addAddress')
+      } else {
+        req.session.addressPageFrom = "cart";
+        res.redirect("/account/addAddress");
       }
     } catch (error) {
       console.error(error);
