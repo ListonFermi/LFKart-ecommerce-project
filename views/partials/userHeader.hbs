@@ -391,6 +391,8 @@
 
       <!-- this part is duplicate from cartMenu  keep it for mobile -->
       {{#if cartData}}
+      {{#if (equal (arrayLength cartData) 0 )}}
+      {{else}}
       <div class="navbar-cart collapse">
         <div class="cartMenu col-lg-4 col-xs-12 col-md-4">
           <div class="w100 miniCartTable scroll-pane">
@@ -442,9 +444,12 @@
         <!--/.cartMenu-->
       </div>
       {{/if}}
+      {{/if}}
       <!--/.navbar-cart-->
 
-      {{#if currentUser}}
+      {{#if cartData}}
+      {{#if (equal (arrayLength cartData) 0 )}}
+      {{else}}
       <div class="navbar-collapse collapse">
         <!--- will be hidden for mobile version -->
         <div class="nav navbar-nav navbar-right hidden-xs">
@@ -517,6 +522,7 @@
         </div>
         <!--/.navbar-nav hidden-xs-->
       </div>
+      {{/if}}
       {{/if}}
       <!--/.nav-collapse -->
     </div>

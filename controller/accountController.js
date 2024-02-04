@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const userCollection = require("../models/userModels");
 const formatDate = require("../helpers/formatDateHelper.js");
 const { generateInvoice } = require("../services/generatePDF.js");
+const walletCollection = require("../models/walletModel.js");
 
 module.exports = {
   //account
@@ -12,9 +13,21 @@ module.exports = {
       let userData = await userCollection.findOne({
         _id: req.session.currentUser._id,
       });
+      let walletData = await walletCollection.findOne({
+        userId: req.session.currentUser._id,
+      });
+
+      //sending the formatted date to the page
+      walletData.walletTransaction = walletData.walletTransaction.map((v) => {
+        v.transactionDateFormatted = formatDate(v.transactionDate);
+        return v;
+      });
+
+
       res.render("userViews/account", {
         currentUser: req.session.currentUser,
         userData,
+        walletData,
       });
     } catch (error) {
       console.error(error);
@@ -33,7 +46,10 @@ module.exports = {
         return v;
       });
 
-      res.render("userViews/orderList", { currentUser: req.session.currentUser , orderData });
+      res.render("userViews/orderList", {
+        currentUser: req.session.currentUser,
+        orderData,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +60,11 @@ module.exports = {
         .findOne({ _id: req.params.id })
         .populate("addressChosen");
       let isCancelled = orderData.orderStatus == "Cancelled";
-      res.render("userViews/orderStatus", { currentUser: req.session.currentUser , orderData, isCancelled });
+      res.render("userViews/orderStatus", {
+        currentUser: req.session.currentUser,
+        orderData,
+        isCancelled,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -59,12 +79,20 @@ module.exports = {
         { $set: { orderStatus: "Cancelled" } }
       );
 
-      console.log(
-        await userCollection.findByIdAndUpdate(
-          { _id: req.session.currentUser._id },
-          { $inc: { wallet: orderData.grandTotalCost } }
-        )
+      let walletTransaction = {
+        transactionDate : new Date(),
+        transactionAmount: orderData.grandTotalCost,
+        transactionType: "Refund from cancelled Order",
+      };
+
+      await walletCollection.findOneAndUpdate(
+        { userId: req.session.currentUser._id },
+        {
+          $inc: { walletBalance: orderData.grandTotalCost },
+          $push: {walletTransaction},
+        }
       );
+
       res.json({ success: true });
     } catch (error) {
       console.error(error);
@@ -72,7 +100,9 @@ module.exports = {
   },
   downloadInvoice: async (req, res) => {
     try {
-      let orderData = await orderCollection.findOne({ _id: req.params.id }).populate('addressChosen');
+      let orderData = await orderCollection
+        .findOne({ _id: req.params.id })
+        .populate("addressChosen");
 
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
@@ -124,11 +154,11 @@ module.exports = {
       };
       await addressCollection.insertMany([address]);
 
-      if(req.session.addressPageFrom == 'cart'){
-        req.session.addressPageFrom =null
-        return res.redirect('/cart')
+      if (req.session.addressPageFrom == "cart") {
+        req.session.addressPageFrom = null;
+        return res.redirect("/cart");
       }
-      
+
       return res.redirect("/account");
     } catch (error) {
       console.error(error);

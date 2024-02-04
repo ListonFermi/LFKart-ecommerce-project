@@ -2515,7 +2515,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
     z-index: 2;
 }
 
-.style2 .section-title span, .section-title.style2 span, {
+.style2 .section-title span, .section-title.style2 span {
     color: #454545;
     display: table;
     position: relative;

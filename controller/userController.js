@@ -7,7 +7,8 @@ const productCollection = require("../models/productModels.js");
 const cartCollection = require("../models/cartModel.js");
 const bannerCollection = require("../models/bannerModel.js");
 const applyProductOffers = require("../helpers/applyProductOffers.js").applyProductOffer;
-const applyReferralOffer= require('../helpers/applyReferralOffer.js')
+const applyReferralOffer= require('../helpers/applyReferralOffer.js');
+const walletCollection = require("../models/walletModel.js");
 
 module.exports = {
   //signup-login
@@ -106,6 +107,9 @@ module.exports = {
       if(tempUserReferralCode){
         await applyReferralOffer(tempUserReferralCode)
       }
+
+      //creating a wallet document for the new user
+      await walletCollection.create({ userId : req.session.currentUser._id })
 
       res.redirect("/");
     } catch (error) {

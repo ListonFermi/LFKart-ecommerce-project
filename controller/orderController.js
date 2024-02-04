@@ -1,5 +1,6 @@
 const orderCollection = require("../models/orderModel")
 const userCollection = require("../models/userModels")
+const walletCollection = require("../models/walletModel")
 
 module.exports={
     //admin side- orderManagement
@@ -58,11 +59,14 @@ module.exports={
     changeStatusCancelled: async(req,res)=>{
         try {
             let orderData= await orderCollection.findOne( { _id: req.params.id } ).populate('userId')
-            await userCollection.findByIdAndUpdate( { _id: orderData.userId._id  }, { wallet: orderData.grandTotalCost } )
+
+            await walletCollection.findOneAndUpdate( { userId : orderData.userId._id  }, { walletBalance: orderData.grandTotalCost })
+
             await orderCollection.findOneAndUpdate(
                 { _id: req.params.id },
                 { $set: { orderStatus: 'Cancelled' } }
             )
+            
             res.redirect('/admin/orderManagement')
         } catch (error) {
             console.error(error)

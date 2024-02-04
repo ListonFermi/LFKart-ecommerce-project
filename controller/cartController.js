@@ -3,6 +3,7 @@ const cartCollection = require("../models/cartModel.js");
 const couponCollection = require("../models/couponModel.js");
 const orderCollection = require("../models/orderModel.js");
 const userCollection = require("../models/userModels.js");
+const walletCollection = require("../models/walletModel.js");
 const razorpay = require("../services/razorpay.js");
 
 //updating totalCostPerProduct and grand total in cart-page
@@ -172,21 +173,36 @@ module.exports = {
         );
         res.redirect("/checkout/orderPlacedEnd");
       } else if (req.body.walletPayment) {
-        const userData = await userCollection.findOne({
-          _id: req.session.currentUser._id,
+        const walletData = await walletCollection.findOne({
+          userId : req.session.currentUser._id,
         });
-        if (userData.wallet >= req.session.grandTotal) {
-          userData.wallet -= req.session.grandTotal;
-          await userData.save();
+        if (walletData.walletBalance >= req.session.grandTotal) {
+          walletData.walletBalance -= req.session.grandTotal;
+
+          //wallet tranaction data
+          let walletTransaction = {
+            transactionDate : new Date(),
+            transactionAmount: -req.session.grandTotal,
+            transactionType: "Debited for placed order",
+          };
+          walletData.walletTransaction.push(walletTransaction)
+          await walletData.save();
+
+          await orderCollection.updateOne(
+            { _id: req.session.currentOrder._id },
+            {
+              $set: {
+                paymentId: Math.floor(Math.random() * 9000000000) + 1000000000 ,
+                paymentType: "Wallet",
+              },
+            })
+
           res.json({ success: true });
         } else {
           return res.json({ insufficientWalletBalance: true });
         }
       } else {
         //incase of COD
-        console.log(
-          await orderCollection.findOne({ _id: req.session.currentOrder._id })
-        );
         await orderCollection.updateOne(
           { _id: req.session.currentOrder._id },
           {
@@ -196,6 +212,7 @@ module.exports = {
             },
           }
         );
+
         res.json({ success: true });
       }
     } catch (error) {
@@ -214,8 +231,14 @@ module.exports = {
       return v;
     });
 
-    console.log("rendering next");
+    let orderData= await orderCollection.findOne({ _id: req.session.currentOrder._id})
+    if(orderData.paymentType =='toBeChosen'){
+      orderData.paymentType = 'COD'
+      orderData.save()
+    }
+
     res.render("userViews/orderPlacedPage", {
+      currentUser: req.session.currentUser,
       orderCartData: cartData,
       orderData: req.session.currentOrder,
     });

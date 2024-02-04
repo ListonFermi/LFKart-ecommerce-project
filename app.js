@@ -24,12 +24,13 @@ app.use((req, res, next) => {
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper("product", (val1, val2) => val1 * val2);
 hbs.registerHelper("sum", (val1, val2) => val1 + val2);
+hbs.registerHelper("lessThan", (val1, val2) => val1 < val2);
 hbs.registerHelper("equal", (val1, val2) => val1 == val2);
 hbs.registerHelper("arrayLength", (val) => val.length);
 
 //setting view engine and giving the path of static pages
 app.set("view engine", "hbs");
-app.use(express.static("public"));
+app.use(express.static(__dirname + '/public'));
 app.use("/productDetails", express.static("public"));
 app.use("/account", express.static("public"));
 

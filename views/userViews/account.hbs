@@ -19,6 +19,10 @@
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
 
+        <!-- styles needed by footable  -->
+    <link href="assets/css/footable-0.1.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
+
 
     <link href="assets/css/ion.checkRadio.html" rel="stylesheet">
     <link href="assets/css/ion.checkRadio.cloudy.html" rel="stylesheet">
@@ -741,12 +745,70 @@
                 <div class="col-lg-9 col-md-9 col-sm-7 push-right">
                     <h1 class="section-title-inner"><span><i class="fa fa-list-alt"></i> Wallet</span></h1>
 
-                    <h1>Your Wallet Balance: ₹ {{userData.wallet}} </h1>
+                    <h1>Your Wallet Balance: ₹ {{walletData.walletBalance}} </h1>
                 </div>
                 <!--/row end-->
 
             </div>
 
+        </div>
+        <!--/row-->
+
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7">
+
+                <div class="row userInfo">
+                    <div class="col-lg-12">
+                        <h2 class="block-title-2"> Wallet Transaction history </h2>
+                    </div>
+
+                    <div style="clear:both"></div>
+                    {{#if walletData.walletTransaction}}
+                    <div class="col-xs-12 col-sm-12">
+                        <table class="footable">
+                            <thead>
+                                <tr>
+                                    <th data-class="expand" data-sort-initial="true"><span
+                                            title="table sorted by this column on load">S No</span></th>
+                                    <th data-hide="phone,tablet" data-sort-ignore="true">Date</th>
+                                    <th data-hide="phone,tablet" data-sort-ignore="true">Amount</th>
+                                    <th data-hide="phone,tablet"><strong>Details</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each walletData.walletTransaction}}
+                                <tr>
+                                    <td>{{sum @index 1}}</td>
+                                    <td>{{this.transactionDateFormatted}}</td>
+                                    {{#if (lessThan this.transactionAmount 0)}}
+                                    <td style="color: red;">-₹{{this.transactionAmount}}</td>
+                                    {{else}}
+                                    <td style="color: green;">+₹{{this.transactionAmount}}</td>
+                                    {{/if}}
+                                    <td>{{this.transactionType}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{else}}
+                    <h1>No wallet transactions yet!</h1>
+                    {{/if}}
+                    <div style="clear:both"></div>
+
+                    <div class="col-lg-12 clearfix">
+                        <ul class="pager">
+                            <li class="previous pull-right"><a href="/shop"> <i class="fa fa-home"></i> Go to Shop
+                                </a>
+                            </li>
+                            <li class="next pull-left"><a href="/account"> &larr; Back to My Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--/row end-->
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-5"></div>
         </div>
         <!--/row-->
 
@@ -771,7 +833,7 @@
 
     <script>
         let copyReferralCode = document.getElementById('copyReferralCode')
-        let copyText= document.getElementById('copyText')
+        let copyText = document.getElementById('copyText')
         copyReferralCode.addEventListener('click', () => {
             // Select the text field
             copyText.select();
