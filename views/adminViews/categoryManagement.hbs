@@ -140,7 +140,7 @@
 
                         <script>
                             let unlistBtn{{@index}}= document.getElementById('unlistBtn{{@index}}')
-                        unlistBtn{ { @index } }.addEventListener('click', (e) => {
+                            unlistBtn{{@index}}.addEventListener('click', (e) => {
                                 e.preventDefault()
 
                                 Swal.fire({
@@ -178,8 +178,9 @@
 
                         <script>
                             let listBtn{{@index}}= document.getElementById('listBtn{{@index}}')
-                        listBtn{ { @index } }.addEventListener('click', (e) => {
+                        listBtn{{@index}}.addEventListener('click', (e) => {
                                 e.preventDefault()
+                                console.log('hdfunndjf')
                                 Swal.fire({
                                     title: "Are you sure?",
                                     text: "You want to list {{this.categoryName}} ?!",

@@ -13,15 +13,14 @@ module.exports = {
       let userData = await userCollection.findOne({
         _id: req.session.currentUser._id,
       });
-      let walletData = await walletCollection.findOne({
-        userId: req.session.currentUser._id,
-      });
+      let walletData = await walletCollection.findOne({ userId: req.session.currentUser._id });
+
 
       //sending the formatted date to the page
       walletData.walletTransaction = walletData.walletTransaction.map((v) => {
         v.transactionDateFormatted = formatDate(v.transactionDate);
         return v;
-      });
+      }).reverse(); //reverse is for sorting the latest transactions
 
 
       res.render("userViews/account", {

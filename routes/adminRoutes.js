@@ -63,6 +63,7 @@ adminRouter.put('/couponManagement/editCoupon/:id', adminAuth, couponController.
 adminRouter.get('/productOfferManagement', adminAuth, offerController.productOfferManagement)
 adminRouter.post('/productOfferManagement/addOffer', adminAuth, offerController.addOffer)
 adminRouter.put('/productOfferManagement/editOffer/:id', adminAuth, offerController.editOffer)
+adminRouter.post('/productOfferManagement/categoryOffer', adminAuth, offerController.categoryOffer)
 
 //sales report
 adminRouter.get('/salesReport', adminAuth, salesReportController.salesReport)

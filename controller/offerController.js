@@ -1,4 +1,5 @@
 const productCollection = require("../models/productModels");
+const categoryCollection= require('../models/categoryModel')
 const productOfferCollection = require("../models/productOfferModel");
 const formatDate = require("../helpers/formatDateHelper.js");
 const applyProductOffers = require("../helpers/applyProductOffers.js").applyProductOffer;
@@ -23,9 +24,11 @@ module.exports = {
       });
 
       let productData = await productCollection.find();
+      let categoryData= await categoryCollection.find();
       res.render("adminViews/productOfferManagement", {
         productData,
         productOfferData,
+        categoryData
       });
     } catch (error) {
       console.error(error);
@@ -92,4 +95,12 @@ module.exports = {
       console.error(error);
     }
   },
+  categoryOffer: async (req, res) => {
+    try {
+      console.log(req.body);
+      res.json({success:true  })
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };

@@ -93,7 +93,7 @@
                                 <label for="categoryName" class="mb-2">Category Name: </label>
                                 <select name="categoryName" id="categoryName" class="form-select">
                                     {{#each categoryData}}
-                                    <option>{{this.categoryName}}</option>
+                                    <option value="{{this.categoryName}}">{{this.categoryName}}</option>
                                     {{/each}}
                                 </select>
                             </label>
@@ -421,25 +421,25 @@
                 submitHandler: async function (form, event) {
                     event.preventDefault()
 
-                    let productsUnderSelectedCategory =  {{productData}}.filter( v=> v.productName == form.categoryName  )
-                    
+                    /*let productsUnderSelectedCategory =  {{productData}}.filter( v=> (v.parentCategory == form.categoryName.value)  )*/
+
                     let formData = {
-                        productName: form.productName.value,
+                        categoryName : form.categoryName.value,
                         productOfferPercentage: form.productOfferPercentage.value,
                         startDate: form.startDate.value,
                         endDate: form.endDate.value
                     }
 
-                    let response = await fetch('/admin/productOfferManagement/addOffer', {
+                    let response = await fetch('/admin/productOfferManagement/categoryOffer', {
                         method: 'POST',
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(formData)
+                        body: JSON.stringify(formData) 
                     })
 
                     let result = await response.json()
 
                     if (result.success) {
-                        Swal.fire({
+                        await Swal.fire({
                             icon: "success",
                             title: "Category offer succesfully added",
                             showConfirmButton: false,
@@ -452,7 +452,7 @@
                             text: "Please try editing the offer of this particular product",
                         });
                     }
-                }
+                } 
             });
         });
     </script>

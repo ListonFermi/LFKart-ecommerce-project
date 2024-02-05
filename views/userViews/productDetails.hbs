@@ -249,7 +249,7 @@
         {{#if currentUser}}
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
           <i class="fa fa-shopping-cart colorWhite"> </i>
-           <span class="cartRespons colorWhite"> Cart </span>
+          <span class="cartRespons colorWhite"> Cart </span>
         </button>
         {{/if}}
         <a class="navbar-brand" href="/">
@@ -264,7 +264,7 @@
             </button>
           </div>
           <!-- /input-group -->
-        </div>  --}}
+        </div> --}}
       </div>
 
       <!-- this part is duplicate from cartMenu  keep it for mobile -->
@@ -279,7 +279,7 @@
                   <td style="width: 30%" class="miniCartProductThumb">
                     <div>
                       <a href="/product-details.html">
-                        <img src="images/productImages/{{this.productId.productImage1}}" alt="img" />
+                        <img src="images/uploads/{{this.productId.productImage1}}" alt="img" />
                       </a>
                     </div>
                   </td>
@@ -342,7 +342,7 @@
                       <td style="width: 30%" class="miniCartProductThumb">
                         <div>
                           <a href="product-details.html">
-                            <img src="images/productImages/{{this.productId.productImage1}}" alt="img" />
+                            <img src="images/uploads/{{this.productId.productImage1}}" alt="img" />
                           </a>
                         </div>
                       </td>
@@ -433,13 +433,15 @@
       <div class="col-lg-6 col-md-6 col-sm-6">
         <!-- product Image and Zoom -->
         <div class="main-image sp-wrap col-lg-12 no-padding">
-
-          <a href="images/productImages/{{currentProduct.productImage1}}"><img
-              src="images/productImages/{{currentProduct.productImage1}}" class="img-responsive" alt="img"></a>
-          <a href="images/productImages/{{currentProduct.productImage2}}"><img
-              src="images/productImages/{{currentProduct.productImage2}}" class="img-responsive" alt="img"></a>
-          <a href="images/productImages/{{currentProduct.productImage3}}"><img
-              src="images/productImages/{{currentProduct.productImage3}}" class="img-responsive" alt="img"></a>
+          <a href="images/uploads/{{currentProduct.productImage1}}">
+            <img src="images/uploads/{{currentProduct.productImage1}}" class="img-responsive" alt="img">
+          </a>
+          <a href="images/uploads/{{currentProduct.productImage2}}">
+            <img src="images/uploads/{{currentProduct.productImage2}}" class="img-responsive" alt="img">
+          </a>
+          <a href="images/uploads/{{currentProduct.productImage3}}">
+            <img src="images/uploads/{{currentProduct.productImage3}}" class="img-responsive" alt="img">
+          </a>
         </div>
       </div>
       <!--/ left column end -->
@@ -681,7 +683,7 @@
             cancelButtonText: `Continue browsing`,
             cancelButtonAriaLabel: "Thumbs down"
           });
-        } 
+        }
       } catch (error) {
         console.log(error)
       }

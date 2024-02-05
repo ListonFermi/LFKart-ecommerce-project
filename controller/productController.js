@@ -29,7 +29,7 @@ module.exports = {
       if (!existingProduct) {
         console.log(req.files[0].filename);
       console.log(path.join(__dirname,'../'));
-       await sharpImage.cropImage(path.join(__dirname,'../public/images/productImages',req.files[0].filename))
+       await sharpImage.cropImage(path.join(__dirname,'../public/images/sharp',req.files[0].filename))
         await productCollection.insertMany([
           {
             productName: req.body.productName,
