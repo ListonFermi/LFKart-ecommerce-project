@@ -80,6 +80,11 @@ module.exports = {
   sendOTP: async (req, res) => {
     try {
       req.session.emailOfNewUser = req.body.email || req.session.emailOfNewUser;
+
+      if(req.session?.forgotUserData){
+        req.session.emailOfNewUser = req.session?.forgotUserData?._id
+      }
+
       const otp = Math.floor(1000 + Math.random() * 9000);
       req.session.otp = otp;
       await transporter.sendMail({

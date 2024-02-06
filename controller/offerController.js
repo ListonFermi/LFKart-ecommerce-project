@@ -1,8 +1,9 @@
 const productCollection = require("../models/productModels");
-const categoryCollection= require('../models/categoryModel')
+const categoryCollection = require("../models/categoryModel");
 const productOfferCollection = require("../models/productOfferModel");
 const formatDate = require("../helpers/formatDateHelper.js");
-const applyProductOffers = require("../helpers/applyProductOffers.js").applyProductOffer;
+const applyProductOffers =
+  require("../helpers/applyProductOffers.js").applyProductOffer;
 
 module.exports = {
   productOfferManagement: async (req, res) => {
@@ -12,7 +13,12 @@ module.exports = {
       productOfferData.forEach(async (v) => {
         await productOfferCollection.updateOne(
           { _id: v._id },
-          { $set: { currentStatus: v.endDate >= new Date()  && v.startDate <= new Date() } }
+          {
+            $set: {
+              currentStatus:
+                v.endDate >= new Date() && v.startDate <= new Date(),
+            },
+          }
         );
       });
 
@@ -24,11 +30,11 @@ module.exports = {
       });
 
       let productData = await productCollection.find();
-      let categoryData= await categoryCollection.find();
+      let categoryData = await categoryCollection.find();
       res.render("adminViews/productOfferManagement", {
         productData,
         productOfferData,
-        categoryData
+        categoryData,
       });
     } catch (error) {
       console.error(error);
@@ -42,7 +48,7 @@ module.exports = {
 
       if (!existingOffer) {
         //if offer for that particular product doesn't exist:
-         let productData = await productCollection.findOne({ productName });
+        let productData = await productCollection.findOne({ productName });
 
         let { productOfferPercentage, startDate, endDate } = req.body;
         await productOfferCollection.insertMany([
@@ -98,9 +104,62 @@ module.exports = {
   categoryOffer: async (req, res) => {
     try {
       console.log(req.body);
-      res.json({success:true  })
+      let productData = await productCollection.find();
+      let productsUnderSelectedCategory = productData.filter(
+        (v) => v.parentCategory == req.body.categoryName
+      );
+
+      productsUnderSelectedCategory.forEach(async (v) => {
+        let existingOffer = await productOfferCollection.findOne({
+          productName: v.productName,
+        });
+
+        if (!existingOffer) {
+          //if offer for that particular product doesn't exist:
+          let productData = await productCollection.findOne({
+            productName: v.productName,
+          });
+
+          let {
+            categoryOfferPercentage,
+            categoryOfferStartDate,
+            categoryOfferEndDate,
+          } = req.body;
+          await productOfferCollection.insertMany([
+            {
+              productId: productData._id,
+              productName: v.productName,
+              productOfferPercentage: categoryOfferPercentage,
+              startDate: new Date(categoryOfferStartDate),
+              endDate: new Date(categoryOfferEndDate),
+            },
+          ]);
+          
+        } else {
+          let {
+            categoryOfferPercentage,
+            categoryOfferStartDate,
+            categoryOfferEndDate,
+          } = req.body;
+
+          let updateFields = {
+            productId: v.id,
+            productName: v.productName,
+            productOfferPercentage: categoryOfferPercentage,
+            startDate: new Date(categoryOfferStartDate),
+            endDate: new Date(categoryOfferEndDate),
+          };
+
+          await productOfferCollection.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: updateFields }
+          );
+        }
+      });
+
+      res.json({ success: true });
     } catch (error) {
       console.error(error);
     }
-  }
+  },
 };

@@ -421,13 +421,13 @@
                 submitHandler: async function (form, event) {
                     event.preventDefault()
 
-                    /*let productsUnderSelectedCategory =  {{productData}}.filter( v=> (v.parentCategory == form.categoryName.value)  )*/
+                   
 
                     let formData = {
                         categoryName : form.categoryName.value,
-                        productOfferPercentage: form.productOfferPercentage.value,
-                        startDate: form.startDate.value,
-                        endDate: form.endDate.value
+                        categoryOfferPercentage: form.categoryOfferPercentage.value,
+                        categoryOfferStartDate: form.categoryOfferStartDate.value,
+                        categoryOfferEndDate: form.categoryOfferEndDate.value
                     }
 
                     let response = await fetch('/admin/productOfferManagement/categoryOffer', {

@@ -146,14 +146,28 @@ module.exports = {
   },
   //razorpay- creating an orderId with razorpay
   razorpayCreateOrderId: async (req, res) => {
-    var options = {
-      amount: req.session.grandTotal + "00", // amount in the smallest currency unit
-      currency: "INR",
-    };
+
+    if(req.query?.combinedWalletPayment){
+
+      let walletData = await walletCollection.findOne({userId: req.session.currentUser._id})
+
+      var options = {
+        amount: req.session.grandTotal - walletData.walletBalance  + "00", // amount in the smallest currency unit
+        currency: "INR",
+      };
+
+
+    }else{
+
+      var options = {
+        amount: req.session.grandTotal + "00", // amount in the smallest currency unit
+        currency: "INR",
+      };
+    }
+
 
     razorpay.instance.orders.create(options, function (err, order) {
       res.json(order);
-      console.log(order);
     });
   },
 
