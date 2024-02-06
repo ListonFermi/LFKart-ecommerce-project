@@ -13,15 +13,19 @@ module.exports = {
       let userData = await userCollection.findOne({
         _id: req.session.currentUser._id,
       });
-      let walletData = await walletCollection.findOne({ userId: req.session.currentUser._id });
-
+      let walletData = await walletCollection.findOne({
+        userId: req.session.currentUser._id,
+      });
 
       //sending the formatted date to the page
-      walletData.walletTransaction = walletData.walletTransaction.map((v) => {
-        v.transactionDateFormatted = formatDate(v.transactionDate);
-        return v;
-      }).reverse(); //reverse is for sorting the latest transactions
-
+      if (walletData?.walletTransaction.length>0) {
+        walletData.walletTransaction = walletData.walletTransaction
+          .map((v) => {
+            v.transactionDateFormatted = formatDate(v.transactionDate);
+            return v;
+          })
+          .reverse(); //reverse is for sorting the latest transactions
+      }
 
       res.render("userViews/account", {
         currentUser: req.session.currentUser,
@@ -79,7 +83,7 @@ module.exports = {
       );
 
       let walletTransaction = {
-        transactionDate : new Date(),
+        transactionDate: new Date(),
         transactionAmount: orderData.grandTotalCost,
         transactionType: "Refund from cancelled Order",
       };
@@ -88,7 +92,7 @@ module.exports = {
         { userId: req.session.currentUser._id },
         {
           $inc: { walletBalance: orderData.grandTotalCost },
-          $push: {walletTransaction},
+          $push: { walletTransaction },
         }
       );
 
