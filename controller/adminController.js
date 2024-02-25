@@ -74,7 +74,7 @@ module.exports = {
         dashboardHelper.fourteenDaysRevenue(),
         dashboardHelper.categoryWiseRevenue(),
       ]);
-
+      
       const data = {
         productsCount,
         categoryCount,
