@@ -1,16 +1,45 @@
 # LFKart-ecommerce-project
 
-First Draft :
+Used #NodeJs for the backend , #Mongodb for the database and #Handlebars view engine for rendering the pages.
 
-Functional Requirements - step by step: 
 
-1. Login, signup and forgot password with OTP - learned to use nodemailer npm
-2. AdminLogin, addCategories, addProducts, blockUsers and show the changes on the userside
-3. CartPage- starting from addToCart till placing an cashOnDelivery order
-4. Payment integration- learned to add a payment gateway's API (used Razorpay) into the project
-5. Charts in adminDashboard- learned how to use chartJs- a javascript library
-6. Added coupon management for admin- add, edit coupon and made it effective on checkout&payments in userside
-7. Implement image cropping
-    a. create a page for banner management
-    b. Upload an image and show it in a div- to crop
-    c. Upload the cropped image while clicking crop
+
+User-side:
+
+
+
+🌟Sign-up, Login , forgot password and for OTP - used #Nodemailer .
+
+🌟Used #JWT for authentication.
+
+🌟Account section for the user with address, change password, order list and details.
+
+🌟Referral link for each user to credit amount in wallet for every referral.
+
+🌟Invoice download for the listed orders - used #PDFKit .
+
+🌟Checkout: Apply Coupon with 3 payment methods : Cash on delivery, wallet and online payment.
+
+🌟Used #Razorpay as integrated payment gateway.
+
+
+
+Admin-side: 
+
+
+
+🌟Dashboard with details about the users, orders and category/products listed.
+
+🌟Display data in 2 different kinds of charts using #ChartJs .
+
+🌟Banner image management with crop option for the admin- used #CropperJS.
+
+🌟Category, product ,coupon and offer management with CRUD operations- used #Multer to upload images.
+
+🌟Order management with options to execute the orders for the user.
+
+🌟Sales report management with date filters- used #ExcelJs for sales-report in excel format.
+
+
+
+Live Demo: https://lfkart.shop/
