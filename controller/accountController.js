@@ -213,7 +213,6 @@ module.exports = {
     try {
       res.render("userViews/changePassword", {
         invalidCurrentPassword: req.session.invalidCurrentPassword,
-        currentUser: req.session.currentUser,
       });
     } catch (error) {
       console.error(error);
@@ -228,7 +227,7 @@ module.exports = {
       );
       if (compareCurrentPass) {
         const encryptedNewPassword = bcrypt.hashSync(
-          req.body.newPassword,
+          req.body.currentPassword,
           10
         );
         await userCollection.updateOne(

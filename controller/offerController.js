@@ -88,8 +88,6 @@ module.exports = {
           endDate: new Date(endDate),
         };
 
-        console.log(updateFields);
-
         await productOfferCollection.findOneAndUpdate(
           { _id: req.params.id },
           { $set: updateFields }

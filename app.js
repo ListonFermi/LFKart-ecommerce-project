@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv").config();
 const userRoutes = require("./routes/userRoutes.js");
 const adminRoutes = require("./routes/adminRoutes.js");
 const session = require("express-session");
@@ -11,10 +12,6 @@ const hbs = require("hbs");
 const dbConnect = require("./config/config.js");
 dbConnect();
 
-//configuring dot env
-const dotenv = require("dotenv").config();
-dotenv.config();
-
 //logger
 app.use(morgan("dev"));
 
@@ -24,7 +21,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//hbs helpers
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper("product", (val1, val2) => val1 * val2);
 hbs.registerHelper("sum", (val1, val2) => val1 + val2);
