@@ -227,7 +227,7 @@ module.exports = {
       );
       if (compareCurrentPass) {
         const encryptedNewPassword = bcrypt.hashSync(
-          req.body.currentPassword,
+          req.body.confirmPass,
           10
         );
         await userCollection.updateOne(

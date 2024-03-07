@@ -21,7 +21,6 @@ module.exports = {
 
       console.log('cartData:');
       console.log(cartData);
-
       await applyProductOffers('landingPage')
       
       res.render("userViews/landingPage", {

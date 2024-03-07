@@ -411,7 +411,7 @@
                                   <div class="card-paynemt-box payment-method">
                                     <label class="radio-inline" for="CashOnDelivery"
                                       aria-controls="CashOnDeliveryCollapse">
-                                      <input name="radios" id="COD" value="COD" type="radio" checked>Cash On Delivery
+                                      <input name="radios" id="COD" value="COD" type="radio" >Cash On Delivery
                                     </label>
                                   </div>
 
@@ -585,6 +585,13 @@
           const order = await orderResponse.json()
           console.log(order)
           await openRazorpay(order.amount, order.id)
+        }else{
+          return Swal.fire({
+              icon: "error",
+              title: "Payment method not selected",
+              text: "Please choose payment method"
+            });
+
         }
       } catch (error) {
         console.error(error)
