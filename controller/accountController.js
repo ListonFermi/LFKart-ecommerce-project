@@ -234,6 +234,8 @@ module.exports = {
           { _id: req.session.currentUser._id },
           { $set: { password: encryptedNewPassword } }
         );
+        //updating the current user data in current session
+        req.session.currentUser = await userCollection.findOne({ _id: req.session.currentUser._id } )
         res.json({ success: true });
       } else {
         req.session.invalidCurrentPassword = true;
